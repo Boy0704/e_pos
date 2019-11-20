@@ -33,6 +33,16 @@ function alert_biasa($pesan,$type)
 	return 'swal("'.$pesan.'", "You clicked the button!", "'.$type.'");';
 }
 
+function alert_tunggu($pesan,$type)
+{
+	return '
+	swal("Silahkan Tunggu!", {
+	  button: false,
+	  icon: "info",
+	});
+	';
+}
+
 function selisih_waktu($start_date)
 {
 	date_default_timezone_set('Asia/Jakarta');

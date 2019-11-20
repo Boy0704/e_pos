@@ -7,14 +7,15 @@ class App extends CI_Controller {
 	
 	public function index()
 	{
-        if ($this->session->userdata('level') == 'panitia') {
-            redirect('app/panitia');
+
+        if ($this->session->userdata('level') != 'admin') {
+            redirect('login');
         }
 		$data = array(
-			'konten' => 'front/home',
+			'konten' => 'home_admin',
             'judul_page' => 'Dashboard',
 		);
-		$this->load->view('f_index', $data);
+		$this->load->view('v_index', $data);
     }
 
     public function admin()
@@ -563,56 +564,7 @@ class App extends CI_Controller {
     }
 
     
-	public function login() 
-	{
-		$this->load->view('login');
-	}
-
-	public function aksi_login()
-	{
-			$email = $this->input->post('email');
-			$password = md5($this->input->post('password'));
-
-			// $hashed = '$2y$10$LO9IzV0KAbocIBLQdgy.oeNDFSpRidTCjXSQPK45ZLI9890g242SG';
-			$cek_user = $this->db->query("SELECT * FROM admin WHERE email='$email' and password='$password' ");
-			// if (password_verify($password, $hashed)) {
-			if ($cek_user->num_rows() > 0) {
-				foreach ($cek_user->result() as $row) {
-					
-                    $sess_data['id_user'] = $row->id_user;
-					$sess_data['nama'] = $row->nama;
-					$sess_data['username'] = $row->username;
-					$sess_data['level'] = $row->akses;
-					$this->session->set_userdata($sess_data);
-				}
-				// print_r($this->session->userdata());
-				// exit;
-				// $sess_data['username'] = $username;
-				// $this->session->set_userdata($sess_data);
-				if ($this->session->userdata('level') == 'admin') {
-					redirect('app/admin','refresh');
-				} elseif ($this->session->userdata('level') == 'panitia') {
-					redirect('app/panitia','refresh');
-				}
-
-				// redirect('app/index');
-			} else {
-				$this->session->set_flashdata('message', alert_biasa('Gagal Login!\n email atau password kamu salah','warning'));
-				redirect('app/login','refresh');
-			}
-	}
-
 	
-
-	function logout()
-	{
-		$this->session->unset_userdata('id_user');
-		$this->session->unset_userdata('nama');
-		$this->session->unset_userdata('username');
-		$this->session->unset_userdata('level');
-		session_destroy();
-		redirect('app','refresh');
-	}
 
 	
 
