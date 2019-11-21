@@ -12,6 +12,8 @@ class Po_master extends CI_Controller
         $this->load->library('form_validation');
     }
 
+
+
     public function index()
     {
         $q = urldecode($this->input->get('q', TRUE));

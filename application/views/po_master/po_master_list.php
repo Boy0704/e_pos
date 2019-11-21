@@ -45,6 +45,10 @@
 			<td><?php echo $po_master->nama_suplier ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
+                echo anchor(site_url('po_master/isi_po/'.$po_master->id_po),'<span class="label label-success">Pembelian Item</span>'); 
+                echo ' | '; 
+                echo anchor(site_url('app/cetak_po/'.$po_master->id_po),'<span class="label label-warning">CETAK PO</span>'); 
+                echo ' | '; 
 				echo anchor(site_url('po_master/update/'.$po_master->id_po),'<span class="label label-info">Ubah</span>'); 
 				echo ' | '; 
 				echo anchor(site_url('po_master/delete/'.$po_master->id_po),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 

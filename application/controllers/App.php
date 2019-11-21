@@ -30,6 +30,20 @@ class App extends CI_Controller {
 		$this->load->view('v_index', $data);
     }
 
+    public function isi_po($po)
+	{
+
+        if ($this->session->userdata('level') != 'admin') {
+            redirect('login');
+        }
+		$data = array(
+			'konten' => 'po_master/isi_po',
+            'judul_page' => 'Buat PO Pembelian',
+            'id_po' => $po,
+		);
+		$this->load->view('v_index', $data);
+    }
+
     public function panitia()
 	{
         if ($this->session->userdata('level') != 'panitia') {
