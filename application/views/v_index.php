@@ -71,7 +71,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="app/logout" class="btn btn-default btn-flat">Keluar</a>
+                  <a href="login/logout" class="btn btn-default btn-flat">Keluar</a>
                 </div>
               </li>
             </ul>
