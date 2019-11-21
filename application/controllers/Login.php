@@ -21,10 +21,10 @@ class Login extends CI_Controller {
 				foreach ($cek_user->result() as $row) {
 					
                     $sess_data['id_user'] = $row->id_user;
-					$sess_data['nama'] = $row->nama;
+					$sess_data['nama'] = $row->nama_lengkap;
 					$sess_data['username'] = $row->username;
 					$sess_data['foto'] = $row->foto;
-					$sess_data['level'] = $row->akses;
+					$sess_data['level'] = $row->level;
 					$this->session->set_userdata($sess_data);
 				}
 				// print_r($this->session->userdata());
@@ -32,15 +32,15 @@ class Login extends CI_Controller {
 				// $sess_data['username'] = $username;
 				// $this->session->set_userdata($sess_data);
 				if ($this->session->userdata('level') == 'admin') {
-					redirect('app/admin','refresh');
+					redirect('app','refresh');
 				} elseif ($this->session->userdata('level') == 'user') {
-					redirect('app/panitia','refresh');
+					redirect('#','refresh');
 				}
 
 				// redirect('app/index');
 			} else {
-				// $this->session->set_flashdata('message', alert_biasa('Gagal Login!\n username atau password kamu salah','warning'));
-				$this->session->set_flashdata('message', alert_tunggu('Gagal Login!\n username atau password kamu salah','warning'));
+				$this->session->set_flashdata('message', alert_biasa('Gagal Login!\n username atau password kamu salah','warning'));
+				// $this->session->set_flashdata('message', alert_tunggu('Gagal Login!\n username atau password kamu salah','warning'));
 				redirect('login','refresh');
 			}
 	}

@@ -4,10 +4,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="image/user/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Administrator</p>
+          <p><?php echo $this->session->userdata('nama'); ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -27,12 +27,35 @@
         <li class="header">MAIN NAVIGATION</li>
         
         
-        <li><a href="app/admin"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-        <li><a href="Kategori"><i class="fa fa-list"></i> <span>Master Kategori</span></a></li>
+        <li><a href="app"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        <li class="treeview">
+          <a href="#">
+              <i class="fa fa-list"></i>
+              <span>Master Produk</span>
+              <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+              <li><a href="produk"><i class="fa fa-angle-double-right"></i> Produk List</a></li>
+              <li><a href="kategori"><i class="fa fa-angle-double-right"></i> Kategori Produk</a></li>
+              <li><a href="stok"><i class="fa fa-angle-double-right"></i> Stok</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+              <i class="fa fa-odnoklassniki"></i>
+              <span>Purchase Order</span>
+              <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+              <li><a href="po_master"><i class="fa fa-angle-double-right"></i> Master PO</a></li>
+              <li><a href="pembelian"><i class="fa fa-angle-double-right"></i> Pembelian</a></li>
+          </ul>
+        </li>
+        <!-- <li><a href="Kategori"><i class="fa fa-list"></i> <span>Master Kategori</span></a></li>
         <li><a href="calon"><i class="fa fa-odnoklassniki"></i> <span>Master Calon</span></a></li>
-        <li><a href="pemilih"><i class="fa fa-odnoklassniki"></i> <span>Master Pemilih</span></a></li>
-        <li><a href="pemilihan"><i class="fa fa-share-square"></i> <span>Set Pemilihan</span></a></li>
-        <li><a href="admin"><i class="fa fa-users"></i> <span>Master User</span></a></li>
+        <li><a href="pemilih"><i class="fa fa-odnoklassniki"></i> <span>Master Pemilih</span></a></li> -->
+        <li><a href="owner"><i class="fa fa-share-square"></i> <span>Setting</span></a></li>
+        <li><a href="a_user"><i class="fa fa-users"></i> <span>Master User</span></a></li>
 
         <li class="header">LABELS</li>
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Faqs</span></a></li>
