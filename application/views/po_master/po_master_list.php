@@ -34,10 +34,6 @@
                 <th>No</th>
 		<th>No Po</th>
 		<th>Nama Suplier</th>
-		<th>Id Produk</th>
-		<th>Qty</th>
-		<th>Date Create</th>
-		<th>Id User</th>
 		<th>Action</th>
             </tr><?php
             foreach ($po_master_data as $po_master)
@@ -47,9 +43,6 @@
 			<td width="80px"><?php echo ++$start ?></td>
 			<td><?php echo $po_master->no_po ?></td>
 			<td><?php echo $po_master->nama_suplier ?></td>
-			<td><?php echo get_data('produk','id_produk',$po_master->id_produk,'nama_produk') ?></td>
-			<td><?php echo $po_master->qty ?></td>
-			<td><?php echo $po_master->date_create ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('po_master/update/'.$po_master->id_po),'<span class="label label-info">Ubah</span>'); 

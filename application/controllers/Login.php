@@ -27,6 +27,10 @@ class Login extends CI_Controller {
 					$sess_data['level'] = $row->level;
 					$this->session->set_userdata($sess_data);
 				}
+
+				// define('FOTO', $this->session->userdata('foto'), TRUE);
+				
+
 				// print_r($this->session->userdata());
 				// exit;
 				// $sess_data['username'] = $username;

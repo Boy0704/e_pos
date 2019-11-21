@@ -96,9 +96,9 @@ class Produk extends CI_Controller
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
-        //     $this->create();
-        //     print_r($_POST);
-        // } else {
+            $this->create();
+            print_r($_POST);
+        } else {
             $data = array(
 		'nama_produk' => $this->input->post('nama_produk',TRUE),
 		'satuan' => $this->input->post('satuan',TRUE),
@@ -151,8 +151,8 @@ class Produk extends CI_Controller
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
-        //     $this->update($this->input->post('id_produk', TRUE));
-        // } else {
+            $this->update($this->input->post('id_produk', TRUE));
+        } else {
             $data = array(
 		'nama_produk' => $this->input->post('nama_produk',TRUE),
 		'satuan' => $this->input->post('satuan',TRUE),
@@ -187,18 +187,18 @@ class Produk extends CI_Controller
 
     public function _rules() 
     {
-	// $this->form_validation->set_rules('nama_produk', 'nama produk', 'trim|required');
-	// $this->form_validation->set_rules('satuan', 'satuan', 'trim|required');
-	// $this->form_validation->set_rules('harga', 'harga', 'trim|required');
-	// $this->form_validation->set_rules('barcode1', 'barcode1', 'trim|required');
-	// $this->form_validation->set_rules('barcode2', 'barcode2', 'trim|required');
-	// $this->form_validation->set_rules('id_owner', 'id owner', 'trim|required');
+	$this->form_validation->set_rules('nama_produk', 'nama produk', 'trim|required');
+	$this->form_validation->set_rules('satuan', 'satuan', 'trim|required');
+	$this->form_validation->set_rules('harga', 'harga', 'trim|required');
+	$this->form_validation->set_rules('barcode1', 'barcode1', 'trim|required');
+	$this->form_validation->set_rules('barcode2', 'barcode2', 'trim|required');
+	$this->form_validation->set_rules('id_owner', 'id owner', 'trim|required');
 	// $this->form_validation->set_rules('date_create', 'date create', 'trim|required');
 	// $this->form_validation->set_rules('date_update', 'date update', 'trim|required');
-    // $this->form_validation->set_rules('id_user', 'id user', 'trim|required');
-	// $this->form_validation->set_rules('id_kategori', 'Kategori', 'trim|required');
+ //    $this->form_validation->set_rules('id_user', 'id_user', 'trim|required');
+	$this->form_validation->set_rules('id_kategori', 'id_kategori', 'trim|required');
 
-	// $this->form_validation->set_rules('id_produk', 'id_produk', 'trim');
+	$this->form_validation->set_rules('id_produk', 'id_produk', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
