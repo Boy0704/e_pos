@@ -34,10 +34,16 @@
                 <th>No</th>
 		<th>Nama Produk</th>
 		<th>Satuan</th>
+		<th>Stok</th>
+		<th>Stok Min</th>
 		<th>Harga</th>
 		<th>Barcode1</th>
 		<th>Barcode2</th>
-		<th>Owner</th>
+		<th>Id Owner</th>
+		<th>Date Update</th>
+		<th>Id User</th>
+		<th>Id Subkategori</th>
+		<th>Jumlah Satuan</th>
 		<th>Action</th>
             </tr><?php
             foreach ($produk_data as $produk)
@@ -47,10 +53,16 @@
 			<td width="80px"><?php echo ++$start ?></td>
 			<td><?php echo $produk->nama_produk ?></td>
 			<td><?php echo $produk->satuan ?></td>
+			<td><?php echo $produk->stok ?></td>
+			<td><?php echo $produk->stok_min ?></td>
 			<td><?php echo $produk->harga ?></td>
 			<td><?php echo $produk->barcode1 ?></td>
 			<td><?php echo $produk->barcode2 ?></td>
-			<td><?php echo get_data('owner','id_owner',$produk->id_owner,'owner') ?></td>
+			<td><?php echo $produk->id_owner ?></td>
+			<td><?php echo $produk->date_update ?></td>
+			<td><?php echo $produk->id_user ?></td>
+			<td><?php echo $produk->id_subkategori ?></td>
+			<td><?php echo $produk->jumlah_satuan ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('produk/update/'.$produk->id_produk),'<span class="label label-info">Ubah</span>'); 

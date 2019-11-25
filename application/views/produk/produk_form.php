@@ -1,16 +1,15 @@
 
-        <form action="<?php echo $action; ?>" method="post">
+        <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="int">Kategori Produk <?php echo form_error('id_kategori') ?></label>
-            <!-- <input type="text" class="form-control" name="id_owner" id="id_owner" placeholder="Id Owner" value="<?php echo $id_owner; ?>" /> -->
-            <select name="id_kategori" class="form-control">
-                <option value="<?php echo $id_kategori ?>"><?php echo $id_kategori ?></option>
-                <?php 
-                foreach ($this->db->get('kategori')->result() as $row) {
-                 ?>
-                <option value="<?php echo $row->id_kategori ?>"><?php echo $row->kategori ?></option>
+            <label for="varchar">Foto Produk</label>
+            <input type="file" class="form-control" name="foto" />
+            <input type="hidden" name="old_foto" value="<?php echo $foto; ?>">
+            <?php 
+            if ($foto != '') {
+             ?>
+            <p><b>*) Foto Sebelumnya</b></p>
+            <img src="image/produk/<?php echo $foto ?>" style="width: 100px;">
             <?php } ?>
-            </select>
         </div>
 	    <div class="form-group">
             <label for="varchar">Nama Produk <?php echo form_error('nama_produk') ?></label>
@@ -19,6 +18,14 @@
 	    <div class="form-group">
             <label for="varbinary">Satuan <?php echo form_error('satuan') ?></label>
             <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" value="<?php echo $satuan; ?>" />
+        </div>
+	    <div class="form-group">
+            <label for="varchar">Stok <?php echo form_error('stok') ?></label>
+            <input type="text" class="form-control" name="stok" id="stok" placeholder="Stok" value="<?php echo $stok; ?>" />
+        </div>
+	    <div class="form-group">
+            <label for="varchar">Stok Min <?php echo form_error('stok_min') ?></label>
+            <input type="text" class="form-control" name="stok_min" id="stok_min" placeholder="Stok Min" value="<?php echo $stok_min; ?>" />
         </div>
 	    <div class="form-group">
             <label for="varchar">Harga <?php echo form_error('harga') ?></label>
@@ -35,18 +42,21 @@
 	    <div class="form-group">
             <label for="int">Owner <?php echo form_error('id_owner') ?></label>
             <!-- <input type="text" class="form-control" name="id_owner" id="id_owner" placeholder="Id Owner" value="<?php echo $id_owner; ?>" /> -->
-            <select name="id_owner" class="form-control">
-                <option value="<?php echo $id_owner ?>"><?php echo $id_owner ?></option>
-                <?php 
-                foreach ($this->db->get('owner')->result() as $row) {
-                 ?>
-                <option value="<?php echo $row->id_owner ?>"><?php echo $row->owner ?></option>
-            <?php } ?>
-            </select>
+            <?php echo select_option('id_owner','owner','owner','id_owner',null,null,'id=owner','<option value="'.$id_owner.'">'.get_data('owner','id_owner',$id_owner,'owner').'</option>'); ?>
         </div>
+	    
+	    
+	    <div class="form-group">
+            <label for="int">Subkategori <?php echo form_error('id_subkategori') ?></label>
+            <!-- <input type="text" class="form-control" name="id_subkategori" id="id_subkategori" placeholder="Id Subkategori" value="<?php echo $id_subkategori; ?>" /> -->
+            <?php echo select_option('id_subkategori','subkategori','subkategori','id_subkategori',null,null,'id=subkategori','<option value="'.$id_subkategori.'">'.get_data('subkategori','id_subkategori',$id_subkategori,'subkategori').'</option>'); ?>
+        </div>
+	    <div class="form-group">
+            <label for="int">Jumlah Satuan <?php echo form_error('jumlah_satuan') ?></label>
+            <input type="text" class="form-control" name="jumlah_satuan" id="jumlah_satuan" placeholder="Jumlah Satuan" value="<?php echo $jumlah_satuan; ?>" />
         </div>
 	    <input type="hidden" name="id_produk" value="<?php echo $id_produk; ?>" /> 
 	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 
-	    <a href="<?php echo site_url('produk') ?>" class="btn btn-default">Cancel</a>
+	    <a href="<?php echo site_url('app/produk/'.$id_subkategori) ?>" class="btn btn-default">Cancel</a>
 	</form>
    

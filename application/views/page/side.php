@@ -35,9 +35,9 @@
               <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-              <li><a href="produk"><i class="fa fa-angle-double-right"></i> Produk List</a></li>
+              <li><a href="subkategori"><i class="fa fa-angle-double-right"></i> Produk List</a></li>
               <li><a href="kategori"><i class="fa fa-angle-double-right"></i> Kategori Produk</a></li>
-              <li><a href="stok"><i class="fa fa-angle-double-right"></i> Stok</a></li>
+              <!-- <li><a href="stok"><i class="fa fa-angle-double-right"></i> Stok</a></li> -->
           </ul>
         </li>
         <li class="treeview">

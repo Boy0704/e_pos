@@ -30,6 +30,35 @@ class App extends CI_Controller {
 		$this->load->view('v_index', $data);
     }
 
+    public function produk($id_subkategori)
+	{
+
+        if ($this->session->userdata('level') != 'admin') {
+            redirect('login');
+        }
+		$data = array(
+			'konten' => 'produk/view',
+            'judul_page' => 'Produk Subkategori',
+            'id_subkategori' => $id_subkategori,
+            'data' => $this->db->get_where('produk',array('id_subkategori'=>$id_subkategori)),
+		);
+		$this->load->view('v_index', $data);
+    }
+
+    public function tambah_produk($id_subkategori)
+	{
+        if ($this->session->userdata('level') != 'admin') {
+            redirect('login');
+        }
+		$data = array(
+			'konten' => 'produk/tambah_produk',
+            'judul_page' => 'Produk Subkategori',
+            'id_subkategori' => $id_subkategori,
+            
+		);
+		$this->load->view('v_index', $data);
+    }
+
     public function isi_po($po)
 	{
 

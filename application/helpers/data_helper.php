@@ -1,4 +1,40 @@
 <?php 
+function upload_gambar_biasa($nama_gambar, $lokasi_gambar, $tipe_gambar, $ukuran_gambar, $name_file_form)
+{
+    $CI =& get_instance();
+    $nmfile = $nama_gambar."_".time();
+    $config['upload_path'] = './'.$lokasi_gambar;
+    $config['allowed_types'] = $tipe_gambar;
+    $config['max_size'] = $ukuran_gambar;
+    $config['file_name'] = $nmfile;
+    // load library upload
+    $CI->load->library('upload', $config);
+    // upload gambar 1
+    $CI->upload->do_upload($name_file_form);
+    $result1 = $CI->upload->data();
+    $result = array('gambar'=>$result1);
+    $dfile = $result['gambar']['file_name'];
+    return $dfile;
+}
+
+function get_waktu()
+{
+	date_default_timezone_set('Asia/Jakarta');
+	return date('Y-m-d H:i:s');
+}
+function select_option($name, $table, $field, $pk, $selected = null,$class = null, $extra = null, $option_tamabahan = null) {
+    $ci = & get_instance();
+    $cmb = "<select name='$name' class='form-control $class  ' $extra>";
+    $cmb .= $option_tamabahan;
+    $data = $ci->db->get($table)->result();
+    foreach ($data as $row) {
+        $cmb .="<option value='" . $row->$pk . "'";
+        $cmb .= $selected == $row->$pk ? 'selected' : '';
+        $cmb .=">" . $row->$field . "</option>";
+    }
+    $cmb .= "</select>";
+    return $cmb;
+}
 
 function status_pemilih($id_pemilih,$id_pemilihan)
 {
