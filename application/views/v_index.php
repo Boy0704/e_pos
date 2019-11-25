@@ -15,12 +15,21 @@
   <link rel="stylesheet" href="assets/bower_components/Ionicons/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+    <!-- Select2 -->
+  <link rel="stylesheet" href="assets/bower_components/select2/dist/css/select2.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.min.css">
   <link rel="stylesheet" href="assets/pace/styles_pace.css">
+
+  <!-- jQuery 3 -->
+<script type="text/javascript" src="assets/pace/pace.min.js"></script>
+<script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -146,10 +155,10 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script type="text/javascript" src="assets/pace/pace.min.js"></script>
-<script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
+
+<!-- Select2 -->
+<script src="assets/bower_components/select2/dist/js/select2.full.min.js"></script>
+
 <script src="assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables -->
 <script src="assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -167,6 +176,7 @@
 <!-- page script -->
 <script>
   $(function () {
+    $('.select2').select2()
     $('#example1').DataTable()
     $('#example2').DataTable({
       'paging'      : true,

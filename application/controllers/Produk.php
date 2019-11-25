@@ -165,10 +165,15 @@ class Produk extends CI_Controller
             $this->update($this->input->post('id_produk', TRUE));
         } else {
 
+            // print_r($_FILES);exit();
+
             if ($_FILES['foto']['name'] != '') {
-                $this->image=$this->input->post('old_foto',TRUE);
-            } else {
                 $this->image = upload_gambar_biasa('produk', 'image/produk/','jpg|jpeg|gif|png', 10000, 'foto');
+                // print_r($this->image);exit();
+                
+            } else {
+                $this->image=$this->input->post('old_foto',TRUE);
+
             }
 
             $data = array(

@@ -3,11 +3,12 @@
 		<a href="produk/create/<?php echo $id_subkategori ?>" class="btn btn-primary">Tambah Produk</a>
 	</p>
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12 table-responsive">
 			<table class="table table-bordered" id="example1">
 				<thead>
 					<tr>
 						<th>No</th>
+						<th>Foto</th>
 						<th>Sub Kategori</th>
 						<th>Produk</th>
 						<th>Stok</th>
@@ -29,6 +30,7 @@
 					 ?>
 					<tr>
 						<td><?php echo $no; ?></td>
+						<td><img src="image/produk/<?php echo $rw->foto; ?>" style="width: 100px;"></td>
 						<td><?php echo get_data('subkategori','id_subkategori',$rw->id_subkategori,'subkategori'); ?></td>
 						<td><?php echo $rw->nama_produk; ?></td>
 						<td><?php echo $rw->stok; ?></td>

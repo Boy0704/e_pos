@@ -68,7 +68,8 @@ class App extends CI_Controller {
 		$data = array(
 			'konten' => 'po_master/isi_po',
             'judul_page' => 'Buat PO Pembelian',
-            'id_po' => $po,
+            'no_po' => $po,
+            'data' => $this->db->get_where('pembelian', array('no_po'=>$po)),
 		);
 		$this->load->view('v_index', $data);
     }

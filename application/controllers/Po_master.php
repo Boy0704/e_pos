@@ -95,8 +95,8 @@ class Po_master extends CI_Controller
 		'nama_suplier' => $this->input->post('nama_suplier',TRUE),
 		'sales' => $this->input->post('sales',TRUE),
 		'potongan_harga' => $this->input->post('potongan_harga',TRUE),
-		'date_create' => $this->input->post('date_create',TRUE),
-		'id_user' => $this->input->post('id_user',TRUE),
+		'date_create' => get_waktu(),
+		'id_user' => $this->session->userdata('id_user'),
 	    );
 
             $this->Po_master_model->insert($data);
@@ -142,8 +142,8 @@ class Po_master extends CI_Controller
 		'nama_suplier' => $this->input->post('nama_suplier',TRUE),
 		'sales' => $this->input->post('sales',TRUE),
 		'potongan_harga' => $this->input->post('potongan_harga',TRUE),
-		'date_create' => $this->input->post('date_create',TRUE),
-		'id_user' => $this->input->post('id_user',TRUE),
+		'date_create' => get_waktu(),
+		'id_user' => $this->session->userdata('id_user'),
 	    );
 
             $this->Po_master_model->update($this->input->post('id_po', TRUE), $data);
@@ -172,8 +172,8 @@ class Po_master extends CI_Controller
 	$this->form_validation->set_rules('nama_suplier', 'nama suplier', 'trim|required');
 	$this->form_validation->set_rules('sales', 'sales', 'trim|required');
 	$this->form_validation->set_rules('potongan_harga', 'potongan harga', 'trim|required');
-	$this->form_validation->set_rules('date_create', 'date create', 'trim|required');
-	$this->form_validation->set_rules('id_user', 'id user', 'trim|required');
+	// $this->form_validation->set_rules('date_create', 'date create', 'trim|required');
+	// $this->form_validation->set_rules('id_user', 'id user', 'trim|required');
 
 	$this->form_validation->set_rules('id_po', 'id_po', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

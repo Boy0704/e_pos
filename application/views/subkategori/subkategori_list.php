@@ -33,7 +33,7 @@
             <tr>
                 <th>No</th>
 		<th>Subkategori</th>
-		<th>Id Kategori</th>
+		<th>Kategori</th>
 		<th>Action</th>
             </tr><?php
             foreach ($subkategori_data as $subkategori)

@@ -10,11 +10,34 @@ function upload_gambar_biasa($nama_gambar, $lokasi_gambar, $tipe_gambar, $ukuran
     // load library upload
     $CI->load->library('upload', $config);
     // upload gambar 1
-    $CI->upload->do_upload($name_file_form);
-    $result1 = $CI->upload->data();
-    $result = array('gambar'=>$result1);
-    $dfile = $result['gambar']['file_name'];
-    return $dfile;
+    if ( ! $CI->upload->do_upload($name_file_form)) {
+    	return $this->upload->display_errors();
+    } else {
+	    $result1 = $CI->upload->data();
+	    $result = array('gambar'=>$result1);
+	    $dfile = $result['gambar']['file_name'];
+	    
+	    return $dfile;
+	}	
+}
+
+function get_ph($no_po,$total_h)
+{
+	$CI =& get_instance();
+	$ph = $CI->db->get_where('po_master', array('no_po'=>$no_po))->row()->potongan_harga;
+	$d_ph = explode(';', $ph);
+	$t_h_now = $total_h;
+	foreach ($d_ph as $key => $value) {
+		if (strstr($value, '%')) {
+			$t_persen = str_replace('%', '', $value) /100;
+			$n_persen = $t_persen * $t_h_now;
+			$t_h_now = $t_h_now - $n_persen;
+		} else {
+			$t_h_now = $t_h_now - $value;
+		}
+	}
+	return $t_h_now;
+
 }
 
 function get_waktu()
