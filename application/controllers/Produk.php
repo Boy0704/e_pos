@@ -233,7 +233,7 @@ class Produk extends CI_Controller
 	// $this->form_validation->set_rules('date_update', 'date update', 'trim|required');
 	// $this->form_validation->set_rules('id_user', 'id user', 'trim|required');
 	$this->form_validation->set_rules('id_subkategori', 'id subkategori', 'trim|required');
-	$this->form_validation->set_rules('jumlah_satuan', 'jumlah satuan', 'trim|required');
+	// $this->form_validation->set_rules('jumlah_satuan', 'jumlah satuan', 'trim|required');
 
 	$this->form_validation->set_rules('id_produk', 'id_produk', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

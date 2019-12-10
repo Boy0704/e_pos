@@ -59,10 +59,7 @@
             <!-- <input type="text" class="form-control" name="id_subkategori" id="id_subkategori" placeholder="Id Subkategori" value="<?php echo $id_subkategori; ?>" /> -->
             <?php echo select_option('id_subkategori','subkategori','subkategori','id_subkategori',null,null,'id=subkategori','<option value="'.$id_subkategori.'">'.get_data('subkategori','id_subkategori',$id_subkategori,'subkategori').'</option>'); ?>
         </div>
-	    <div class="form-group">
-            <label for="int">Jumlah Satuan <?php echo form_error('jumlah_satuan') ?></label>
-            <input type="text" class="form-control" name="jumlah_satuan" id="jumlah_satuan" placeholder="Jumlah Satuan" value="<?php echo $jumlah_satuan; ?>" />
-        </div>
+	    
 	    <input type="hidden" name="id_produk" value="<?php echo $id_produk; ?>" /> 
 	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 
 	    <a href="<?php echo site_url('app/produk/'.$id_subkategori) ?>" class="btn btn-default">Cancel</a>

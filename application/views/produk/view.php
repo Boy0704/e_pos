@@ -13,9 +13,10 @@
 						<th>Produk</th>
 						<th>Stok</th>
 						<th>Satuan</th>
-						<th>Jumlah Satuan</th>
+						<th>In Unit</th>
 						<th>Stok Min</th>
-						<th>Harga</th>
+						<th>Harga Beli</th>
+						<th>Price</th>
 						<th>Barcode1</th>
 						<th>Barcode2</th>
 						<th>Owner</th>
@@ -35,8 +36,9 @@
 						<td><?php echo $rw->nama_produk; ?></td>
 						<td><?php echo $rw->stok; ?></td>
 						<td><?php echo $rw->satuan ?></td>
-						<td><?php echo $rw->jumlah_satuan ?></td>
+						<td><?php echo $rw->in_unit ?></td>
 						<td><?php echo $rw->stok_min ?></td>
+						<td><?php echo $rw->harga_beli ?></td>
 						<td><?php echo $rw->harga ?></td>
 						<td><?php echo $rw->barcode1 ?></td>
 						<td><?php echo $rw->barcode2 ?></td>
