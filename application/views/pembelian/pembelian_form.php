@@ -17,6 +17,10 @@
             <label for="varchar">Satuan <?php echo form_error('satuan') ?></label>
             <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" value="<?php echo $satuan; ?>" />
         </div>
+        <div class="form-group">
+            <label for="varchar">In Unit</label>
+            <input type="text" class="form-control" name="in_unit" id="in_unit" placeholder="Nilai Satuan terkecil" value="<?php echo $in_unit; ?>" />
+        </div>
 	    <div class="form-group">
             <label for="varchar">Harga Beli <?php echo form_error('harga_beli') ?></label>
             <input type="text" class="form-control" name="harga_beli" id="harga_beli" placeholder="Harga Beli" value="<?php echo $harga_beli; ?>" />

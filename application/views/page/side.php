@@ -54,6 +54,8 @@
         <!-- <li><a href="Kategori"><i class="fa fa-list"></i> <span>Master Kategori</span></a></li>
         <li><a href="calon"><i class="fa fa-odnoklassniki"></i> <span>Master Calon</span></a></li>
         <li><a href="pemilih"><i class="fa fa-odnoklassniki"></i> <span>Master Pemilih</span></a></li> -->
+        <li><a href="suplier"><i class="fa fa-bank"></i> <span>SUPLIER</span></a></li>
+        <li><a href="Return"><i class="fa fa-external-link-square"></i> <span>Return List</span></a></li>
         <li><a href="owner"><i class="fa fa-share-square"></i> <span>Setting</span></a></li>
         <li><a href="a_user"><i class="fa fa-users"></i> <span>Master User</span></a></li>
 

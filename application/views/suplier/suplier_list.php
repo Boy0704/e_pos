@@ -1,7 +1,7 @@
 
         <div class="row" style="margin-bottom: 10px">
             <div class="col-md-4">
-                <?php echo anchor(site_url('po_master/create'),'Create', 'class="btn btn-primary"'); ?>
+                <?php echo anchor(site_url('suplier/create'),'Create', 'class="btn btn-primary"'); ?>
             </div>
             <div class="col-md-4 text-center">
                 <div style="margin-top: 8px" id="message">
@@ -11,7 +11,7 @@
             <div class="col-md-1 text-right">
             </div>
             <div class="col-md-3 text-right">
-                <form action="<?php echo site_url('po_master/index'); ?>" class="form-inline" method="get">
+                <form action="<?php echo site_url('suplier/index'); ?>" class="form-inline" method="get">
                     <div class="input-group">
                         <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
                         <span class="input-group-btn">
@@ -19,7 +19,7 @@
                                 if ($q <> '')
                                 {
                                     ?>
-                                    <a href="<?php echo site_url('po_master'); ?>" class="btn btn-default">Reset</a>
+                                    <a href="<?php echo site_url('suplier'); ?>" class="btn btn-default">Reset</a>
                                     <?php
                                 }
                             ?>
@@ -32,39 +32,20 @@
         <table class="table table-bordered" style="margin-bottom: 10px">
             <tr>
                 <th>No</th>
-		<th>No Po</th>
-		<th>Nama Suplier</th>
-		<th>Sales</th>
-        <th>Potongan Harga</th>
-        <th>Total Harga</th>
-        <th>Status Bayar</th>
-        <th>Jumlah Bayar</th>
-        <th>Sisa Bayar</th>
-		<th>PPN</th>
-		<th>Date Create</th>
+		<th>Suplier</th>
 		<th>Action</th>
             </tr><?php
-            foreach ($po_master_data as $po_master)
+            foreach ($suplier_data as $suplier)
             {
                 ?>
                 <tr>
 			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $po_master->no_po ?></td>
-			<td><?php echo $po_master->nama_suplier ?></td>
-			<td><?php echo $po_master->sales ?></td>
-            <td><?php echo $po_master->potongan_harga ?></td>
-			<td><?php echo number_format($po_master->total_harga) ?></td>
-            <td><span class="label label-info"><?php echo $po_master->status_pembayaran ?></span></td>
-            <td><?php echo number_format($po_master->jumlah_bayar) ?></td>
-            <td><?php echo number_format($po_master->sisa_bayar) ?></td>
-            <td><?php echo $retVal = ($po_master->ppn == 1) ? '<span class="label label-success"><i class="fa fa-check"></i></span>' : '<span class="label label-danger"><i class="fa fa-close"></i></span>' ; ?></td>
-			<td><?php echo $po_master->date_create ?></td>
+			<td><?php echo $suplier->suplier ?></td>
 			<td style="text-align:center" width="200px">
-                <a href="app/isi_po/<?php echo $po_master->no_po ?>" class="label label-primary">Tambah PO Pembelian</a>
 				<?php 
-				echo anchor(site_url('po_master/update/'.$po_master->id_po),'<span class="label label-info">Ubah</span>'); 
-				echo ' '; 
-				echo anchor(site_url('po_master/delete/'.$po_master->id_po),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+				echo anchor(site_url('suplier/update/'.$suplier->id_suplier),'<span class="label label-info">Ubah</span>'); 
+				echo ' | '; 
+				echo anchor(site_url('suplier/delete/'.$suplier->id_suplier),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
 				?>
 			</td>
 		</tr>

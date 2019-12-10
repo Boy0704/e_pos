@@ -29,13 +29,17 @@
                 </form>
             </div>
         </div>
+        <div style="text-align: right;">
+            <span class="label label-success"><i class="fa fa-check"></i> PPN</span>
+        </div>
         <table class="table table-bordered" style="margin-bottom: 10px">
             <tr>
                 <th>No</th>
 		<th>No Po</th>
 		<th>Id Produk</th>
 		<th>Qty</th>
-		<th>Satuan</th>
+        <th>Satuan</th>
+		<th>In Unit</th>
 		<th>Harga Beli</th>
 		<th>Total</th>
 		<th>Action</th>
@@ -48,7 +52,8 @@
 			<td><?php echo $pembelian->no_po ?></td>
 			<td><?php echo $pembelian->id_produk ?></td>
 			<td><?php echo $pembelian->qty ?></td>
-			<td><?php echo $pembelian->satuan ?></td>
+            <td><?php echo $pembelian->satuan ?></td>
+			<td><?php echo $pembelian->in_unit ?></td>
 			<td><?php echo $pembelian->harga_beli ?></td>
 			<td><?php echo $pembelian->total ?></td>
 			<td style="text-align:center" width="200px">

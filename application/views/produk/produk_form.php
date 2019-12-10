@@ -16,8 +16,16 @@
             <input type="text" class="form-control" name="nama_produk" id="nama_produk" placeholder="Nama Produk" value="<?php echo $nama_produk; ?>" />
         </div>
 	    <div class="form-group">
-            <label for="varbinary">Satuan <?php echo form_error('satuan') ?></label>
+            <label for="varbinary">Unit <?php echo form_error('satuan') ?></label>
             <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" value="<?php echo $satuan; ?>" />
+        </div>
+        <div class="form-group">
+            <label for="varbinary">IN Unit </label>
+            <input type="text" class="form-control" name="in_unit" id="in_unit" placeholder="In unit" value="<?php echo $in_unit; ?>" />
+        </div>
+        <div class="form-group">
+            <label for="varbinary">Harga Beli </label>
+            <input type="text" class="form-control" name="harga_beli" id="harga_beli" placeholder="Modal" value="<?php echo $harga_beli; ?>" />
         </div>
 	    <div class="form-group">
             <label for="varchar">Stok <?php echo form_error('stok') ?></label>

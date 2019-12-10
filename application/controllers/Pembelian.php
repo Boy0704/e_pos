@@ -55,7 +55,8 @@ class Pembelian extends CI_Controller
 		'id_produk' => $row->id_produk,
 		'qty' => $row->qty,
 		'satuan' => $row->satuan,
-		'harga_beli' => $row->harga_beli,
+        'harga_beli' => $row->harga_beli,
+		'in_unit' => $row->in_unit,
 		'total' => $row->total,
 	    );
             $this->load->view('pembelian/pembelian_read', $data);
@@ -77,7 +78,8 @@ class Pembelian extends CI_Controller
 	    'id_produk' => set_value('id_produk'),
 	    'qty' => set_value('qty'),
 	    'satuan' => set_value('satuan'),
-	    'harga_beli' => set_value('harga_beli'),
+        'harga_beli' => set_value('harga_beli'),
+	    'in_unit' => set_value('in_unit'),
 	    'total' => set_value('total'),
 	);
         $this->load->view('v_index', $data);
@@ -95,7 +97,8 @@ class Pembelian extends CI_Controller
 		'id_produk' => $this->input->post('id_produk',TRUE),
 		'qty' => $this->input->post('qty',TRUE),
 		'satuan' => $this->input->post('satuan',TRUE),
-		'harga_beli' => $this->input->post('harga_beli',TRUE),
+        'harga_beli' => $this->input->post('harga_beli',TRUE),
+		'in_unit' => $this->input->post('in_unit',TRUE),
 		'total' => $this->input->post('total',TRUE),
 	    );
 
@@ -119,7 +122,8 @@ class Pembelian extends CI_Controller
 		'no_po' => set_value('no_po', $row->no_po),
 		'id_produk' => set_value('id_produk', $row->id_produk),
 		'qty' => set_value('qty', $row->qty),
-		'satuan' => set_value('satuan', $row->satuan),
+        'satuan' => set_value('satuan', $row->satuan),
+		'in_unit' => set_value('in_unit', $row->in_unit),
 		'harga_beli' => set_value('harga_beli', $row->harga_beli),
 		'total' => set_value('total', $row->total),
 	    );
@@ -141,7 +145,8 @@ class Pembelian extends CI_Controller
 		'no_po' => $this->input->post('no_po',TRUE),
 		'id_produk' => $this->input->post('id_produk',TRUE),
 		'qty' => $this->input->post('qty',TRUE),
-		'satuan' => $this->input->post('satuan',TRUE),
+        'satuan' => $this->input->post('satuan',TRUE),
+		'in_unit' => $this->input->post('in_unit',TRUE),
 		'harga_beli' => $this->input->post('harga_beli',TRUE),
 		'total' => $this->input->post('total',TRUE),
 	    );

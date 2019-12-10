@@ -1,9 +1,15 @@
+<?php 
+$po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segment(3)))->row();
+ ?>
 <div style="margin-left: 10px;">
 	<p>
 		<a href="pembelian/create/<?php echo $no_po ?>" class="btn btn-primary">Tambah Pembelian</a>
 	</p>
 	<div class="row">
 		<div class="col-md-12 table-responsive">
+			<div style="text-align: right;">
+				<?php echo $retVal = ($po_master->ppn == 1) ? '<h4 class="label label-success"><i class="fa fa-check"></i> PPN</h4>' : '<h4 class="label label-danger"><i class="fa fa-close"></i> PPN</h4>' ; ?>
+			</div>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
@@ -11,6 +17,7 @@
 						<th>Produk</th>
 						<th>Qty</th>
 						<th>Satuan</th>
+						<th>In Unit</th>
 						<th>Harga Beli</th>
 						<th>Subtotal</th>
 						<th>Option</th>
@@ -27,6 +34,7 @@
 						<td><?php echo get_data('produk','id_produk',$rw->id_produk,'nama_produk'); ?></td>
 						<td><?php echo $rw->qty; ?></td>
 						<td><?php echo $rw->satuan; ?></td>
+						<td><?php echo $rw->in_unit; ?></td>
 						<td><?php echo number_format($rw->harga_beli) ?></td>
 						<td><?php echo number_format($rw->total); $t = $t + $rw->total ?></td>
 						<td>
@@ -44,10 +52,13 @@
 						<td colspan="2">
 							<b><?php echo number_format(get_ph($no_po,$t)) ?></b></td>
 					</tr>
-					<tr>
-						<td colspan="5">Total PPN</td>
-						<td colspan="2"><b><?php echo number_format(get_ph($no_po,$t) * 0.1) ?></b></td>
-					</tr>
+					<?php if ($po_master->ppn == 1): ?>
+						<tr>
+							<td colspan="5">Total PPN</td>
+							<td colspan="2"><b><?php echo number_format(get_ph($no_po,$t) * 0.1) ?></b></td>
+						</tr>
+					<?php endif ?>
+					
 				</tbody>
 			</table>
 		</div>
