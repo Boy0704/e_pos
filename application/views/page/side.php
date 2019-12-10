@@ -48,7 +48,7 @@
           </a>
           <ul class="treeview-menu">
               <li><a href="po_master"><i class="fa fa-angle-double-right"></i> Master PO</a></li>
-              <li><a href="pembelian"><i class="fa fa-angle-double-right"></i> Pembelian</a></li>
+              <!-- <li><a href="pembelian"><i class="fa fa-angle-double-right"></i> Pembelian</a></li> -->
           </ul>
         </li>
         <!-- <li><a href="Kategori"><i class="fa fa-list"></i> <span>Master Kategori</span></a></li>
