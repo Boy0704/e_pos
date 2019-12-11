@@ -30,6 +30,40 @@ class App extends CI_Controller {
 		$this->load->view('v_index', $data);
     }
 
+    public function ubah_status_po($id_po)
+    {
+    	$this->db->where('id_po', $id_po);
+    	$po_selesai = $this->db->update('po_master', array('selesai'=>'1'));
+    	if ($po_selesai) {
+
+    		$lis_pembelian = $this->db->get_where('pembelian', array('no_po'=>get_data('po_master','id_po',$id_po,'no_po')));
+
+    		foreach ($lis_pembelian->result() as $value) {
+    			//id_subkategori
+    			$id_subkat = get_data('produk','id_produk',$value->id_produk,'id_subkategori');
+    			$stok_temp = $value->qty * $value->in_unit;
+    			// log_data($value->qty.' '.$value->in_unit);
+    			$this->db->insert('stok_transfer', array(
+    				'id_produk'=>$value->id_produk,
+    				'id_subkategori'=>$id_subkat,
+    				'in_qty'=>$stok_temp
+    			));
+    			    			
+    		}
+    		// exit;
+    	}
+
+    	$this->session->set_flashdata('message', alert_biasa('Berhasil ubah status PO','success'));
+    	redirect('po_master','refresh');
+    }
+
+    public function get_in_unit($id_produk)
+    {
+    	$in_unit = get_data('produk','id_produk',$id_produk,'in_unit');
+    	$satuan = get_data('produk','id_produk',$id_produk,'satuan');
+    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit));
+    }
+
     public function produk($id_subkategori)
 	{
 

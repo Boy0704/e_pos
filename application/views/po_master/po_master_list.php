@@ -5,7 +5,7 @@
             </div>
             <div class="col-md-4 text-center">
                 <div style="margin-top: 8px" id="message">
-                    <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+                    <?php //echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
                 </div>
             </div>
             <div class="col-md-1 text-right">
@@ -40,7 +40,8 @@
         <th>Status Bayar</th>
         <th>Jumlah Bayar</th>
         <th>Sisa Bayar</th>
-		<th>PPN</th>
+        <th>PPN</th>
+		<th>Status</th>
 		<th>Date Create</th>
 		<th>Action</th>
             </tr><?php
@@ -58,6 +59,7 @@
             <td><?php echo number_format($po_master->jumlah_bayar) ?></td>
             <td><?php echo number_format($po_master->sisa_bayar) ?></td>
             <td><?php echo $retVal = ($po_master->ppn == 1) ? '<span class="label label-success"><i class="fa fa-check"></i></span>' : '<span class="label label-danger"><i class="fa fa-close"></i></span>' ; ?></td>
+            <td><?php echo $retVal = ($po_master->selesai == 1) ? '<span class="label label-success"><i class="fa fa-check"></i> finish</span>' : '<a href="app/ubah_status_po/'.$po_master->id_po.'" class="label label-info"><i class="fa fa-download"></i> process</a>' ; ?></td>
 			<td><?php echo $po_master->date_create ?></td>
 			<td style="text-align:center" width="200px">
                 <a href="app/isi_po/<?php echo $po_master->no_po ?>" class="label label-primary">Tambah PO Pembelian</a>

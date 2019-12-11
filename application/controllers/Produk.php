@@ -126,6 +126,8 @@ class Produk extends CI_Controller
 	    );
 
             $this->Produk_model->insert($data);
+            $stok = $this->input->post('stok') * $this->input->post('in_unit');
+            $this->db->insert('stok_transfer', array('id_produk'=>$this->db->insert_id(),'id_subkategori'=>$this->input->post('id_subkategori'),'in_qty'=>$stok));
             $this->session->set_flashdata('message', alert_biasa('produk berhasil di simpan','success'));
             redirect(site_url('app/produk/'.$this->input->post('id_subkategori',TRUE)));
         }
@@ -212,6 +214,8 @@ class Produk extends CI_Controller
 
         if ($row) {
             $this->Produk_model->delete($id);
+            $this->db->where('id_produk', $id);
+            $this->db->delete('stok_transfer');
             $this->session->set_flashdata('message', alert_biasa('produk berhasil di hapus','success'));
             redirect(site_url('app/produk/'.$id_subkategori));
         } else {

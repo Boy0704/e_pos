@@ -11,7 +11,7 @@ function upload_gambar_biasa($nama_gambar, $lokasi_gambar, $tipe_gambar, $ukuran
     $CI->load->library('upload', $config);
     // upload gambar 1
     if ( ! $CI->upload->do_upload($name_file_form)) {
-    	return $this->upload->display_errors();
+    	return $CI->upload->display_errors();
     } else {
 	    $result1 = $CI->upload->data();
 	    $result = array('gambar'=>$result1);
@@ -24,6 +24,10 @@ function upload_gambar_biasa($nama_gambar, $lokasi_gambar, $tipe_gambar, $ukuran
 function get_ph($no_po,$total_h)
 {
 	$CI =& get_instance();
+	// log_r($total_h);
+	// if ($total_h = '') {
+	// 	$total_h = 0;
+	// }
 	$ph = $CI->db->get_where('po_master', array('no_po'=>$no_po))->row()->potongan_harga;
 	$d_ph = explode(';', $ph);
 	$t_h_now = $total_h;
@@ -33,7 +37,8 @@ function get_ph($no_po,$total_h)
 			$n_persen = $t_persen * $t_h_now;
 			$t_h_now = $t_h_now - $n_persen;
 		} else {
-			$t_h_now = $t_h_now - $value;
+			$t_h_now = $t_h_now - floatval($value);
+			// log_r($t_h_now);
 		}
 	}
 	return $t_h_now;
@@ -305,3 +310,25 @@ function setting($field)
 	$data = $CI->db->get_where('setting', array('id_setting'=>1))->row_array();
 	return $data[$field];
 }
+
+function log_r($string = null, $var_dump = false)
+    {
+        if ($var_dump) {
+            var_dump($string);
+        } else {
+            echo "<pre>";
+            print_r($string);
+        }
+        exit;
+    }
+
+    function log_data($string = null, $var_dump = false)
+    {
+        if ($var_dump) {
+            var_dump($string);
+        } else {
+            echo "<pre>";
+            print_r($string);
+        }
+        // exit;
+    }

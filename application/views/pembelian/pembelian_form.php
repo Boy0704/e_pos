@@ -7,7 +7,8 @@
 	    <div class="form-group">
             <label for="varchar">Produk <?php echo form_error('id_produk') ?></label>
             <!-- <input type="text" class="form-control" name="id_produk" id="id_produk" placeholder="Id Produk" value="<?php echo $id_produk; ?>" /> -->
-            <?php echo select_option('id_produk','produk','nama_produk','id_produk',null,'select2','id=siswa','<option value="'.$id_produk.'">'.get_data('produk','id_produk',$id_produk,'nama_produk').'</option>'); ?>
+            <?php
+             echo select_option('id_produk','produk','nama_produk','id_produk',null,'select2','id="id_produk"','<option value="'.$id_produk.'">'.get_data('produk','id_produk',$id_produk,'nama_produk').'</option>'); ?>
         </div>
 	    <div class="form-group">
             <label for="int">Qty <?php echo form_error('qty') ?></label>
@@ -15,7 +16,7 @@
         </div>
 	    <div class="form-group">
             <label for="varchar">Satuan <?php echo form_error('satuan') ?></label>
-            <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" value="<?php echo $satuan; ?>" />
+            <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" value="<?php echo $satuan; ?>"  />
         </div>
         <div class="form-group">
             <label for="varchar">In Unit</label>
@@ -39,6 +40,26 @@
            $('#harga_beli').keyup(function() {
                var total = parseInt($('#qty').val()) *  parseInt($(this).val());
                $('#total').val(total);
+           });
+
+           $('#id_produk').change(function(event) {
+            var id_produk=$(this).val();
+              $.ajax({
+                url: 'app/get_in_unit/'+id_produk,
+                type: 'GET',
+                dataType: 'JSON',
+              })
+              .done(function(param) {
+                $('#in_unit').val(param.in_unit);
+                $('#satuan').val(param.satuan);
+              })
+              .fail(function() {
+                console.log("error");
+              })
+              .always(function() {
+                console.log("complete");
+              });
+              
            });
        });
    </script>

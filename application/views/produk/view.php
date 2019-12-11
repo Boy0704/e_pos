@@ -46,7 +46,7 @@
 						<td><?php echo $rw->date_update ?></td>
 						<td>
 							<a href="produk/update/<?php echo $rw->id_produk ?>" class="label label-info">Edit</a>
-							<a href="produk/delete/<?php echo $rw->id_produk.'/'.$rw->id_subkategori ?>" class="label label-danger">Hapus</a>
+							<a onclick="javasciprt: return confirm('Yakin hapus produk ini ?')" href="produk/delete/<?php echo $rw->id_produk.'/'.$rw->id_subkategori ?>" class="label label-danger">Hapus</a>
 						</td>
 					</tr>
 					<?php $no++; } ?>
