@@ -16,6 +16,7 @@
 						<th>In Unit</th>
 						<th>Stok Min</th>
 						<th>Harga Beli</th>
+						<th>Disc</th>
 						<th>Price</th>
 						<th>Barcode1</th>
 						<th>Barcode2</th>
@@ -39,6 +40,7 @@
 						<td><?php echo $rw->in_unit ?></td>
 						<td><?php echo $rw->stok_min ?></td>
 						<td><?php echo $rw->harga_beli ?></td>
+						<td><?php echo $rw->diskon ?></td>
 						<td><?php echo $rw->harga ?></td>
 						<td><?php echo $rw->barcode1 ?></td>
 						<td><?php echo $rw->barcode2 ?></td>

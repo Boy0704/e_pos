@@ -39,6 +39,10 @@
             <label for="varchar">Harga <?php echo form_error('harga') ?></label>
             <input type="text" class="form-control" name="harga" id="harga" placeholder="Harga" value="<?php echo $harga; ?>" />
         </div>
+        <div class="form-group">
+            <label for="varchar">Diskon </label>
+            <input type="text" class="form-control" name="diskon" id="diskon" placeholder="Diskon" value="<?php echo $diskon; ?>" />
+        </div>
 	    <div class="form-group">
             <label for="varchar">Barcode1 <?php echo form_error('barcode1') ?></label>
             <input type="text" class="form-control" name="barcode1" id="barcode1" placeholder="Barcode1" value="<?php echo $barcode1; ?>" />
