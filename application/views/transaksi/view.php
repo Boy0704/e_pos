@@ -100,9 +100,7 @@
 		    }
 		});
 
-		$('body').keypress(function(e) {
-		    alert(e.which);
-		  });
+		
 
 		<?php foreach($this->cart->contents() as $items): ?>
 		$('#qty<?php echo get_produk($items['id'],'id_produk') ?>').keypress(function(e) {
