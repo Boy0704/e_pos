@@ -60,8 +60,9 @@ class App extends CI_Controller {
     public function get_in_unit($id_produk)
     {
     	$in_unit = get_data('produk','id_produk',$id_produk,'in_unit');
-    	$satuan = get_data('produk','id_produk',$id_produk,'satuan');
-    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit));
+        $satuan = get_data('produk','id_produk',$id_produk,'satuan');
+    	$stok = get_data('produk','id_produk',$id_produk,'stok');
+    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok));
     }
 
     public function transaksi()
@@ -75,6 +76,93 @@ class App extends CI_Controller {
             'judul_page' => 'Transaksi Penjualan',
 		);
 		$this->load->view('v_index', $data);
+    }
+
+    public function po_auto()
+    {
+        $no_po = '';
+        $suplier = '';
+        $sales = '';
+        $get_stok_min = $this->db->query("SELECT * FROM produk WHERE stok_min >= stok");
+        $produk = $get_stok_min->result();
+
+        //cek_po master
+        $cek_po_system = $this->db->get_where('po_master', array('id_user'=>0,'selesai'=>0));
+        if ($cek_po_system->num_rows() > 0) {
+            $no_po = $cek_po_system->row()->no_po;
+
+        } else {
+            // buat po master
+            $po_master = array(
+                'no_po' => create_random(8),
+                'nama_suplier' => '',
+                'sales' => '',
+                'potongan_harga' => 0,
+                'total_harga' => 0,
+                'status_pembayaran' => 'cash',
+                'jumlah_bayar' => 0,
+                'sisa_bayar' => 0,
+                'ppn' => '0',
+                'date_create' => get_waktu(),
+                'id_user' => 0,
+                'selesai' => 0,
+            );
+            $this->db->insert('po_master', $po_master);
+            $no_po = get_data('po_master','id_po',$this->db->insert_id(),'no_po');
+        }
+        // log_r($no_po);
+
+
+        foreach ($produk as $rw) {
+            $this->db->order_by('id_pembelian', 'desc');
+            $cek_po_last = $this->db->get_where('pembelian', array('id_produk'=>$rw->id_produk));
+            if ($cek_po_last->num_rows > 0) {
+
+                $no_po_ = $cek_po_last->row()->no_po;
+                $suplier = get_data('po_master','no_po',$no_po_,'nama_suplier');
+                $sales = get_data('po_master','no_po',$no_po_,'sales');
+
+                if (get_data('po_master','no_po',$no_po,'nama_suplier') == '') {
+                    //update_po_system
+                    $this->db->where('no_po', $no_po);
+                    $this->db->update('po_master', array('nama_suplier'=>$suplier,'sales'=>$sal));
+                }
+
+                // buat pembelian_lis
+                $pembelian = array(
+                    'no_po' => $no_po,
+                    'id_produk'=>$rw->id_produk,
+                    'qty'=>0,
+                    'satuan'=>$rw->satuan,
+                    'harga_beli'=>$rw->harga_beli,
+                    'total'=>0,
+                    'in_unit'=>$rw->in_unit,
+                );
+                $this->db->insert('pembelian', $pembelian);
+
+            } else {
+
+                if (get_data('po_master','no_po',$no_po,'nama_suplier') == '') {
+                    //update_po_system
+                    $this->db->where('no_po', $no_po);
+                    $this->db->update('po_master', array('nama_suplier'=>'SUPLIER CASH','sales'=>'NOT SET'));
+                }
+
+                // buat pembelian_lis
+                $pembelian = array(
+                    'no_po' => $no_po,
+                    'id_produk'=>$rw->id_produk,
+                    'qty'=>0,
+                    'satuan'=>$rw->satuan,
+                    'harga_beli'=>$rw->harga_beli,
+                    'total'=>0,
+                    'in_unit'=>$rw->in_unit,
+                );
+                $this->db->insert('pembelian', $pembelian);
+            }
+
+        }
+
     }
 
     public function simpan_penjualan($total_harga,$total_disc)

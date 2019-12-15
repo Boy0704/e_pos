@@ -31,7 +31,7 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 					 ?>
 					<tr>
 						<td><?php echo $no; ?></td>
-						<td><?php echo get_data('produk','id_produk',$rw->id_produk,'nama_produk'); ?></td>
+						<td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'nama_produk')); ?></td>
 						<td><?php echo $rw->qty; ?></td>
 						<td><?php echo $rw->satuan; ?></td>
 						<td><?php echo $rw->in_unit; ?></td>
@@ -48,14 +48,14 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						<td colspan="2"><?php echo number_format($t) ?></td>
 					</tr>
 					<tr>
-						<td colspan="5">Total PH</td>
+						<td colspan="5">Total + PH</td>
 						<td colspan="2">
-							<b><?php echo number_format(get_ph($no_po,$t)) ?></b></td>
+							<b id="potongan"><?php echo number_format(get_ph($no_po,$t)) ?></b></td>
 					</tr>
 					<?php if ($po_master->ppn == 1): ?>
 						<tr>
-							<td colspan="5">Total PPN</td>
-							<td colspan="2"><b><?php echo number_format(get_ph($no_po,$t) * 0.1) ?></b></td>
+							<td colspan="5">Total + PH + PPN</td>
+							<td colspan="2"><b id="ppn"><?php echo number_format(get_ph($no_po,$t) * 0.1) ?></b></td>
 						</tr>
 					<?php endif ?>
 					

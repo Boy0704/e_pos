@@ -12,7 +12,7 @@
         </div>
 	    <div class="form-group">
             <label for="int">Qty <?php echo form_error('qty') ?></label>
-            <span class="label label-info">STOK NOW : 4</span>
+            <span id="stok_now" class="label label-info"></span>
             <input type="text" class="form-control" name="qty" id="qty" placeholder="Qty" value="<?php echo $qty; ?>" />
         </div>
 	    <div class="form-group">
@@ -53,6 +53,7 @@
               .done(function(param) {
                 $('#in_unit').val(param.in_unit);
                 $('#satuan').val(param.satuan);
+                $('#stok_now').html("STOK NOW : "+param.stok);
               })
               .fail(function() {
                 console.log("error");

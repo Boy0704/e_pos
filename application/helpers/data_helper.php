@@ -70,7 +70,7 @@ function select_option($name, $table, $field, $pk, $selected = null,$class = nul
     foreach ($data as $row) {
         $cmb .="<option value='" . $row->$pk . "'";
         $cmb .= $selected == $row->$pk ? 'selected' : '';
-        $cmb .=">" . $row->$field . "</option>";
+        $cmb .=">" . strtoupper($row->$field ). "</option>";
     }
     $cmb .= "</select>";
     return $cmb;
