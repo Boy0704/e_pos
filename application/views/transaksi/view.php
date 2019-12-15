@@ -42,14 +42,15 @@
                 <td><?php echo strtoupper($items['name']); ?></td>
                 <td><?php echo get_produk($items['id'],'diskon') ?></td>
                 <td><?php echo strtoupper(get_produk($items['id'],'satuan')) ?></td>
-                <td><input type="text" name="qty" class="form-control" style="width: 70px;" value="<?php echo $items['qty']; ?>" id="qty<?php echo get_produk($items['id'],'id_produk') ?>"></td>
+                <!-- <td><input type="text" name="qty" class="form-control" style="width: 70px;" value="<?php echo $items['qty']; ?>" id="qty<?php echo get_produk($items['id'],'id_produk') ?>"></td> -->
+                <td><?php echo $items['qty']; ?></td>
                 <td>Rp. <?php echo $this->cart->format_number($items['price']); ?></td>
-                <td>Rp. <?php echo $this->cart->format_number($items['subtotal']-get_produk($items['id'],'diskon')); ?></td>
+                <td>Rp. <?php echo $this->cart->format_number($items['subtotal']-floatval(get_produk($items['id'],'diskon'))); ?></td>
                 <td>
                     <a href="app/hapus_cart/<?php echo $items['rowid'] ?>" class="btn btn-warning btn-sm">X</a>
                 </td>
         	</tr>
-        	<?php $i++; $no++; $total_disc = $total_disc+get_produk($items['id'],'diskon'); ?>
+        	<?php $i++; $no++; $total_disc = $total_disc+floatval(get_produk($items['id'],'diskon')); ?>
             <?php endforeach; ?>
             <tr>
         		<th colspan="8" style="text-align: right;">Total Disc</th>

@@ -81,7 +81,7 @@ class Suplier extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'suplier' => $this->input->post('suplier',TRUE),
+		'suplier' => strtoupper($this->input->post('suplier',TRUE)),
 	    );
 
             $this->Suplier_model->insert($data);

@@ -12,6 +12,7 @@
         </div>
 	    <div class="form-group">
             <label for="int">Qty <?php echo form_error('qty') ?></label>
+            <span class="label label-info">STOK NOW : 4</span>
             <input type="text" class="form-control" name="qty" id="qty" placeholder="Qty" value="<?php echo $qty; ?>" />
         </div>
 	    <div class="form-group">

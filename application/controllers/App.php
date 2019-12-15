@@ -93,7 +93,14 @@ class App extends CI_Controller {
     			'harga' => $items['price'],
     			'subtotal' => $items['subtotal']-get_produk($items['id'],'diskon'),
     		);
-    		$this->db->insert('penjualan_detail', $data);
+            $this->db->insert('penjualan_detail', $data);
+
+            $simpan_stok_transfer = array(
+                'id_produk' => get_produk($items['id'],'id_produk'),
+                'id_subkategori' => get_produk($items['id'],'id_subkategori'),
+                'out_qty' => $items['qty'] * floatval(get_produk($items['id'],'in_unit'))
+            );
+    		$this->db->insert('stok_transfer', $simpan_stok_transfer);
     	}
     	$this->cart->destroy();
     	redirect('app/cetak_belanja/'.$no_penjualan,'refresh');
@@ -137,12 +144,23 @@ class App extends CI_Controller {
     public function simpan_cart()
 	{
 		$barcode = $this->input->post('barcode');
-    	$produk_ = $this->db->query("SELECT * FROM produk where barcode1='$barcode' or barcode2='$barcode'");
+        $id = '';
+        $qty = 1;
+        if (stristr($barcode, '+')) {
+            $p = explode('+', $barcode);
+            $qty = $p[0];
+            $id = $p[1];
+        } else {
+            $id = $barcode;
+            $qty = 1;
+        }
+        
+    	$produk_ = $this->db->query("SELECT * FROM produk where barcode1='$id' or barcode2='$id'");
 		if ($produk_->num_rows() > 0) {
 			$produk = $produk_->row();
 			 $data = array(
-	            'id'    => $barcode,
-	            'qty'   => 1,
+	            'id'    => $id,
+	            'qty'   => $qty,
 	            'price' => $produk->harga,
 	            'name'  => $produk->nama_produk,
 	        );

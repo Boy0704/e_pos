@@ -1,4 +1,16 @@
 <?php 
+
+function create_random($length)
+{
+    $data = 'ABCDEFGHIJKLMNOPQRSTU1234567890';
+    $string = '';
+    for($i = 0; $i < $length; $i++) {
+        $pos = rand(0, strlen($data)-1);
+        $string .= $data{$pos};
+    }
+    return $string;
+}
+
 function upload_gambar_biasa($nama_gambar, $lokasi_gambar, $tipe_gambar, $ukuran_gambar, $name_file_form)
 {
     $CI =& get_instance();
@@ -64,6 +76,12 @@ function select_option($name, $table, $field, $pk, $selected = null,$class = nul
     return $cmb;
 }
 
+function get_setting($select)
+{
+	$CI =& get_instance();
+	$data = $CI->db->query("SELECT $select FROM pengaturan where id_pengaturan='1' ")->row_array();
+	return $data[$select];
+}
 
 function get_data($tabel,$primary_key,$id,$select)
 {

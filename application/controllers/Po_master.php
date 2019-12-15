@@ -73,7 +73,7 @@ class Po_master extends CI_Controller
             'button' => 'Create',
             'action' => site_url('po_master/create_action'),
 	    'id_po' => set_value('id_po'),
-	    'no_po' => set_value('no_po'),
+	    'no_po' => create_random(8),
 	    'nama_suplier' => set_value('nama_suplier'),
 	    'sales' => set_value('sales'),
         'potongan_harga' => set_value('potongan_harga'),

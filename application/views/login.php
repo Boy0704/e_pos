@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>E-POS | Login</title>
+        <title><?php echo get_setting('nama_aplikasi') ?> | Login</title>
         <base href="<?php echo base_url() ?>">
 
         <!-- CSS -->
@@ -41,7 +41,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2 text">
-                            <h1><strong>APLIKASI</strong> E-POS</h1>
+                            <h1><strong>APLIKASI</strong> <?php echo get_setting('nama_aplikasi') ?></h1>
                             <div class="description">
                                 <p>
                                     Aplikasi Penjualan Toko Retail dan Toko Online dari <a href="https://jualkoding.com"><strong>Jualkoding.com</strong></a>, customize and use it as you like!
