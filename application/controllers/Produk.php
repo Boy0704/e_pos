@@ -102,14 +102,21 @@ class Produk extends CI_Controller
     
     public function create_action() 
     {
+        $produk_nama = '';
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
             $this->create($this->input->post('id_subkategori',TRUE));
         } else {
-
+            if (stristr($this->input->post('nama_produk',TRUE), '"')) {
+                $produk_nama = str_replace('"', '', $this->input->post('nama_produk',TRUE));
+            }
+            if (stristr($this->input->post('nama_produk',TRUE), "'")) {
+                $produk_nama = str_replace("'", '', $this->input->post('nama_produk',TRUE));
+            }
+            
             $data = array(
-		'nama_produk' => $this->input->post('nama_produk',TRUE),
+		'nama_produk' => $produk,
 		'satuan' => $this->input->post('satuan',TRUE),
 		'stok' => $this->input->post('stok',TRUE),
 		'stok_min' => $this->input->post('stok_min',TRUE),
@@ -170,6 +177,7 @@ class Produk extends CI_Controller
     
     public function update_action() 
     {
+        $produk_nama = '';
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -186,9 +194,14 @@ class Produk extends CI_Controller
                 $this->image=$this->input->post('old_foto',TRUE);
 
             }
-
+            if (stristr($this->input->post('nama_produk',TRUE), '"')) {
+                $produk_nama = str_replace('"', '', $this->input->post('nama_produk',TRUE));
+            }
+            if (stristr($this->input->post('nama_produk',TRUE), "'")) {
+                $produk_nama = str_replace("'", '', $this->input->post('nama_produk',TRUE));
+            }
             $data = array(
-		'nama_produk' => $this->input->post('nama_produk',TRUE),
+		'nama_produk' => $produk_nama,
 		'satuan' => $this->input->post('satuan',TRUE),
 		'stok' => $this->input->post('stok',TRUE),
 		'stok_min' => $this->input->post('stok_min',TRUE),
