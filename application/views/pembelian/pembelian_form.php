@@ -27,6 +27,10 @@
             <label for="varchar">Harga Beli <?php echo form_error('harga_beli') ?></label>
             <input type="text" class="form-control" name="harga_beli" id="harga_beli" placeholder="Harga Beli" value="<?php echo $harga_beli; ?>" />
         </div>
+        <div class="form-group">
+            <label for="varchar">Harga Jual </label>
+            <input type="text" class="form-control" name="harga_jual" id="harga_jual" placeholder="Harga Jual" value="<?php echo $harga_jual; ?>" />
+        </div>
 	    <div class="form-group">
             <label for="varchar">Total <?php echo form_error('total') ?></label>
             <input type="text" class="form-control" name="total" id="total" placeholder="Total" value="<?php echo $total; ?>" readonly/>
@@ -53,6 +57,7 @@
               .done(function(param) {
                 $('#in_unit').val(param.in_unit);
                 $('#satuan').val(param.satuan);
+                $('#harga_jual').val(param.harga_jual);
                 $('#stok_now').html("STOK NOW : "+param.stok);
               })
               .fail(function() {

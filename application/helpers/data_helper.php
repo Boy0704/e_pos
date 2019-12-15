@@ -79,7 +79,7 @@ function select_option($name, $table, $field, $pk, $selected = null,$class = nul
 function get_setting($select)
 {
 	$CI =& get_instance();
-	$data = $CI->db->query("SELECT $select FROM pengaturan where id_pengaturan='1' ")->row_array();
+	$data = $CI->db->query("SELECT $select FROM pengaturan_aplikasi where id_pengaturan='1' ")->row_array();
 	return $data[$select];
 }
 

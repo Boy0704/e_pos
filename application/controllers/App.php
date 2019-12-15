@@ -61,8 +61,9 @@ class App extends CI_Controller {
     {
     	$in_unit = get_data('produk','id_produk',$id_produk,'in_unit');
         $satuan = get_data('produk','id_produk',$id_produk,'satuan');
-    	$stok = get_data('produk','id_produk',$id_produk,'stok');
-    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok));
+        $stok = get_data('produk','id_produk',$id_produk,'stok');
+    	$harga = get_data('produk','id_produk',$id_produk,'harga');
+    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok,'harga_jual'=>$harga));
     }
 
     public function transaksi()
@@ -238,6 +239,9 @@ class App extends CI_Controller {
             $p = explode('+', $barcode);
             $qty = $p[0];
             $id = $p[1];
+            if ($p[0] < 1) {
+                $qty = 1;
+            }
         } else {
             $id = $barcode;
             $qty = 1;

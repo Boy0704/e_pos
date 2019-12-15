@@ -80,7 +80,8 @@ class Pembelian extends CI_Controller
 	    'satuan' => set_value('satuan'),
         'harga_beli' => set_value('harga_beli'),
 	    'in_unit' => set_value('in_unit'),
-	    'total' => set_value('total'),
+        'total' => set_value('total'),
+	    'harga_jual' => set_value('harga_jual'),
 	);
         $this->load->view('v_index', $data);
     }
@@ -99,7 +100,8 @@ class Pembelian extends CI_Controller
 		'satuan' => $this->input->post('satuan',TRUE),
         'harga_beli' => $this->input->post('harga_beli',TRUE),
 		'in_unit' => $this->input->post('in_unit',TRUE),
-		'total' => $this->input->post('total',TRUE),
+        'total' => $this->input->post('total',TRUE),
+		'harga_jual' => $this->input->post('harga_jual',TRUE),
 	    );
 
             $this->Pembelian_model->insert($data);
@@ -125,7 +127,8 @@ class Pembelian extends CI_Controller
         'satuan' => set_value('satuan', $row->satuan),
 		'in_unit' => set_value('in_unit', $row->in_unit),
 		'harga_beli' => set_value('harga_beli', $row->harga_beli),
-		'total' => set_value('total', $row->total),
+        'total' => set_value('total', $row->total),
+		'harga_jual' => set_value('harga_jual', $row->harga_jual),
 	    );
             $this->load->view('v_index', $data);
         } else {
@@ -148,7 +151,8 @@ class Pembelian extends CI_Controller
         'satuan' => $this->input->post('satuan',TRUE),
 		'in_unit' => $this->input->post('in_unit',TRUE),
 		'harga_beli' => $this->input->post('harga_beli',TRUE),
-		'total' => $this->input->post('total',TRUE),
+        'total' => $this->input->post('total',TRUE),
+		'harga_jual' => $this->input->post('harga_jual',TRUE),
 	    );
 
             $this->Pembelian_model->update($this->input->post('id_pembelian', TRUE), $data);
