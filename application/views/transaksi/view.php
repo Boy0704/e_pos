@@ -41,7 +41,16 @@
                 <td><?php echo $items['id']; ?></td>
                 <td><?php echo strtoupper($items['name']); ?></td>
                 <td><?php echo $items['qty']*floatval(get_produk($items['id'],'diskon')); $total_disc = $total_disc+($items['qty']*floatval(get_produk($items['id'],'diskon'))); ?></td>
-                <td><?php echo strtoupper(get_produk($items['id'],'satuan')) ?></td>
+                <td>
+                	<select name="satuan" id="satuan" row-id="<?php echo $items['rowid'] ?>" qty="<?php echo $items['qty'] ?>">
+                		<option value="<?php echo strtoupper(get_produk($items['id'],'satuan')) ?>"><?php echo strtoupper(get_produk($items['id'],'satuan')) ?></option>
+                		<?php 
+                		foreach ($this->db->get_where('produk', array('id_subkategori'=>get_produk($items['id'],'id_subkategori')))->result() as $rw) {
+                		 ?>
+                		 <option value="<?php echo $rw->id_produk ?>"><?php echo strtoupper($rw->satuan) ?></option>
+                		<?php } ?>
+                	</select>
+                </td>
                 <!-- <td><input type="text" name="qty" class="form-control" style="width: 70px;" value="<?php echo $items['qty']; ?>" id="qty<?php echo get_produk($items['id'],'id_produk') ?>"></td> -->
                 <td><?php echo $items['qty']; ?></td>
                 <td>Rp. <?php echo $this->cart->format_number($items['price']); ?></td>
@@ -100,6 +109,28 @@
 		        // $('tbody').append();
 		    }
 		});
+
+		$('#satuan').change(function(event) {
+            var id_produk=$(this).val();
+            var row_id=$(this).attr('row-id');
+            var qty=$(this).attr('qty');
+              $.ajax({
+                url: 'app/ubah_cart_satuan/'+id_produk+'/'+row_id+'/'+qty,
+                type: 'GET',
+                dataType: 'html',
+              })
+              .done(function() {
+                console.log('berhasil ubah satuan');
+                window.location="<?php echo base_url() ?>app/transaksi";
+              })
+              .fail(function() {
+                console.log("error");
+              })
+              .always(function() {
+                console.log("complete");
+              });
+              
+           });
 
 		
 

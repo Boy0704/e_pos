@@ -43,6 +43,10 @@ class App extends CI_Controller {
     			$id_subkat = get_data('produk','id_produk',$value->id_produk,'id_subkategori');
     			$stok_temp = $value->qty * $value->in_unit;
     			// log_data($value->qty.' '.$value->in_unit);
+
+                $this->db->where('id_produk', $value->id_produk);
+                $this->db->update('produk', array('harga_jual'=>$value->harga_jual,'harga_beli'=>$value->harga_beli));
+
     			$this->db->insert('stok_transfer', array(
     				'id_produk'=>$value->id_produk,
     				'id_subkategori'=>$id_subkat,
@@ -163,6 +167,26 @@ class App extends CI_Controller {
             }
 
         }
+
+    }
+
+    public function ubah_cart_satuan($id_produk,$row_id,$qty)
+    {
+        $data = array(
+            'rowid'    => $row_id,
+            'qty'   => 0,
+        );
+        $this->cart->update($data);
+
+        $produk_ = $this->db->query("SELECT * FROM produk where id_produk='$id_produk'");
+        $produk = $produk_->row();
+         $data = array(
+            'id'    => $produk->barcode1,
+            'qty'   => $qty,
+            'price' => $produk->harga,
+            'name'  => $produk->nama_produk,
+        );
+        $this->cart->insert($data);
 
     }
 
