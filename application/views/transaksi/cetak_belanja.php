@@ -4,7 +4,7 @@
 	<title></title>
 	<link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
 </head>
-<body>
+<body onload="print()">
 	<center>
 	<h4>MULTI MART</h4>
 	<h5><?php echo get_setting('alamat') ?> </h5>
