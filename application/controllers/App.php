@@ -105,6 +105,19 @@ class App extends CI_Controller {
         $this->load->view('v_index', $data);
     }
 
+    public function return_list()
+    {
+        if ($this->session->userdata('level') != 'admin' and $this->session->userdata('level') != 'kasir') {
+            // log_r($this->session->userdata('level'));
+            redirect('login');
+        }
+        $data = array(
+            'konten' => 'return/view',
+            'judul_page' => 'Return Penjualan',
+        );
+        $this->load->view('v_index', $data);
+    }
+
     public function ubah_return($no_penjualan)
     {
         $this->db->where('no_penjualan', $no_penjualan);

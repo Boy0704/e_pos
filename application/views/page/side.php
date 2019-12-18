@@ -56,7 +56,7 @@
         <li><a href="produk_display"><i class="fa fa-cube"></i> <span>Produk Display</span></a></li>
         
         <li><a href="suplier"><i class="fa fa-bank"></i> <span>SUPLIER</span></a></li>
-        <li><a href="Return"><i class="fa fa-external-link-square"></i> <span>Return List</span></a></li>
+        <li><a href="app/return_list"><i class="fa fa-external-link-square"></i> <span>Return List</span></a></li>
         <li><a href="owner"><i class="fa fa-share-square"></i> <span>Setting</span></a></li>
         <li><a href="pengaturan_aplikasi"><i class="fa fa-share-square"></i> <span>Setting Aplikasi</span></a></li>
         <li><a href="a_user"><i class="fa fa-users"></i> <span>Master User</span></a></li>
