@@ -18,7 +18,7 @@
 				<tbody>
 					<?php 
 					$no = 1;
-					$data = $this->db->get_where('penjualan_header',array('return'=>1));
+					$data = $this->db->get_where('penjualan_header',array('return'=>'1'));
 					foreach ($data->result() as $rw) {
 					 ?>
 					<tr>
