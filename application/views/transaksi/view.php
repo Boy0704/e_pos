@@ -72,9 +72,41 @@
         </table>
 
 
-        <a target="_blank" href="app/simpan_penjualan/<?php echo $this->cart->total()-$total_disc ?>/<?php echo $total_disc ?>" class="btn btn-primary" style="text-align: right;">SIMPAN & CETAK</a>
+        <a href="#" id="bayar" data-toggle="modal" data-target="#myModal" class="btn btn-primary" style="text-align: right;">SIMPAN & CETAK</a>
     	</div>
 
+
+    	<!-- Modal -->
+		  <div class="modal fade" id="myModal" role="dialog">
+		    <div class="modal-dialog modal-sm">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Modal Header</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form>
+		          	<div class="form-group">
+		          		<label>Total Bayar</label>
+		          		<input type="text" name="total_bayar" class="form-control" id="total_bayar" value="<?php echo $this->cart->total()-$total_disc ?>">
+		          	</div>
+		          	<div class="form-group">
+		          		<label>Dibayar</label>
+		          		<input type="text" name="dibayar" v-model='dibayar' class="form-control" id="dibayar" value="" accesskey="b">
+		          	</div>
+		          	<div class="form-group">
+		          		<label>Kembalian</label>
+		          		<input type="text" name="kembalian" v-model='kembalian' class="form-control" id="kembalian" value="" readonly="">
+		          	</div>
+		          </form>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		          <a target="_blank" :href="link" class="btn btn-primary" accesskey="s">Simpan</a>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
 
 
 	</div>
@@ -84,6 +116,21 @@
 </div>
 
 <script type="text/javascript">
+
+	var vm = new Vue({
+	  el: '#myModal',
+	  data: {
+	    dibayar: 0,
+	    kembalian: 0
+	  },
+	  computed: {
+                link: function() {
+                    return 'app/simpan_penjualan/<?php echo $this->cart->total()-$total_disc ?>/<?php echo $total_disc ?>/'+this.dibayar+'/'+this.kembalian;
+                }
+            }
+
+	})
+
 	$(document).ready(function() {
 
 		$('#barcode').keypress(function(e) {
@@ -131,6 +178,17 @@
               });
               
            });
+
+		$('#bayar').click(function() {
+			$('#dibayar').focus();
+		});
+
+		$('#dibayar').keyup(function(event) {
+			var kembali = parseInt($(this).val()) - parseInt($('#total_bayar').val());
+			$('#kembalian').val(kembali); 
+			// set nilai dari vue js
+			vm.kembalian = kembali;
+		});
 
 		
 

@@ -1,5 +1,14 @@
 <?php 
 
+function cek_return($n,$no)
+{
+	if ($n == '0') {
+		return '<a href="app/ubah_return/'.$no.'" onclick="javasciprt: return confirm(\'Are You Sure ?\')"><label class="label label-info"><i class="fa fa-close"></i></label></a>';
+	} else {
+		return '<label class="label label-success"><i class="fa fa-check"></i></label>';
+	}
+}
+
 function create_random($length)
 {
     $data = 'ABCDEFGHIJKLMNOPQRSTU1234567890';

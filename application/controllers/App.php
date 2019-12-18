@@ -70,6 +70,15 @@ class App extends CI_Controller {
     	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok,'harga_jual'=>$harga));
     }
 
+    public function get_produk($id_produk)
+    {
+        $in_unit = get_data('produk','id_produk',$id_produk,'in_unit');
+        $id_subkategori = get_data('produk','id_produk',$id_produk,'id_subkategori');
+        $stok = get_data('produk','id_produk',$id_produk,'stok');
+        $harga = get_data('produk','id_produk',$id_produk,'harga');
+        echo json_encode(array('id_subkategori'=>$id_subkategori,'in_unit'=>$in_unit,'stok'=>$stok,'harga_jual'=>$harga));
+    }
+
     public function transaksi()
     {
     	if ($this->session->userdata('level') != 'admin' and $this->session->userdata('level') != 'kasir') {
@@ -81,6 +90,26 @@ class App extends CI_Controller {
             'judul_page' => 'Transaksi Penjualan',
 		);
 		$this->load->view('v_index', $data);
+    }
+
+    public function list_transaksi()
+    {
+        if ($this->session->userdata('level') != 'admin' and $this->session->userdata('level') != 'kasir') {
+            // log_r($this->session->userdata('level'));
+            redirect('login');
+        }
+        $data = array(
+            'konten' => 'transaksi/list_transaksi',
+            'judul_page' => 'Transaksi Penjualan',
+        );
+        $this->load->view('v_index', $data);
+    }
+
+    public function ubah_return($no_penjualan)
+    {
+        $this->db->where('no_penjualan', $no_penjualan);
+        $this->db->update('penjualan_header', array('return'=>1));
+        redirect('app/list_transaksi','refresh');
     }
 
     public function po_auto()
@@ -190,11 +219,11 @@ class App extends CI_Controller {
 
     }
 
-    public function simpan_penjualan($total_harga,$total_disc)
+    public function simpan_penjualan($total_harga,$total_disc,$total_bayar,$kembalian)
     {
     	$no_penjualan = time();
 
-    	$this->db->insert('penjualan_header', array('no_penjualan'=>$no_penjualan,'date_create'=>get_waktu(),'total_harga'=>$total_harga,'total_disc'=>$total_disc));
+    	$this->db->insert('penjualan_header', array('no_penjualan'=>$no_penjualan,'date_create'=>get_waktu(),'total_harga'=>$total_harga,'total_disc'=>$total_disc,'total_bayar'=>$total_bayar,'kembalian'=>$kembalian));
 
     	foreach ($this->cart->contents() as $items) {
     		$data = array(
@@ -211,7 +240,8 @@ class App extends CI_Controller {
             $simpan_stok_transfer = array(
                 'id_produk' => get_produk($items['id'],'id_produk'),
                 'id_subkategori' => get_produk($items['id'],'id_subkategori'),
-                'out_qty' => $items['qty'] * floatval(get_produk($items['id'],'in_unit'))
+                'out_qty' => $items['qty'] * floatval(get_produk($items['id'],'in_unit')),
+                'milik' => 'display'
             );
     		$this->db->insert('stok_transfer', $simpan_stok_transfer);
     	}
@@ -271,9 +301,14 @@ class App extends CI_Controller {
             $qty = 1;
         }
         
-    	$produk_ = $this->db->query("SELECT * FROM produk where barcode1='$id' or barcode2='$id'");
+    	$produk_ = $this->db->query("SELECT b.id_produk, b.harga,b.nama_produk FROM produk_display as a,produk b where a.id_produk=b.id_produk and b.barcode1='$id' or b.barcode2='$id'");
 		if ($produk_->num_rows() > 0) {
 			$produk = $produk_->row();
+            //cek stok
+            if (get_data('produk_display','id_produk',$produk->id_produk,'stok') < $qty) {
+                $this->session->set_flashdata('message', alert_biasa('Stok tidak melebihi dari '.$qty,'danger'));
+                exit;
+            }
 			 $data = array(
 	            'id'    => $id,
 	            'qty'   => $qty,
@@ -282,7 +317,7 @@ class App extends CI_Controller {
 	        );
 	        $this->cart->insert($data);
 		} else {
-			$this->session->set_flashdata('message', alert_biasa('Produk tidak ditemukan','danger'));
+			$this->session->set_flashdata('message', alert_biasa('Produk tidak ditemukan di Display List','danger'));
 		}
 
         // redirect('app/transaksi');

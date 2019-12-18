@@ -28,6 +28,7 @@
   <!-- jQuery 3 -->
 <script type="text/javascript" src="assets/pace/pace.min.js"></script>
 <script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <!-- Bootstrap 3.3.7 -->
 
 

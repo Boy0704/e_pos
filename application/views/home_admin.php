@@ -9,7 +9,7 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<h2>Stok sudah mau habis </h2>
+		<h2>Stok yang sudah mau habis </h2>
 		<table class="table table-bordered table-hover">
 			<thead style="background-color: red;color: white">
 				<tr>
