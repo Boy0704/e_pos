@@ -138,7 +138,7 @@ class App extends CI_Controller {
     public function ubah_return($no_penjualan)
     {
         $this->db->where('no_penjualan', $no_penjualan);
-        $this->db->update('penjualan_header', array('return'=>1));
+        $this->db->update('penjualan_header', array('return'=>'1'));
         redirect('app/list_transaksi','refresh');
     }
 
