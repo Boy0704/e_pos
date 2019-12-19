@@ -191,7 +191,7 @@ class Po_master extends CI_Controller
 	$this->form_validation->set_rules('no_po', 'no po', 'trim|required');
 	$this->form_validation->set_rules('nama_suplier', 'nama suplier', 'trim|required');
 	$this->form_validation->set_rules('sales', 'sales', 'trim|required');
-	$this->form_validation->set_rules('potongan_harga', 'potongan harga', 'trim|required');
+	// $this->form_validation->set_rules('potongan_harga', 'potongan harga', 'trim|required');
 	// $this->form_validation->set_rules('date_create', 'date create', 'trim|required');
 	// $this->form_validation->set_rules('id_user', 'id user', 'trim|required');
 

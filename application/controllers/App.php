@@ -66,8 +66,17 @@ class App extends CI_Controller {
     	$in_unit = get_data('produk','id_produk',$id_produk,'in_unit');
         $satuan = get_data('produk','id_produk',$id_produk,'satuan');
         $stok = get_data('produk','id_produk',$id_produk,'stok');
-    	$harga = get_data('produk','id_produk',$id_produk,'harga');
-    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok,'harga_jual'=>$harga));
+        $harga = get_data('produk','id_produk',$id_produk,'harga');
+    	$harga_beli = get_data('produk','id_produk',$id_produk,'harga_beli');
+    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok,'harga_jual'=>$harga,'harga_beli'=>$harga_beli));
+    }
+
+    public function cek_diskon_beli()
+    {
+        $diskon = $this->input->post('diskon');
+        $total_h = $this->input->post('harga');
+        $hd = get_diskon_beli($diskon,$total_h);
+        echo json_encode(array('harga_diskon'=>$hd));
     }
 
     public function get_sales()

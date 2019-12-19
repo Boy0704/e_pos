@@ -35,7 +35,7 @@
 		<th>No Po</th>
 		<th>Nama Suplier</th>
 		<th>Sales</th>
-        <th>Potongan Harga</th>
+        <!-- <th>Potongan Harga</th> -->
         <th>Total Harga</th>
         <th>Status Bayar</th>
         <th>Jumlah Bayar</th>
@@ -54,7 +54,7 @@
 			<td><?php echo $po_master->no_po ?></td>
 			<td><?php echo $po_master->nama_suplier ?></td>
 			<td><?php echo $po_master->sales ?></td>
-            <td><?php echo $po_master->potongan_harga ?></td>
+            <!-- <td><?php echo $po_master->potongan_harga ?></td> -->
 			<td><?php echo number_format($po_master->total_harga) ?></td>
             <td><span class="label label-info"><?php echo $po_master->status_pembayaran ?></span></td>
             <td><?php echo number_format($po_master->jumlah_bayar) ?></td>

@@ -18,7 +18,9 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						<th>Qty</th>
 						<th>Satuan</th>
 						<th>In Unit</th>
+						<th>Diskon</th>
 						<th>Harga Beli</th>
+						<th>HB + Diskon</th>
 						<th>Harga Jual</th>
 						<th>Subtotal</th>
 						<th>Option</th>
@@ -36,7 +38,9 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						<td><?php echo $rw->qty; ?></td>
 						<td><?php echo $rw->satuan; ?></td>
 						<td><?php echo $rw->in_unit; ?></td>
+						<td><?php echo $rw->diskon; ?></td>
 						<td><?php echo number_format($rw->harga_beli) ?></td>
+						<td><?php echo number_format(get_diskon_beli($rw->diskon,$rw->harga_beli)) ?></td>
 						<td><?php echo number_format($rw->harga_jual) ?></td>
 						<td><?php echo number_format($rw->total); $t = $t + $rw->total ?></td>
 						<td>
@@ -45,21 +49,23 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						</td>
 					</tr>
 					<?php $no++; } ?>
-					<tr>
+					<!-- <tr>
 						<td colspan="5">Total Harga Sebelum PH</td>
 						<td colspan="2"><?php echo number_format($t) ?></td>
-					</tr>
-					<tr>
-						<td colspan="5">Total + PH</td>
-						<td colspan="2">
-							<b id="potongan"><?php echo number_format(get_ph($no_po,$t)) ?></b></td>
-					</tr>
+					</tr> -->
 					<?php if ($po_master->ppn == 1): ?>
 						<tr>
-							<td colspan="5">Total + PH + PPN</td>
-							<td colspan="2"><b id="ppn"><?php echo number_format(get_ph($no_po,$t) * 0.1) ?></b></td>
+							<td colspan="9">Total + PPN</td>
+							<td colspan="2"><b id="ppn"><?php echo number_format($t * 0.1) ?></b></td>
+							<?php $t = $t+($t * 0.1) ?>
 						</tr>
 					<?php endif ?>
+					<tr>
+						<td colspan="9">Total Harga + PPN</td>
+						<td colspan="2">
+							<b id="potongan"><?php echo number_format($t) ?></b></td>
+					</tr>
+					
 					
 				</tbody>
 			</table>

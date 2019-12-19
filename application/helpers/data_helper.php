@@ -66,6 +66,31 @@ function get_ph($no_po,$total_h)
 
 }
 
+function get_diskon_beli($diskon,$total_h)
+{
+	$CI =& get_instance();
+	// log_r($total_h);
+	// if ($total_h = '') {
+	// 	$total_h = 0;
+	// }
+	$ph = $diskon;
+	$d_ph = explode(';', $ph);
+	$t_h_now = $total_h;
+	foreach ($d_ph as $key => $value) {
+		if (strstr($value, '%')) {
+			$t_persen = str_replace('%', '', $value) /100;
+			$n_persen = $t_persen * $t_h_now;
+			$t_h_now = $t_h_now - $n_persen;
+		} else {
+			$t_h_now = $t_h_now - floatval($value);
+			// log_r($t_h_now);
+		}
+	}
+	return $t_h_now;
+
+}
+
+
 function get_waktu()
 {
 	date_default_timezone_set('Asia/Jakarta');

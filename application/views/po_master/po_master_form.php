@@ -18,10 +18,10 @@
             <label for="varchar">Sales <?php echo form_error('sales') ?></label>
             <input type="text" class="form-control" name="sales" id="sales" placeholder="Sales" value="<?php echo $sales; ?>" />
         </div>
-	    <div class="form-group">
+	    <!-- <div class="form-group">
             <label for="varchar">Potongan Harga <?php echo form_error('potongan_harga') ?></label>
             <input type="text" class="form-control" name="potongan_harga" id="potongan_harga" placeholder="ex : 100000;10%;20%" value="<?php echo $potongan_harga; ?>" />
-        </div>
+        </div> -->
         <div class="form-group">
             <label for="varchar">Total Harga </label>
             <input type="text" class="form-control" name="total_harga" id="total_harga" placeholder="Total Harga PO" value="<?php echo $total_harga; ?>" />

@@ -8,7 +8,17 @@
             <label for="varchar">Produk <?php echo form_error('id_produk') ?></label>
             <!-- <input type="text" class="form-control" name="id_produk" id="id_produk" placeholder="Id Produk" value="<?php echo $id_produk; ?>" /> -->
             <?php
-             echo select_option('id_produk','produk','nama_produk','id_produk',null,'select2','id="id_produk"','<option value="'.$id_produk.'">'.get_data('produk','id_produk',$id_produk,'nama_produk').'</option>'); ?>
+             //echo select_option('id_produk','produk','nama_produk','id_produk',null,'select2','id="id_produk"','<option value="'.$id_produk.'">'.get_data('produk','id_produk',$id_produk,'nama_produk').'</option>'); ?>
+
+             <select name="id_produk" id="id_produk" class="form-control select2" >
+               <option value="<?php echo $id_produk ?>"><?php echo get_data('produk','id_produk',$id_produk,'nama_produk') ?></option>
+               <?php 
+               foreach ($this->db->get('produk')->result() as $rw) {
+                ?>
+                <option value="<?php echo $rw->id_produk ?>"><?php echo strtoupper($rw->nama_produk) ?></option>
+              <?php } ?>
+             </select>
+
         </div>
 	    <div class="form-group">
             <label for="int">Qty <?php echo form_error('qty') ?></label>
@@ -23,9 +33,16 @@
             <label for="varchar">In Unit</label>
             <input type="text" class="form-control" name="in_unit" id="in_unit" placeholder="Nilai Satuan terkecil" value="<?php echo $in_unit; ?>" />
         </div>
+
+      <div class="form-group">
+            <label for="varchar">Diskon</label>
+            <input type="text" class="form-control" name="diskon" id="diskon" placeholder="Diskon Harga Beli" value="<?php echo $diskon; ?>" autocomplete="off" required/>
+        </div>
 	    <div class="form-group">
             <label for="varchar">Harga Beli <?php echo form_error('harga_beli') ?></label>
             <input type="text" class="form-control" name="harga_beli" id="harga_beli" placeholder="Harga Beli" value="<?php echo $harga_beli; ?>" />
+            <br>
+            <h4>Setelah Diskon : <span id="h_diskon"></span></h4>
         </div>
         <div class="form-group">
             <label for="varchar">Harga Jual </label>
@@ -57,6 +74,7 @@
               .done(function(param) {
                 $('#in_unit').val(param.in_unit);
                 $('#satuan').val(param.satuan);
+                $('#harga_beli').val(param.harga_beli);
                 $('#harga_jual').val(param.harga_jual);
                 $('#stok_now').html("STOK NOW : "+param.stok);
               })
@@ -66,6 +84,30 @@
               .always(function() {
                 console.log("complete");
               });
+
+            $("#diskon").keyup(function(event) {
+              var diskon = $(this).val();
+              var harga = $('#harga_beli').val();
+              $.ajax({
+                url: 'app/cek_diskon_beli',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {diskon: diskon,harga : harga},
+              })
+              .done(function(a) {
+                console.log("success");
+                $('#h_diskon').html(a.harga_diskon);
+                var total = parseInt($('#qty').val()) *  parseInt(a.harga_diskon);
+               $('#total').val(total);
+              })
+              .fail(function() {
+                console.log("error");
+              })
+              .always(function() {
+                console.log("complete");
+              });
+              
+            });
               
            });
        });
