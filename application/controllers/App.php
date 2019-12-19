@@ -175,17 +175,25 @@ class App extends CI_Controller {
                     $this->db->update('po_master', array('nama_suplier'=>$suplier,'sales'=>$sal));
                 }
 
-                // buat pembelian_lis
-                $pembelian = array(
-                    'no_po' => $no_po,
-                    'id_produk'=>$rw->id_produk,
-                    'qty'=>0,
-                    'satuan'=>$rw->satuan,
-                    'harga_beli'=>$rw->harga_beli,
-                    'total'=>0,
-                    'in_unit'=>$rw->in_unit,
-                );
-                $this->db->insert('pembelian', $pembelian);
+                //cek produk ini sdah ada di pembelian list atau belum
+                $cek_pembelian = $this->db->get('pembelian', array('id_produk'=>$rw->id_produk));
+                if ($cek_pembelian->num_rows() > 0) {
+                    echo "Produk sudah ada"
+                } else {
+                    // buat pembelian_lis
+                    $pembelian = array(
+                        'no_po' => $no_po,
+                        'id_produk'=>$rw->id_produk,
+                        'qty'=>0,
+                        'satuan'=>$rw->satuan,
+                        'harga_beli'=>$rw->harga_beli,
+                        'total'=>0,
+                        'in_unit'=>$rw->in_unit,
+                    );
+                    $this->db->insert('pembelian', $pembelian);
+                }
+
+                
 
             } else {
 
@@ -195,17 +203,25 @@ class App extends CI_Controller {
                     $this->db->update('po_master', array('nama_suplier'=>'SUPLIER CASH','sales'=>'NOT SET'));
                 }
 
-                // buat pembelian_lis
-                $pembelian = array(
-                    'no_po' => $no_po,
-                    'id_produk'=>$rw->id_produk,
-                    'qty'=>0,
-                    'satuan'=>$rw->satuan,
-                    'harga_beli'=>$rw->harga_beli,
-                    'total'=>0,
-                    'in_unit'=>$rw->in_unit,
-                );
-                $this->db->insert('pembelian', $pembelian);
+                //cek produk ini sdah ada di pembelian list atau belum
+                $cek_pembelian = $this->db->get('pembelian', array('id_produk'=>$rw->id_produk));
+                if ($cek_pembelian->num_rows() > 0) {
+                    echo "Produk sudah ada"
+                } else {
+                    // buat pembelian_lis
+                    $pembelian = array(
+                        'no_po' => $no_po,
+                        'id_produk'=>$rw->id_produk,
+                        'qty'=>0,
+                        'satuan'=>$rw->satuan,
+                        'harga_beli'=>$rw->harga_beli,
+                        'total'=>0,
+                        'in_unit'=>$rw->in_unit,
+                    );
+                    $this->db->insert('pembelian', $pembelian);
+                }
+
+                
             }
 
         }

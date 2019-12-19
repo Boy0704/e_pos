@@ -33,6 +33,8 @@
             <tr>
                 <th>No</th>
 		<th>Suplier</th>
+		<th>Sales</th>
+		<th>Alamat</th>
 		<th>Action</th>
             </tr><?php
             foreach ($suplier_data as $suplier)
@@ -41,6 +43,8 @@
                 <tr>
 			<td width="80px"><?php echo ++$start ?></td>
 			<td><?php echo $suplier->suplier ?></td>
+			<td><?php echo $suplier->sales ?></td>
+			<td><?php echo $suplier->alamat ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('suplier/update/'.$suplier->id_suplier),'<span class="label label-info">Ubah</span>'); 
