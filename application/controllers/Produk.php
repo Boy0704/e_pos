@@ -102,7 +102,7 @@ class Produk extends CI_Controller
     
     public function create_action() 
     {
-        $produk_nama = '';
+        $produk_nama = $this->input->post('nama_produk');
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -177,7 +177,7 @@ class Produk extends CI_Controller
     
     public function update_action() 
     {
-        $produk_nama = '';
+        $produk_nama = $this->input->post('nama_produk');
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -200,6 +200,7 @@ class Produk extends CI_Controller
             if (stristr($this->input->post('nama_produk',TRUE), "'")) {
                 $produk_nama = str_replace("'", '', $this->input->post('nama_produk',TRUE));
             }
+            log_r($produk_nama);
             $data = array(
 		'nama_produk' => $produk_nama,
 		'satuan' => $this->input->post('satuan',TRUE),
