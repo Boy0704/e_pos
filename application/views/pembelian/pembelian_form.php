@@ -43,6 +43,7 @@
             <input type="text" class="form-control" name="harga_beli" id="harga_beli" placeholder="Harga Beli" value="<?php echo $harga_beli; ?>" />
             <br>
             <h4>Setelah Diskon : <span id="h_diskon"></span></h4>
+            <h4>Setelah PPN : <span id="h_ppn"></span></h4>
         </div>
         <div class="form-group">
             <label for="varchar">Harga Jual </label>
@@ -97,6 +98,8 @@
               .done(function(a) {
                 console.log("success");
                 $('#h_diskon').html(a.harga_diskon);
+                var ppn = parseInt(harga)+(parseInt(harga) * 0.1); 
+                $('#h_ppn').html(ppn);
                 var total = parseInt($('#qty').val()) *  parseInt(a.harga_diskon);
                $('#total').val(total);
               })
