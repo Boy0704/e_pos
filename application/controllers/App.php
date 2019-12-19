@@ -70,6 +70,14 @@ class App extends CI_Controller {
     	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok,'harga_jual'=>$harga));
     }
 
+    public function get_sales()
+    {
+        $value = $this->input->post('value');
+        $sales = $this->db->get_where('suplier', array('suplier'=>$value))->row()->sales;
+        // log_r($sales);
+        echo json_encode(array('sales'=>$sales));
+    }
+
     public function get_produk($id_produk)
     {
         $in_unit = get_data('produk','id_produk',$id_produk,'in_unit');

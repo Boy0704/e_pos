@@ -7,7 +7,7 @@
 	    <div class="form-group">
             <label for="varchar">Nama Suplier <?php echo form_error('nama_suplier') ?></label>
             <!-- <input type="text" class="form-control" name="nama_suplier" id="nama_suplier" placeholder="Nama Suplier" value="<?php echo $nama_suplier; ?>" /> -->
-            <select name="nama_suplier" class="form-control">
+            <select name="nama_suplier" class="form-control" id="nama_suplier">
                 <option value="<?php echo $nama_suplier ?>"><?php echo $nama_suplier ?></option>
                 <?php foreach ($this->db->get('suplier')->result() as $key => $value): ?>
                     <option value="<?php echo $value->suplier ?>"><?php echo $value->suplier ?></option>
@@ -62,5 +62,30 @@
                var total = parseInt($('#total_harga').val()) -  parseInt($(this).val());
                $('#sisa_bayar').val(total);
            });
+
+
+           $('#nama_suplier').change(function(event) {
+            var suplier=$(this).val();
+              $.ajax({
+                url: 'app/get_sales',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {value: suplier},
+              })
+              .done(function(param) {
+                console.log(param.sales);
+                $('#sales').val(param.sales);
+              })
+              .fail(function() {
+                console.log("error");
+              })
+              .always(function() {
+                console.log("complete");
+              });
+
+                            
+              
+           });
+
        });
    </script>
