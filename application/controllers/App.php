@@ -193,7 +193,7 @@ class App extends CI_Controller {
                 }
 
                 //cek produk ini sdah ada di pembelian list atau belum
-                $cek_pembelian = $this->db->get('pembelian', array('id_produk'=>$rw->id_produk));
+                $cek_pembelian = $this->db->get('pembelian', array('id_produk'=>$rw->id_produk,'no_po'=>$no_po));
                 if ($cek_pembelian->num_rows() > 0) {
                     echo "Produk sudah ada";
                 } else {
@@ -221,7 +221,7 @@ class App extends CI_Controller {
                 }
 
                 //cek produk ini sdah ada di pembelian list atau belum
-                $cek_pembelian = $this->db->get('pembelian', array('id_produk'=>$rw->id_produk));
+                $cek_pembelian = $this->db->get('pembelian', array('id_produk'=>$rw->id_produk,'no_po'=>$no_po));
                 if ($cek_pembelian->num_rows() > 0) {
                     echo "Produk sudah ada";
                 } else {
