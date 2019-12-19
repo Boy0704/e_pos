@@ -200,7 +200,7 @@ class Produk extends CI_Controller
             if (stristr($this->input->post('nama_produk',TRUE), "'")) {
                 $produk_nama = str_replace("'", '', $this->input->post('nama_produk',TRUE));
             }
-            log_r($produk_nama);
+            // log_r($produk_nama);
             $data = array(
 		'nama_produk' => $produk_nama,
 		'satuan' => $this->input->post('satuan',TRUE),
