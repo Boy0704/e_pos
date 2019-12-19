@@ -2,6 +2,7 @@
         <div class="row" style="margin-bottom: 10px">
             <div class="col-md-4">
                 <?php echo anchor(site_url('po_master/create'),'Create', 'class="btn btn-primary"'); ?>
+                <!-- <button id="cari_sales" class="btn btn-info">Cari Sales</button> -->
             </div>
             <div class="col-md-4 text-center">
                 <div style="margin-top: 8px" id="message">
@@ -29,6 +30,12 @@
                 </form>
             </div>
         </div>
+
+        <!-- <div id="search_sales">
+            
+        </div> -->
+
+
         <table class="table table-bordered" style="margin-bottom: 10px">
             <tr>
                 <th>No</th>
