@@ -84,10 +84,13 @@
               })
               .always(function() {
                 console.log("complete");
-              });
+              });              
+           });
+
 
             $("#diskon").keyup(function(event) {
               var diskon = $(this).val();
+              console.log(diskon);
               var harga = $('#harga_beli').val();
               $.ajax({
                 url: 'app/cek_diskon_beli',
@@ -111,7 +114,6 @@
               });
               
             });
-              
-           });
+
        });
    </script>
