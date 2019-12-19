@@ -22,7 +22,7 @@
         </div>
 	    <div class="form-group">
             <label for="int">Qty <?php echo form_error('qty') ?></label>
-            <span id="stok_now" class="label label-info"></span>
+            <span id="stok_now" class="label label-info"><?php echo get_data('produk','id_produk',$id_produk,'stok') ?></span>
             <input type="text" class="form-control" name="qty" id="qty" placeholder="Qty" value="<?php echo $qty; ?>" />
         </div>
 	    <div class="form-group">
