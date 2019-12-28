@@ -15,6 +15,7 @@
 						<th>Satuan</th>
 						<th>In Unit</th>
 						<th>Stok Min</th>
+						<th>Disc HB</th>
 						<th>Harga Beli</th>
 						<th>Disc</th>
 						<th>Price</th>
@@ -39,6 +40,7 @@
 						<td><?php echo $rw->satuan ?></td>
 						<td><?php echo $rw->in_unit ?></td>
 						<td><?php echo $rw->stok_min ?></td>
+						<td><?php echo $rw->harga_beli ?></td>
 						<td><?php echo $rw->harga_beli ?></td>
 						<td><?php echo $rw->diskon ?></td>
 						<td><?php echo $rw->harga ?></td>

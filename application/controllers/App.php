@@ -420,6 +420,45 @@ class App extends CI_Controller {
 		$this->load->view('v_index', $data);
     }
 
+    public function dropzone($id)
+    {
+        if (!empty($_FILES)) {
+             $tempFile = $_FILES['file']['tmp_name'];
+            $fileName = $_FILES['file']['name'];
+            $targetPath = getcwd() . '/image/produk_mobile/';
+            $targetFile = $targetPath . $fileName ;
+            move_uploaded_file($tempFile, $targetFile);
+            $this->db->insert('image_mobile', array('id_produk'=>$id,'image'=>$filename));
+        } 
+    }
+
+    public function image_m($id)
+    {
+        
+        ?>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Option</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                foreach ($this->db->get('image_mobile',array('id_produk'=>$id))->result() as $row) {
+                 ?>
+                <tr>
+                    <td><img src="image/produk_mobile/<?php echo $row->image ?>" style="width: 100%; height: 200px;"></td>
+                    <td>
+                        <a href="app/hapus_img_mobile/<?php echo $id.'/'.$row->image; ?>" class="button button-sm button-danger">X</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <?php
+    }
         
     
 	
