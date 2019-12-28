@@ -6,7 +6,9 @@ class Web extends CI_Controller {
 
 
 	public function index(){
-
+		$data['kelontong'] = $this->db->query("SELECT * FROM produk JOIN subkategori ON produk.id_subkategori = subkategori.id_subkategori WHERE subkategori.id_kategori = 5 ")->result();
+		$data['rokok'] = $this->db->query("SELECT * FROM produk JOIN subkategori ON produk.id_subkategori = subkategori.id_subkategori WHERE subkategori.id_kategori = 6 ")->result();
+		$data['homecare'] = $this->db->query("SELECT * FROM produk JOIN subkategori ON produk.id_subkategori = subkategori.id_subkategori WHERE subkategori.id_kategori = 7 ")->result();
 		$data['subview'] = 'front/home';
 		$this->load->view('front/components/main', $data);
 	}
@@ -62,7 +64,7 @@ class Web extends CI_Controller {
 			} else {
 				$this->session->set_flashdata('message', alert_biasa('Gagal Login!\n username atau password kamu salah','warning'));
 				// $this->session->set_flashdata('message', alert_tunggu('Gagal Login!\n username atau password kamu salah','warning'));
-				redirect('login','refresh');
+				redirect('web/login','refresh');
 			}
 	}
 

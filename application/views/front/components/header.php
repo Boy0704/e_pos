@@ -266,7 +266,7 @@
 
           <div class="col-md-3 col-sm-12 hidden-xs">
 
-            <div class="logo"> <a href="index-2.html"> <img src="front/img/logo.png" alt=""> </a> </div>
+            <div class="logo"> <a href="web"> <img src="front/img/logo.png" alt=""> </a> </div>
 
           </div>
 
