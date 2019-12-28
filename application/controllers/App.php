@@ -350,9 +350,10 @@ class App extends CI_Controller {
     	$produk_ = $this->db->query("SELECT b.id_produk, b.harga,b.nama_produk,b.id_subkategori FROM produk_display as a,produk b where a.id_subkategori=b.id_subkategori and b.barcode1='$id' or b.barcode2='$id'");
 		if ($produk_->num_rows() > 0) {
 			$produk = $produk_->row();
+            $in_unit = floatval(get_produk($id,'in_unit'));
             //cek stok
-            // log_r($produk->id_produk);
-            if (get_data('produk_display','id_subkategori',$produk->id_subkategori,'stok') < $qty) {
+            // log_r(get_data('produk_display','id_subkategori',$produk->id_subkategori,'stok'));
+            if (get_data('produk_display','id_subkategori',$produk->id_subkategori,'stok') < ($qty*$in_unit)) {
                 $this->session->set_flashdata('message', alert_biasa('Stok tidak melebihi dari '.$qty,'danger'));
                 exit;
             }
