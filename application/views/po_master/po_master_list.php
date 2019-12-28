@@ -136,7 +136,7 @@
         </thead>
         <tbody>
             </tr><?php
-            $po_master_data = $this->db->query("SELECT * FROM po_master WHERE jumlah_bayar!=0 and sisa_bayar=0");
+            $po_master_data = $this->db->query("SELECT * FROM po_master WHERE jumlah_bayar!=0 and sisa_bayar=0 and selesai='1' ");
             foreach ($po_master_data->result() as $po_master)
             {
                 ?>
