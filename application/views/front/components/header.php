@@ -178,13 +178,13 @@
 
                 </li>
 
-                <li><a href="#"><i class="icon_profile"></i></a>
+                <li><a><i class="icon_profile"></i></a>
 
                   <ul class="header-top-right-dropdown">
 
                     <li><a href="login.html">Log In / Register</a></li>
 
-                    <li><a href="#">My Account</a></li>
+                    <li><a href="web/profil">My Account</a></li>
 
                     <li><a href="wishlist.html">My Wishlist</a></li>
 

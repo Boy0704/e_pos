@@ -46,6 +46,7 @@ class Web extends CI_Controller {
 					$sess_data['email'] = $row->email;
 					$sess_data['password'] = $row->password;
 					$sess_data['no_hp'] = $row->no_hp;
+					$sess_data['alamat'] = $row->alamat;
 					$this->session->set_userdata($sess_data);
 				}
 
@@ -75,5 +76,19 @@ class Web extends CI_Controller {
 		$this->session->unset_userdata('password');
 		session_destroy();
 		redirect('web/login','refresh');
+	}
+
+	public function profil(){
+		$email = $this->session->userdata('email');
+
+		$data['profil'] = $this->db->query("SELECT * FROM pelanggan WHERE email = '$email' ")->row();
+		$data['subview'] = 'front/profil';
+		$this->load->view('front/components/main', $data);
+	}
+
+	public function update_profil(){
+
+		$this->db->update('pelanggan',$_POST);
+		redirect('web/profil','refresh');
 	}
 }
