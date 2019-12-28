@@ -16,24 +16,32 @@ $id = $this->uri->segment(3);
 </div>
 
 <script type="text/javascript">
-	setTimeout(function() {
-		cek_data()
-	},5000);
+	$(document).ready(function() {
+		setInterval(function() {
+			cek_data();
+			console.log('berhasil');
+		}, 1000);
 
-	$.ajax({
-		url: 'app/image_m/',
-		type: 'default GET (Other values: POST)',
-		dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-		data: {param1: 'value1'},
-	})
-	.done(function() {
-		console.log("success");
-	})
-	.fail(function() {
-		console.log("error");
-	})
-	.always(function() {
-		console.log("complete");
+		function cek_data()
+		{
+			$.ajax({
+				url: 'app/image_m/<?php echo $id ?>',
+				type: 'GET',
+				dataType: 'html',
+			})
+			.done(function(a) {
+				console.log("success");
+				$('#img_mobile').html(a);
+			})
+			.fail(function() {
+				console.log("error");
+			})
+			.always(function() {
+				console.log("complete");
+			});
+		}
+
+
 	});
 	
 

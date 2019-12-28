@@ -44,6 +44,7 @@
 			<td><?php echo $subkategori->subkategori ?></td>
 			<td><?php echo get_data('kategori','id_kategori',$subkategori->id_kategori,'kategori') ?></td>
 			<td style="text-align:center" width="200px">
+                <a href="app/dropzone/<?php echo $subkategori->id_subkategori ?>" class="label label-success">Add Img Online</a>
                 <a href="app/produk/<?php echo $subkategori->id_subkategori ?>" class="label label-primary">Tambah Produk</a>
 				<?php 
 				echo anchor(site_url('subkategori/update/'.$subkategori->id_subkategori),'<span class="label label-info">Ubah</span>'); 

@@ -7,7 +7,6 @@ class App extends CI_Controller {
 	
 	public function index()
 	{
-
         if ($this->session->userdata('level') != 'admin') {
             redirect('login');
         }
@@ -45,7 +44,7 @@ class App extends CI_Controller {
     			// log_data($value->qty.' '.$value->in_unit);
 
                 $this->db->where('id_produk', $value->id_produk);
-                $this->db->update('produk', array('harga_jual'=>$value->harga_jual,'harga_beli'=>$value->harga_beli));
+                $this->db->update('produk', array('harga'=>$value->harga_jual,'harga_beli'=>$value->harga_beli));
 
     			$this->db->insert('stok_transfer', array(
     				'id_produk'=>$value->id_produk,
@@ -265,11 +264,11 @@ class App extends CI_Controller {
 
     }
 
-    public function simpan_penjualan($total_harga,$total_disc,$total_bayar,$kembalian)
+    public function simpan_penjualan($total_harga,$total_disc,$total_bayar,$kembalian,$jenis_pembayaran)
     {
     	$no_penjualan = time();
 
-    	$this->db->insert('penjualan_header', array('no_penjualan'=>$no_penjualan,'date_create'=>get_waktu(),'total_harga'=>$total_harga,'total_disc'=>$total_disc,'total_bayar'=>$total_bayar,'kembalian'=>$kembalian));
+    	$this->db->insert('penjualan_header', array('no_penjualan'=>$no_penjualan,'date_create'=>get_waktu(),'total_harga'=>$total_harga,'total_disc'=>$total_disc,'total_bayar'=>$total_bayar,'kembalian'=>$kembalian,'jenis_pembayaran'=>$jenis_pembayaran));
 
     	foreach ($this->cart->contents() as $items) {
     		$data = array(
@@ -279,7 +278,7 @@ class App extends CI_Controller {
     			'nama_produk' => strtoupper(get_produk($items['id'],'nama_produk')),
     			'qty' => $items['qty'],
     			'harga' => $items['price'],
-    			'subtotal' => $items['subtotal']-get_produk($items['id'],'diskon'),
+    			'subtotal' => $items['subtotal']-floatval(get_produk($items['id'],'diskon')),
     		);
             $this->db->insert('penjualan_detail', $data);
 
@@ -292,7 +291,8 @@ class App extends CI_Controller {
     		$this->db->insert('stok_transfer', $simpan_stok_transfer);
     	}
     	$this->cart->destroy();
-    	redirect('app/cetak_belanja/'.$no_penjualan,'refresh');
+    	// redirect('app/cetak_belanja/'.$no_penjualan,'refresh');
+        echo json_encode(array('no_penjualan'=>$no_penjualan));
     }
 
     public function cetak_belanja($no_penjualan)
@@ -347,11 +347,12 @@ class App extends CI_Controller {
             $qty = 1;
         }
         
-    	$produk_ = $this->db->query("SELECT b.id_produk, b.harga,b.nama_produk FROM produk_display as a,produk b where a.id_produk=b.id_produk and b.barcode1='$id' or b.barcode2='$id'");
+    	$produk_ = $this->db->query("SELECT b.id_produk, b.harga,b.nama_produk,b.id_subkategori FROM produk_display as a,produk b where a.id_subkategori=b.id_subkategori and b.barcode1='$id' or b.barcode2='$id'");
 		if ($produk_->num_rows() > 0) {
 			$produk = $produk_->row();
             //cek stok
-            if (get_data('produk_display','id_produk',$produk->id_produk,'stok') < $qty) {
+            // log_r($produk->id_produk);
+            if (get_data('produk_display','id_subkategori',$produk->id_subkategori,'stok') < $qty) {
                 $this->session->set_flashdata('message', alert_biasa('Stok tidak melebihi dari '.$qty,'danger'));
                 exit;
             }
@@ -361,7 +362,9 @@ class App extends CI_Controller {
 	            'price' => $produk->harga,
 	            'name'  => $produk->nama_produk,
 	        );
+            log_data($data);
 	        $this->cart->insert($data);
+            log_r($this->cart->contents());
 		} else {
 			$this->session->set_flashdata('message', alert_biasa('Produk tidak ditemukan di Display List','danger'));
 		}
@@ -428,8 +431,14 @@ class App extends CI_Controller {
             $targetPath = getcwd() . '/image/produk_mobile/';
             $targetFile = $targetPath . $fileName ;
             move_uploaded_file($tempFile, $targetFile);
-            $this->db->insert('image_mobile', array('id_produk'=>$id,'image'=>$filename));
-        } 
+            $this->db->insert('image_mobile', array('id_subkategori'=>$id,'img'=>$fileName));
+        } else {
+            $data = array(
+                'konten' => 'produk/dropzone',
+                'judul_page' => 'Add Image',
+            );
+            $this->load->view('v_index', $data);
+        }
     }
 
     public function image_m($id)
@@ -446,18 +455,29 @@ class App extends CI_Controller {
             </thead>
             <tbody>
                 <?php 
-                foreach ($this->db->get('image_mobile',array('id_produk'=>$id))->result() as $row) {
+                foreach ($this->db->get_where('image_mobile',array('id_subkategori'=>$id))->result() as $row) {
                  ?>
                 <tr>
-                    <td><img src="image/produk_mobile/<?php echo $row->image ?>" style="width: 100%; height: 200px;"></td>
+                    <td><img src="image/produk_mobile/<?php echo $row->img ?>" style="width: 200px; height: 200px;"></td>
                     <td>
-                        <a href="app/hapus_img_mobile/<?php echo $id.'/'.$row->image; ?>" class="button button-sm button-danger">X</a>
+                        <a href="app/hapus_img_mobile/<?php echo $id.'/'.$row->img; ?>" class="btn btn-sm btn-danger">hapus</a>
                     </td>
                 </tr>
+                <?php } ?>
             </tbody>
         </table>
 
         <?php
+    }
+
+    public function hapus_img_mobile($id,$img)
+    {
+        $this->db->where('id_subkategori', $id);
+        $this->db->where('img', $img);
+        $this->db->delete('image_mobile');
+        unlink('./image/produk_mobile/'.$img);
+        $this->session->set_flashdata('message', alert_biasa('Berhasil hapus gambar online','success'));
+        redirect('app/dropzone/'.$id,'refresh');
     }
         
     

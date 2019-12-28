@@ -21,6 +21,7 @@
 						<th>Price</th>
 						<th>Barcode1</th>
 						<th>Barcode2</th>
+						<th>Note PO</th>
 						<th>Owner</th>
 						<th>Date Update</th>
 						<th>Option</th>
@@ -46,9 +47,11 @@
 						<td><?php echo $rw->harga ?></td>
 						<td><?php echo $rw->barcode1 ?></td>
 						<td><?php echo $rw->barcode2 ?></td>
+						<td><?php echo $rw->note_po ?></td>
 						<td><?php echo get_data('owner','id_owner',$rw->id_owner,'owner') ?></td>
 						<td><?php echo $rw->date_update ?></td>
 						<td>
+							
 							<a href="produk/update/<?php echo $rw->id_produk ?>" class="label label-info">Edit</a>
 							<a onclick="javasciprt: return confirm('Yakin hapus produk ini ?')" href="produk/delete/<?php echo $rw->id_produk.'/'.$rw->id_subkategori ?>" class="label label-danger">Hapus</a>
 						</td>

@@ -95,7 +95,8 @@ class Produk extends CI_Controller
         'in_unit' => set_value('in_unit'),
         'harga_beli' => set_value('harga_beli'),
         'foto' => set_value('foto'),
-	    'diskon' => 0,
+        'diskon' => 0,
+	    'note_po' => set_value('note_po'),
 	);
         $this->load->view('v_index', $data);
     }
@@ -130,7 +131,8 @@ class Produk extends CI_Controller
         'jumlah_satuan' => $this->input->post('jumlah_satuan',TRUE),
         'in_unit' => $this->input->post('in_unit',TRUE),
         'harga_beli' => $this->input->post('harga_beli',TRUE),
-		'diskon' => $this->input->post('diskon',TRUE),
+        'diskon' => $this->input->post('diskon',TRUE),
+		'note_po' => $this->input->post('note_po',TRUE),
         'foto' => upload_gambar_biasa('produk', 'image/produk/','jpg|jpeg|gif|png', 10000, 'foto')
 	    );
 
@@ -166,6 +168,7 @@ class Produk extends CI_Controller
         'in_unit' => set_value('in_unit', $row->in_unit),
         'harga_beli' => set_value('harga_beli', $row->harga_beli),
         'diskon' => set_value('diskon', $row->diskon),
+        'note_po' => set_value('note_po', $row->note_po),
 		'foto' => set_value('foto', $row->foto),
 	    );
             $this->load->view('v_index', $data);
@@ -217,7 +220,8 @@ class Produk extends CI_Controller
         'jumlah_satuan' => $this->input->post('jumlah_satuan',TRUE),
         'in_unit' => $this->input->post('in_unit',TRUE),
         'harga_beli' => $this->input->post('harga_beli',TRUE),
-		'diskon' => $this->input->post('diskon',TRUE),
+        'diskon' => $this->input->post('diskon',TRUE),
+		'note_po' => $this->input->post('note_po',TRUE),
 	    );
 
             $this->Produk_model->update($this->input->post('id_produk', TRUE), $data);

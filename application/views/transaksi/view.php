@@ -3,7 +3,20 @@
 		<div class="col-md-3">
 			<label>BARCODE SCANNER</label>
 			<input type="text" name="barcode" class="form-control" id="barcode" autofocus="">
+			
 		</div>
+		<div class="col-md-6">
+			<label>SEARCH PRODUK</label>
+			<select name="produk_search" id="produk_search" class="form-control select2" >
+               <option value="">--CARI PRODUK--</option>
+               <?php 
+               foreach ($this->db->get('produk')->result() as $rw) {
+                ?>
+                <option value="<?php echo $rw->barcode1 ?>"><?php echo strtoupper($rw->nama_produk) ?></option>
+              <?php } ?>
+             </select>
+		</div>
+
 	</div><br>
 	<div class="row">
 		<!-- <table class="table table-bordered">
@@ -87,6 +100,14 @@
 		        <div class="modal-body">
 		          <form>
 		          	<div class="form-group">
+		          		<label>Jenis Pembayaran</label>
+		          		<select name="jenis_pembayaran"id="jenis_pembayaran" class="form-control">
+		          			<option value="CASH">CASH</option>
+		          			<option value="DOKU">DOKU</option>
+		          			<option value="GOPAY">GOPAY</option>
+		          		</select>
+		          	</div>
+		          	<div class="form-group">
 		          		<label>Total Bayar</label>
 		          		<input type="text" name="total_bayar" class="form-control" id="total_bayar" value="<?php echo $this->cart->total()-$total_disc ?>">
 		          	</div>
@@ -102,7 +123,8 @@
 		        </div>
 		        <div class="modal-footer">
 		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		          <a target="_blank" :href="link" class="btn btn-primary" accesskey="s">Simpan</a>
+		          <!-- <a target="_blank" :href="link" class="btn btn-primary" accesskey="s">Simpan</a> -->
+		          <a class="btn btn-primary" id="simpan_penjualan" accesskey="s">Simpan</a>
 		        </div>
 		      </div>
 		    </div>
@@ -122,7 +144,8 @@
 	  el: '#myModal',
 	  data: {
 	    dibayar: 0,
-	    kembalian: 0
+	    kembalian: 0,
+	    jenis_pembayaran: 0
 	  },
 	  computed: {
                 link: function() {
@@ -156,6 +179,54 @@
 				
 		        // $('tbody').append();
 		    }
+		});
+
+		$("#simpan_penjualan").click(function(event) {
+			$(this).attr('disabled', 'disabled');
+			var jb = $('#jenis_pembayaran').val();
+			var total = $('#total_bayar').val();
+			var dibayar = $('#dibayar').val();
+			var kembalian = $('#kembalian').val();
+			$.ajax({
+				url: 'app/simpan_penjualan/<?php echo $this->cart->total()-$total_disc ?>/<?php echo $total_disc ?>/'+dibayar+'/'+kembalian+'/'+jb,
+				type: 'GET',
+				dataType: 'JSON',
+			})
+			.done(function(a) {
+				console.log("success");
+				window.open('app/cetak_belanja/'+a.no_penjualan, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
+			})
+			.fail(function() {
+				console.log("error");
+			})
+			.always(function() {
+				console.log("complete");
+			});
+			
+		});
+
+		$('#produk_search').change(function(e) {
+			
+				var barcode = $(this).val();
+				$.ajax({
+					url: 'app/simpan_cart',
+					type: 'POST',
+					dataType: 'html',
+					data: {barcode: barcode},
+				})
+				.done(function() {
+					console.log("success");
+					window.location="<?php echo base_url() ?>app/transaksi";
+				})
+				.fail(function() {
+					console.log("error");
+				})
+				.always(function() {
+					console.log("complete");
+				});
+				
+		        // $('tbody').append();
+		    
 		});
 
 		$('#satuan').change(function(event) {

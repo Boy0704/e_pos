@@ -1,12 +1,16 @@
 
         <form action="<?php echo $action; ?>" method="post">
 	    <div class="form-group">
-            <label for="int">Id Produk <?php echo form_error('id_produk') ?></label>
-            <input type="text" class="form-control" name="id_produk" id="id_produk" placeholder="Id Produk" value="<?php echo $id_produk; ?>" />
-        </div>
-	    <div class="form-group">
-            <label for="varchar">Nama Produk <?php echo form_error('nama_produk') ?></label>
-            <input type="text" class="form-control" name="nama_produk" id="nama_produk" placeholder="Nama Produk" value="<?php echo $nama_produk; ?>" />
+            <label for="int">ID Produk <?php echo form_error('id_produk') ?></label>
+            <!-- <input type="text" class="form-control" name="id_produk" id="id_produk" placeholder="Id Produk" value="<?php echo $id_produk; ?>" /> -->
+            <select name="id_produk" id="id_produk" class="form-control select2" >
+               <option value="<?php echo $id_produk ?>"><?php echo get_data('produk','id_produk',$id_produk,'nama_produk') ?></option>
+               <?php 
+               foreach ($this->db->get('produk')->result() as $rw) {
+                ?>
+                <option value="<?php echo $rw->id_produk ?>"><?php echo strtoupper($rw->nama_produk) ?></option>
+              <?php } ?>
+             </select>
         </div>
 	    <div class="form-group">
             <label for="int">Jumlah <?php echo form_error('jumlah') ?></label>
@@ -14,7 +18,7 @@
         </div>
 	    <div class="form-group">
             <label for="datetime">Date Create <?php echo form_error('date_create') ?></label>
-            <input type="text" class="form-control" name="date_create" id="date_create" placeholder="Date Create" value="<?php echo $date_create; ?>" />
+            <input type="text" class="form-control" name="date_create" id="date_create" placeholder="Date Create" value="<?php echo get_waktu(); ?>" />
         </div>
 	    <div class="form-group">
             <label for="keterangan">Keterangan <?php echo form_error('keterangan') ?></label>

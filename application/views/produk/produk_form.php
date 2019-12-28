@@ -51,6 +51,10 @@
             <label for="varchar">Barcode2 <?php echo form_error('barcode2') ?></label>
             <input type="text" class="form-control" name="barcode2" id="barcode2" placeholder="Barcode2" value="<?php echo $barcode2; ?>" />
         </div>
+        <div class="form-group">
+            <label for="varchar">Note PO</label>
+            <input type="text" class="form-control" name="note_po" id="note_po" placeholder="Catatan Untuk PO" value="<?php echo $note_po; ?>" />
+        </div>
 	    <div class="form-group">
             <label for="int">Owner <?php echo form_error('id_owner') ?></label>
             <!-- <input type="text" class="form-control" name="id_owner" id="id_owner" placeholder="Id Owner" value="<?php echo $id_owner; ?>" /> -->

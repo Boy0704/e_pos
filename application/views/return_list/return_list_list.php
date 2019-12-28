@@ -32,8 +32,7 @@
         <table class="table table-bordered" style="margin-bottom: 10px">
             <tr>
                 <th>No</th>
-		<th>Id Produk</th>
-		<th>Nama Produk</th>
+		<th>ID Produk</th>
 		<th>Jumlah</th>
 		<th>Date Create</th>
 		<th>Keterangan</th>
@@ -44,8 +43,7 @@
                 ?>
                 <tr>
 			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $return_list->id_produk ?></td>
-			<td><?php echo $return_list->nama_produk ?></td>
+			<td><?php echo strtoupper(get_data('produk','id_produk',$return_list->id_produk,'nama_produk')); ?>></td>
 			<td><?php echo $return_list->jumlah ?></td>
 			<td><?php echo $return_list->date_create ?></td>
 			<td><?php echo $return_list->keterangan ?></td>
