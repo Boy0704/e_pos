@@ -10,7 +10,7 @@
 						<th>No Penjualan</th>
 						<th>Total Harga</th>
 						<th>Jenis Pembayaran</th>
-						<th>Kembalian</th>
+						<!-- <th>Kembalian</th> -->
 						<th>Date Create</th>
 						<th>Option</th>
 					</tr>
@@ -26,7 +26,7 @@
 						<td><?php echo $rw->no_penjualan; ?></td>
 						<td><?php echo number_format($rw->total_harga); ?></td>
 						<td><?php echo $rw->jenis_pembayaran; ?></td>
-						<td><?php echo number_format($rw->kembalian); ?></td>
+						<!-- <td><?php echo number_format($rw->kembalian); ?></td> -->
 						<!-- <td><?php echo cek_return($rw->return,$rw->no_penjualan); ?></td> -->
 						<td><?php echo $rw->date_create; ?></td>
 						<td>

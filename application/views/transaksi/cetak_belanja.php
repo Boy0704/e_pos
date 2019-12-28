@@ -20,7 +20,7 @@
 		 ?>
 		<table width="100%">
 			<tr>
-				<td><?php echo strtoupper($rw->nama_produk) ?> <br> <?php echo $rw->qty.' '.strtoupper(get_data('produk','id_produk',$rw->id_produk,'satuan')).' x '.$rw->harga ?> <br> DISC <?php get_data('produk','id_produk',$rw->id_produk,'diskon').'/%' ?></td>
+				<td><?php echo strtoupper($rw->nama_produk) ?> <br> <?php echo $rw->qty.' '.strtoupper(get_data('produk','id_produk',$rw->id_produk,'satuan')).' x '.$rw->harga ?> <br> DISC <?php echo get_data('produk','id_produk',$rw->id_produk,'diskon').' / %' ?></td>
 				<td><?php echo number_format($rw->subtotal) ?></td>
 			</tr>
 		</table>

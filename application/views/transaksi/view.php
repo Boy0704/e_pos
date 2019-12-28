@@ -216,7 +216,7 @@
 				})
 				.done(function() {
 					console.log("success");
-					window.location="<?php echo base_url() ?>app/transaksi";
+					//window.location="<?php echo base_url() ?>app/transaksi";
 				})
 				.fail(function() {
 					console.log("error");

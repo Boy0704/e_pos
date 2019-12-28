@@ -365,7 +365,7 @@ class App extends CI_Controller {
 	        );
             log_data($data);
 	        $this->cart->insert($data);
-            log_r($this->cart->contents());
+            // log_r($this->cart->contents());
 		} else {
 			$this->session->set_flashdata('message', alert_biasa('Produk tidak ditemukan di Display List','danger'));
 		}
