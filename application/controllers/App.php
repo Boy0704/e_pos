@@ -45,7 +45,7 @@ class App extends CI_Controller {
     			// log_data($value->qty.' '.$value->in_unit);
 
                 $this->db->where('id_produk', $value->id_produk);
-                $this->db->update('produk', array('harga'=>$value->harga_jual,'harga_beli'=>$value->harga_beli,'diskon'=>$value->diskon_jual));
+                $this->db->update('produk', array('harga'=>$value->harga_jual,'harga_beli'=>$value->harga_beli,'diskon'=>$value->diskon_jual,'value_diskon_hb'=>$value->value_diskon_hb));
 
     			$this->db->insert('stok_transfer', array(
     				'id_produk'=>$value->id_produk,
