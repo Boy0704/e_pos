@@ -31,6 +31,7 @@ class App extends CI_Controller {
 
     public function ubah_status_po($id_po)
     {
+        $no_po = get_data('po_master','id_po',$id_po,'no_po');
     	$this->db->where('id_po', $id_po);
     	$po_selesai = $this->db->update('po_master', array('selesai'=>'1'));
     	if ($po_selesai) {
@@ -44,12 +45,13 @@ class App extends CI_Controller {
     			// log_data($value->qty.' '.$value->in_unit);
 
                 $this->db->where('id_produk', $value->id_produk);
-                $this->db->update('produk', array('harga'=>$value->harga_jual,'harga_beli'=>$value->harga_beli));
+                $this->db->update('produk', array('harga'=>$value->harga_jual,'harga_beli'=>$value->harga_beli,'diskon'=>$value->diskon_jual));
 
     			$this->db->insert('stok_transfer', array(
     				'id_produk'=>$value->id_produk,
     				'id_subkategori'=>$id_subkat,
-    				'in_qty'=>$stok_temp
+    				'in_qty'=>$stok_temp,
+                    'no_po'=>$no_po
     			));
     			    			
     		}
@@ -66,8 +68,11 @@ class App extends CI_Controller {
         $satuan = get_data('produk','id_produk',$id_produk,'satuan');
         $stok = get_data('produk','id_produk',$id_produk,'stok');
         $harga = get_data('produk','id_produk',$id_produk,'harga');
-    	$harga_beli = get_data('produk','id_produk',$id_produk,'harga_beli');
-    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok,'harga_jual'=>$harga,'harga_beli'=>$harga_beli));
+        $harga_beli = get_data('produk','id_produk',$id_produk,'harga_beli');
+        $diskon_jual = get_data('produk','id_produk',$id_produk,'diskon');
+    	$note_po = get_data('produk','id_produk',$id_produk,'note_po');
+        // $qty_po = explode(' ', $no_po);
+    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok,'harga_jual'=>$harga,'harga_beli'=>$harga_beli,'diskon_jual'=>$diskon_jual,'qty_po'=>$note_po));
     }
 
     public function cek_diskon_beli()
@@ -200,12 +205,15 @@ class App extends CI_Controller {
                     $pembelian = array(
                         'no_po' => $no_po,
                         'id_produk'=>$rw->id_produk,
-                        'qty'=>0,
+                        'qty'=>$rw->note_po,
                         'satuan'=>$rw->satuan,
                         'harga_beli'=>$rw->harga_beli,
                         'total'=>0,
                         'in_unit'=>$rw->in_unit,
+                        'harga_jual'=>$rw->harga,
+                        'diskon_jual'=>$rw->diskon,
                     );
+                    log_data($pembelian);
                     $this->db->insert('pembelian', $pembelian);
                 }
 
@@ -228,12 +236,15 @@ class App extends CI_Controller {
                     $pembelian = array(
                         'no_po' => $no_po,
                         'id_produk'=>$rw->id_produk,
-                        'qty'=>0,
+                        'qty'=>$rw->note_po,
                         'satuan'=>$rw->satuan,
                         'harga_beli'=>$rw->harga_beli,
                         'total'=>0,
                         'in_unit'=>$rw->in_unit,
+                        'harga_jual'=>$rw->harga,
+                        'diskon_jual'=>$rw->diskon,
                     );
+                    log_data($pembelian);
                     $this->db->insert('pembelian', $pembelian);
                 }
 

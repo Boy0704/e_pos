@@ -21,8 +21,8 @@
 
         </div>
 	    <div class="form-group">
-            <label for="int">Qty <?php echo form_error('qty') ?></label>
-            <span id="stok_now" class="label label-info"><?php echo get_data('produk','id_produk',$id_produk,'note_po') ?></span>
+            <label for="int">Qty PO<?php echo form_error('qty') ?></label>
+            <span id="stok_now" class="label label-info"><?php echo get_data('produk','id_produk',$id_produk,'stok') ?></span>
             <input type="text" class="form-control" name="qty" id="qty" placeholder="Qty" value="<?php echo $qty; ?>" />
         </div>
 	    <div class="form-group">
@@ -48,6 +48,14 @@
         <div class="form-group">
             <label for="varchar">Harga Jual </label>
             <input type="text" class="form-control" name="harga_jual" id="harga_jual" placeholder="Harga Jual" value="<?php echo $harga_jual; ?>" />
+        </div>
+        <div class="form-group">
+            <label for="varchar">Diskon Jual </label>
+            <input type="text" class="form-control" name="diskon_jual" id="diskon_jual" placeholder="Harga Jual" value="<?php echo $diskon_jual; ?>" />
+        </div>
+        <div class="form-group">
+            <label for="varchar">Value Diskon HB (DISKON + PPN) </label>
+            <input type="text" class="form-control" name="value_diskon_hb" id="value_diskon_hb" placeholder="value_diskon_hb" value="<?php echo $value_diskon_hb; ?>" />
         </div>
 	    <div class="form-group">
             <label for="varchar">Total <?php echo form_error('total') ?></label>
@@ -77,6 +85,8 @@
                 $('#satuan').val(param.satuan);
                 $('#harga_beli').val(param.harga_beli);
                 $('#harga_jual').val(param.harga_jual);
+                $('#diskon_jual').val(param.diskon_jual);
+                $('#qty').val(param.qty_po);
                 $('#stok_now').html("STOK NOW : "+param.stok);
               })
               .fail(function() {
@@ -103,6 +113,8 @@
                 $('#h_diskon').html(a.harga_diskon);
                 var ppn = parseInt(harga)+(parseInt(harga) * 0.1); 
                 $('#h_ppn').html(ppn);
+                var value_diskon_hb = parseInt(a.harga_diskon) + parseInt(parseInt(harga) * 0.1);
+                $("#value_diskon_hb").val(value_diskon_hb);
                 var total = parseInt($('#qty').val()) *  parseInt(a.harga_diskon);
                $('#total').val(total);
               })

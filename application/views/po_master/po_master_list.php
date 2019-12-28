@@ -67,7 +67,7 @@
             <td><?php echo number_format($po_master->jumlah_bayar) ?></td>
             <td><?php echo number_format($po_master->sisa_bayar) ?></td>
             <td><?php echo $retVal = ($po_master->ppn == 1) ? '<span class="label label-success"><i class="fa fa-check"></i></span>' : '<span class="label label-danger"><i class="fa fa-close"></i></span>' ; ?></td>
-            <td><?php echo $retVal = ($po_master->selesai == 1) ? '<span class="label label-success"><i class="fa fa-check"></i> finish</span>' : '<a href="app/ubah_status_po/'.$po_master->id_po.'" class="label label-info"><i class="fa fa-download"></i> process</a>' ; ?></td>
+            <td><?php echo $retVal = ($po_master->selesai == 1) ? '<span class="label label-success"><i class="fa fa-check"></i> finish</span>' : '<a href="app/ubah_status_po/'.$po_master->id_po.'" onclick="javasciprt: return confirm(\'Yakin PO ini Finish ?\')" class="label label-info"><i class="fa fa-download"></i> process</a>' ; ?></td>
             <td><?php echo $po_master->date_create ?></td>
 			<td><?php 
             if ($po_master->id_user == 0) {

@@ -53,7 +53,7 @@
         </div>
         <div class="form-group">
             <label for="varchar">Note PO</label>
-            <input type="text" class="form-control" name="note_po" id="note_po" placeholder="Catatan Untuk PO" value="<?php echo $note_po; ?>" />
+            <input type="number" class="form-control" name="note_po" id="note_po" placeholder="Catatan Untuk PO" value="<?php echo $note_po; ?>" />
         </div>
 	    <div class="form-group">
             <label for="int">Owner <?php echo form_error('id_owner') ?></label>

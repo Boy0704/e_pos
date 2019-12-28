@@ -18,7 +18,7 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						<th>Qty</th>
 						<th>Satuan</th>
 						<th>In Unit</th>
-						<th>Diskon</th>
+						<th>Diskon Beli</th>
 						<th>Harga Beli</th>
 						<th>HB + Diskon</th>
 						<th>Harga Jual</th>

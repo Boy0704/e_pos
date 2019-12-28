@@ -177,6 +177,13 @@ class Po_master extends CI_Controller
         $row = $this->Po_master_model->get_by_id($id);
 
         if ($row) {
+            $no_po = get_data('po_master','id_po',$id,'no_po');
+            //hapus di po di pembelian
+            $this->db->where('no_po', $no_po);
+            $this->db->delete('pembelian');
+            //hapus di po di stok transfer
+            $this->db->where('no_po', $no_po);
+            $this->db->delete('stok_transfer');
             $this->Po_master_model->delete($id);
             $this->session->set_flashdata('message', 'Delete Record Success');
             redirect(site_url('po_master'));
