@@ -62,6 +62,27 @@ class App extends CI_Controller {
     	redirect('po_master','refresh');
     }
 
+    public function cek_produk_for_display()
+    {
+        $barcode = $this->input->post('barcode');
+        $this->db->where('barcode1', $barcode);
+        $this->db->or_where('barcode2', $barcode);
+        $s = $this->db->get('produk');
+        $data = $s->row();
+        if ($s->num_rows() == 0) {
+            echo json_encode(array('total_row'=>$s->num_rows()));
+        } else {
+            echo json_encode(
+                array(
+                    'id_produk' => $data->id_produk,
+                    'nama_produk' => $data->nama_produk,
+                    'stok_gudang' => $data->stok,
+                    'in_unit' => $data->in_unit
+                )
+            );
+        }
+    }
+
     public function get_in_unit($id_produk)
     {
     	$in_unit = get_data('produk','id_produk',$id_produk,'in_unit');
@@ -70,9 +91,10 @@ class App extends CI_Controller {
         $harga = get_data('produk','id_produk',$id_produk,'harga');
         $harga_beli = get_data('produk','id_produk',$id_produk,'harga_beli');
         $diskon_jual = get_data('produk','id_produk',$id_produk,'diskon');
-    	$note_po = get_data('produk','id_produk',$id_produk,'note_po');
+        $note_po = get_data('produk','id_produk',$id_produk,'note_po');
+    	$stok_min = get_data('produk','id_produk',$id_produk,'stok_min');
         // $qty_po = explode(' ', $no_po);
-    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok,'harga_jual'=>$harga,'harga_beli'=>$harga_beli,'diskon_jual'=>$diskon_jual,'qty_po'=>$note_po));
+    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok,'harga_jual'=>$harga,'harga_beli'=>$harga_beli,'diskon_jual'=>$diskon_jual,'qty_po'=>$note_po,'stok_min'=>$stok_min));
     }
 
     public function cek_diskon_beli()

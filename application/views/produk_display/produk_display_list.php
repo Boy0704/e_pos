@@ -29,6 +29,7 @@
                 </form>
             </div>
         </div>
+        <div class="table-responsive">
         <table class="table table-bordered" style="margin-bottom: 10px">
             <tr>
                 <th>No</th>
@@ -36,7 +37,13 @@
 		<th>Produk</th>
 		<th>Stok</th>
         <th>In Unit</th>
-		<th>Satuan</th>
+        <th>Satuan</th>
+        <th>Display Min</th>
+        <th>Display Max</th>
+        <th>Stok Gudang</th>
+        <th>Orderan</th>
+        <th>Selisih Gudang</th>
+        <th>Selisih Display</th>
 		<th>Date Create</th>
 		<th>User By</th>
 		<th>Action</th>
@@ -51,9 +58,15 @@
 			<td><?php echo $produk_display->stok ?></td>
             <td><?php echo $produk_display->in_unit ?></td>
 			<td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'satuan')) ?></td>
+            <td><?php echo $produk_display->display_min ?></td>
+            <td><?php echo $produk_display->display_max ?></td>
+            <td><?php echo $produk_display->stok_gudang ?></td>
+            <td><?php echo $produk_display->orderan ?></td>
+            <td><?php echo $produk_display->selisih_gudang ?></td>
+            <td><?php echo $produk_display->selisih_display ?></td>
 			<td><?php echo $produk_display->date_create ?></td>
 			<td><?php echo $produk_display->user_by ?></td>
-			<td style="text-align:center" width="200px">
+			<td style="text-align:center" width="100px">
 				<?php 
 				// echo anchor(site_url('produk_display/update/'.$produk_display->id_display),'<span class="label label-info">Ubah</span>'); 
 				// echo ' | '; 
@@ -65,6 +78,7 @@
             }
             ?>
         </table>
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>

@@ -22,7 +22,7 @@
         </div>
 	    <div class="form-group">
             <label for="int">Qty PO<?php echo form_error('qty') ?></label>
-            <span id="stok_now" class="label label-info"><?php echo get_data('produk','id_produk',$id_produk,'stok') ?></span>
+            <span id="stok_now" class="label label-info"><?php echo get_data('produk','id_produk',$id_produk,'stok') ?></span> | <span class="label label-info" id="stok_min">Stok Min : <?php echo get_data('produk','id_produk',$id_produk,'stok_min') ?></span> | <span class="label label-info" id="note_po">Note PO : <?php echo get_data('produk','id_produk',$id_produk,'note_po') ?></span>
             <input type="text" class="form-control" name="qty" id="qty" placeholder="Qty" value="<?php echo $qty; ?>" />
         </div>
 	    <div class="form-group">
@@ -88,6 +88,8 @@
                 $('#diskon_jual').val(param.diskon_jual);
                 $('#qty').val(param.qty_po);
                 $('#stok_now').html("STOK NOW : "+param.stok);
+                $('#stok_min').html("STOK MIN : "+param.stok_min);
+                $('#note_po').html("NOTE PO : "+param.qty_po);
               })
               .fail(function() {
                 console.log("error");
