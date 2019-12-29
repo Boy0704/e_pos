@@ -1,5 +1,10 @@
 
         <form action="<?php echo $action; ?>" method="post">
+
+        <div class="form-group">
+            <label for="int">No Return</label>
+            <input type="text" class="form-control" name="no_return" id="no_return" placeholder="Masukkan No Penjualan" value="<?php echo $retVal = ($no_return == '') ? $this->uri->segment(3) : $no_return ; ?>" />
+        </div>
 	    <div class="form-group">
             <label for="int">ID Produk <?php echo form_error('id_produk') ?></label>
             <!-- <input type="text" class="form-control" name="id_produk" id="id_produk" placeholder="Id Produk" value="<?php echo $id_produk; ?>" /> -->

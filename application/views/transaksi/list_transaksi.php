@@ -30,6 +30,7 @@
 						<!-- <td><?php echo cek_return($rw->return,$rw->no_penjualan); ?></td> -->
 						<td><?php echo $rw->date_create; ?></td>
 						<td>
+							<a href="return_list/create/<?php echo $rw->no_penjualan ?>" target="_blank" class="btn btn-primary btn-sm">Return</a>
 							<a href="app/cetak_belanja/<?php echo $rw->no_penjualan ?>" target="_blank" class="btn btn-info btn-sm">Cetak Struk</a>
 						</td>
 					</tr>

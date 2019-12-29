@@ -63,7 +63,7 @@ class Return_list extends CI_Controller
         }
     }
 
-    public function create() 
+    public function create($no_return=null) 
     {
         $data = array(
             'judul_page' => 'return_list/return_list_form',
@@ -74,7 +74,8 @@ class Return_list extends CI_Controller
 	    'id_produk' => set_value('id_produk'),
 	    'jumlah' => set_value('jumlah'),
 	    'date_create' => set_value('date_create'),
-	    'keterangan' => set_value('keterangan'),
+        'keterangan' => set_value('keterangan'),
+	    'no_return' => $no_return,
 	);
         $this->load->view('v_index', $data);
     }
@@ -113,7 +114,8 @@ class Return_list extends CI_Controller
 		'id_produk' => set_value('id_produk', $row->id_produk),
 		'jumlah' => set_value('jumlah', $row->jumlah),
 		'date_create' => set_value('date_create', $row->date_create),
-		'keterangan' => set_value('keterangan', $row->keterangan),
+        'keterangan' => set_value('keterangan', $row->keterangan),
+		'no_return' => set_value('no_return', $row->no_return),
 	    );
             $this->load->view('v_index', $data);
         } else {
@@ -133,7 +135,8 @@ class Return_list extends CI_Controller
 		'id_produk' => $this->input->post('id_produk',TRUE),
 		'jumlah' => $this->input->post('jumlah',TRUE),
 		'date_create' => $this->input->post('date_create',TRUE),
-		'keterangan' => $this->input->post('keterangan',TRUE),
+        'keterangan' => $this->input->post('keterangan',TRUE),
+		'no_return' => $this->input->post('no_return',TRUE),
 	    );
 
             $this->Return_list_model->update($this->input->post('id_return', TRUE), $data);
