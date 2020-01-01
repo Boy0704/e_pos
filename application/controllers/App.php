@@ -386,10 +386,11 @@ class App extends CI_Controller {
             $in_unit = floatval(get_produk($id,'in_unit'));
             //cek stok
             // log_r(get_data('produk_display','id_subkategori',$produk->id_subkategori,'stok'));
-            if (get_data('produk_display','id_subkategori',$produk->id_subkategori,'stok') < ($qty*$in_unit)) {
-                $this->session->set_flashdata('message', alert_biasa('Stok tidak melebihi dari '.$qty,'danger'));
-                exit;
-            }
+            
+            // if (get_data('produk_display','id_subkategori',$produk->id_subkategori,'stok') < ($qty*$in_unit)) {
+            //     $this->session->set_flashdata('message', alert_biasa('Stok tidak melebihi dari '.$qty,'danger'));
+            //     exit;
+            // }
 			 $data = array(
 	            'id'    => $id,
 	            'qty'   => $qty,

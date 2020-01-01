@@ -194,7 +194,8 @@
 			})
 			.done(function(a) {
 				console.log("success");
-				window.open('app/cetak_belanja/'+a.no_penjualan, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
+				window.open('app/cetak_belanja/'+a.no_penjualan, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+				window.location="<?php echo base_url() ?>app/transaksi";
 			})
 			.fail(function() {
 				console.log("error");
@@ -216,7 +217,7 @@
 				})
 				.done(function() {
 					console.log("success");
-					//window.location="<?php echo base_url() ?>app/transaksi";
+					window.location="<?php echo base_url() ?>app/transaksi";
 				})
 				.fail(function() {
 					console.log("error");

@@ -91,7 +91,8 @@ class Return_list extends CI_Controller
 		'id_produk' => $this->input->post('id_produk',TRUE),
 		'jumlah' => $this->input->post('jumlah',TRUE),
 		'date_create' => $this->input->post('date_create',TRUE),
-		'keterangan' => $this->input->post('keterangan',TRUE),
+        'keterangan' => $this->input->post('keterangan',TRUE),
+		'no_return' => $this->input->post('no_return',TRUE),
 	    );
 
             $this->Return_list_model->insert($data);

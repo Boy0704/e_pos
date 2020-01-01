@@ -45,7 +45,7 @@
                 <tr>
 			<td width="80px"><?php echo ++$start ?></td>
             <td><?php echo $return_list->no_return ?></td>
-			<td><?php echo strtoupper(get_data('produk','id_produk',$return_list->id_produk,'nama_produk')); ?>></td>
+			<td><?php echo strtoupper(get_data('produk','id_produk',$return_list->id_produk,'nama_produk')); ?></td>
 			<td><?php echo $return_list->jumlah ?></td>
 			<td><?php echo $return_list->date_create ?></td>
 			<td><?php echo $return_list->keterangan ?></td>

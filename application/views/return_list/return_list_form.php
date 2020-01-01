@@ -11,7 +11,7 @@
             <select name="id_produk" id="id_produk" class="form-control select2" >
                <option value="<?php echo $id_produk ?>"><?php echo get_data('produk','id_produk',$id_produk,'nama_produk') ?></option>
                <?php 
-               foreach ($this->db->get('produk')->result() as $rw) {
+               foreach ($this->db->get_where('penjualan_detail',array('no_penjualan'=>$this->uri->segment(3)))->result() as $rw) {
                 ?>
                 <option value="<?php echo $rw->id_produk ?>"><?php echo strtoupper($rw->nama_produk) ?></option>
               <?php } ?>
