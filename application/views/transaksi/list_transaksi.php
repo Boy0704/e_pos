@@ -20,6 +20,7 @@
 				<tbody>
 					<?php 
 					$no = 1;
+					$this->db->order_by('id_penjualan', 'desc');
 					$data = $this->db->get('penjualan_header');
 					foreach ($data->result() as $rw) {
 					 ?>
