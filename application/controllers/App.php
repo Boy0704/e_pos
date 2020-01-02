@@ -458,6 +458,24 @@ class App extends CI_Controller {
 		$this->load->view('v_index', $data);
     }
 
+    public function kirim_po_sales($po)
+    {
+
+        if ($this->session->userdata('level') != 'admin') {
+            redirect('login');
+        }
+        //ubah_status kirim po
+        $this->db->where('no_po', $po);
+        $this->db->update('po_master', array('dikirim'=>'1'));
+        $data = array(
+            'konten' => 'po_master/kirim_sales',
+            'judul_page' => 'Kirim PO Pembelian',
+            'no_po' => $po,
+            'data' => $this->db->get_where('pembelian', array('no_po'=>$po)),
+        );
+        $this->load->view('v_index', $data);
+    }
+
     public function dropzone($id)
     {
         if (!empty($_FILES)) {

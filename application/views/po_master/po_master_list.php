@@ -2,8 +2,10 @@
   <!-- Custom Tabs -->
   <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#tab_1" data-toggle="tab">PO BARU / BELUM SELESAI</a></li>
-      <li><a href="#tab_2" data-toggle="tab">PO SELESAI</a></li>
+      <li class="active"><a href="#tab_1" data-toggle="tab">PO BARU</a></li>
+      <li><a href="#tab_2" data-toggle="tab">PO TERKIRIM</a></li>
+      <li><a href="#tab_3" data-toggle="tab">PO DITERIMA</a></li>
+      <li><a href="#tab_4" data-toggle="tab">PO SELESAI</a></li>
       
     </ul>
     <div class="tab-content">
@@ -92,6 +94,7 @@
             
             <td style="text-align:center" width="200px">
                 <a href="app/isi_po/<?php echo $po_master->no_po ?>" class="label label-primary">Tambah PO Pembelian</a>
+                <a onclick="javasciprt: return confirm('Yakin akan kirim po ini ke sales?')" href="app/kirim_po_sales/<?php echo $po_master->no_po ?>" class="label label-success">Kirim PO</a>
                 <?php 
                 echo anchor(site_url('po_master/update/'.$po_master->id_po),'<span class="label label-info">Ubah</span>'); 
                 echo ' '; 
@@ -114,8 +117,150 @@
 
 
       </div>
-      <!-- /.tab-pane -->
+
+
+      <!-- /.tab-pane 2-->
       <div class="tab-pane" id="tab_2">
+        
+        <table class="table table-bordered" id="example1" style="margin-bottom: 10px">
+            <thead>
+            <tr>
+                <th>No</th>
+        <th>No Po</th>
+        <th>Nama Suplier</th>
+        <th>Sales</th>
+        <!-- <th>Potongan Harga</th> -->
+        <th>Total Harga</th>
+        <th>Status Bayar</th>
+        <th>Jumlah Bayar</th>
+        <th>Sisa Bayar</th>
+        <th>PPN</th>
+        <th>Status</th>
+        <th>Date Create</th>
+        <th>User</th>
+        <th>Action</th>
+        </thead>
+        <tbody>
+            </tr><?php
+            $po_master_data = $this->db->query("SELECT * FROM po_master WHERE jumlah_bayar=0 and sisa_bayar=0 and dikirim='1' ORDER BY id_po DESC; ");
+            foreach ($po_master_data->result() as $po_master)
+            {
+                ?>
+                <tr>
+            <td width="80px"><?php echo ++$start ?></td>
+            <td><?php echo $po_master->no_po ?></td>
+            <td><?php echo $po_master->nama_suplier ?></td>
+            <td><?php echo $po_master->sales ?></td>
+            <!-- <td><?php echo $po_master->potongan_harga ?></td> -->
+            <td><?php echo number_format($po_master->total_harga) ?></td>
+            <td><span class="label label-info"><?php echo $po_master->status_pembayaran ?></span></td>
+            <td><?php echo number_format($po_master->jumlah_bayar) ?></td>
+            <td><?php echo number_format($po_master->sisa_bayar) ?></td>
+            <td><?php echo $retVal = ($po_master->ppn == 1) ? '<span class="label label-success"><i class="fa fa-check"></i></span>' : '<span class="label label-danger"><i class="fa fa-close"></i></span>' ; ?></td>
+            <td><?php echo $retVal = ($po_master->selesai == 1) ? '<span class="label label-success"><i class="fa fa-check"></i> finish</span>' : '<a href="app/ubah_status_po/'.$po_master->id_po.'" onclick="javasciprt: return confirm(\'Yakin PO ini Finish ?\')" class="label label-info"><i class="fa fa-download"></i> process</a>' ; ?></td>
+            <td><?php echo $po_master->date_create ?></td>
+            <td><?php 
+            if ($po_master->id_user == 0) {
+                echo "System";
+            } else {
+                echo get_data('a_user','id_user',$po_master->id_user,'nama_lengkap');
+            }
+             ?></td>
+
+
+            <td style="text-align:center" width="200px">
+                <?php 
+                echo anchor(site_url('po_master/update/'.$po_master->id_po),'<span class="label label-info">Ubah</span>'); 
+                echo ' '; 
+                echo anchor(site_url('po_master/delete/'.$po_master->id_po),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+                ?>
+            </td>
+            
+            
+            
+        </tr>
+                <?php
+            }
+            ?>
+            </tbody>
+        </table>
+
+      </div>
+      <!-- /.tab-pane2 -->
+
+
+       <!-- /.tab-pane 3-->
+      <div class="tab-pane" id="tab_3">
+        
+        <table class="table table-bordered" id="example1" style="margin-bottom: 10px">
+            <thead>
+            <tr>
+                <th>No</th>
+        <th>No Po</th>
+        <th>Nama Suplier</th>
+        <th>Sales</th>
+        <!-- <th>Potongan Harga</th> -->
+        <th>Total Harga</th>
+        <th>Status Bayar</th>
+        <th>Jumlah Bayar</th>
+        <th>Sisa Bayar</th>
+        <th>PPN</th>
+        <th>Status</th>
+        <th>Date Create</th>
+        <th>User</th>
+        <th>Action</th>
+        </thead>
+        <tbody>
+            </tr><?php
+            $po_master_data = $this->db->query("SELECT * FROM po_master WHERE jumlah_bayar > 0 and sisa_bayar > 0 and dikirim='1' ORDER BY id_po DESC; ");
+            foreach ($po_master_data->result() as $po_master)
+            {
+                ?>
+                <tr>
+            <td width="80px"><?php echo ++$start ?></td>
+            <td><?php echo $po_master->no_po ?></td>
+            <td><?php echo $po_master->nama_suplier ?></td>
+            <td><?php echo $po_master->sales ?></td>
+            <!-- <td><?php echo $po_master->potongan_harga ?></td> -->
+            <td><?php echo number_format($po_master->total_harga) ?></td>
+            <td><span class="label label-info"><?php echo $po_master->status_pembayaran ?></span></td>
+            <td><?php echo number_format($po_master->jumlah_bayar) ?></td>
+            <td><?php echo number_format($po_master->sisa_bayar) ?></td>
+            <td><?php echo $retVal = ($po_master->ppn == 1) ? '<span class="label label-success"><i class="fa fa-check"></i></span>' : '<span class="label label-danger"><i class="fa fa-close"></i></span>' ; ?></td>
+            <td><?php echo $retVal = ($po_master->selesai == 1) ? '<span class="label label-success"><i class="fa fa-check"></i> finish</span>' : '<a href="app/ubah_status_po/'.$po_master->id_po.'" onclick="javasciprt: return confirm(\'Yakin PO ini Finish ?\')" class="label label-info"><i class="fa fa-download"></i> process</a>' ; ?></td>
+            <td><?php echo $po_master->date_create ?></td>
+            <td><?php 
+            if ($po_master->id_user == 0) {
+                echo "System";
+            } else {
+                echo get_data('a_user','id_user',$po_master->id_user,'nama_lengkap');
+            }
+             ?></td>
+            
+
+             <td style="text-align:center" width="200px">
+                <?php 
+                echo anchor(site_url('po_master/update/'.$po_master->id_po),'<span class="label label-info">Ubah</span>'); 
+                echo ' '; 
+                echo anchor(site_url('po_master/delete/'.$po_master->id_po),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+                ?>
+            </td>
+            
+            
+        </tr>
+                <?php
+            }
+            ?>
+            </tbody>
+        </table>
+
+      </div>
+      <!-- /.tab-pane3 -->
+
+
+
+      <!-- /.tab-pane -->
+      <div class="tab-pane" id="tab_4">
         
         <table class="table table-bordered" id="example1" style="margin-bottom: 10px">
             <thead>
@@ -171,10 +316,10 @@
         </table>
 
       </div>
-      <!-- /.tab-pane -->
+      <!-- /.tab-pane4 -->
       
       <!-- /.tab-pane -->
-    </div>
+    </div> <!-- BATAS TAB KONTEN -->
     <!-- /.tab-content -->
   </div>
   <!-- nav-tabs-custom -->

@@ -2,9 +2,7 @@
 $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segment(3)))->row();
  ?>
 <div style="margin-left: 10px;">
-	<p>
-		<a href="pembelian/create/<?php echo $no_po ?>" class="btn btn-primary">Tambah Pembelian</a>
-	</p>
+	
 	<div class="row">
 		<div class="col-md-12 table-responsive">
 			<div style="text-align: right;">
@@ -22,8 +20,6 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						<th>Diskon Beli</th>
 						<th>Harga Beli</th>
 						<th>HB + Diskon</th>
-						<th>Disc Jual</th>
-						<th>Harga Jual</th>
 						<th>Subtotal</th>
 						<th>Option</th>
 					</tr>
@@ -45,8 +41,7 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						<td><?php echo $rw->diskon; ?></td>
 						<td><?php echo number_format($rw->harga_beli) ?></td>
 						<td><?php echo number_format(get_diskon_beli($rw->diskon,$rw->harga_beli)) ?></td>
-						<td><?php echo number_format(get_data('produk','id_produk',$rw->id_produk,'diskon')); ?></td>
-						<td><?php echo number_format($rw->harga_jual) ?></td>
+						
 						<td><?php echo number_format($rw->total); $t = $t + $rw->total ?></td>
 						<td>
 							<a href="pembelian/update/<?php echo $rw->id_pembelian ?>" class="label label-info">Edit</a>
