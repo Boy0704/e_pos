@@ -129,9 +129,10 @@
                   $('#s_ppn').html('DPP : <span id="h_ppn"></span>');
                   var dpp = parseInt(harga) / 1.1;
                   var total = (parseInt($('#qty').val()) *  parseInt(a.harga_diskon));
-                  $('#h_diskon').html(parseInt(parseInt(harga)-parseInt(a.harga_diskon)));
+                  console.log(a.harga_diskon);
+                  $('#h_diskon').html(parseInt(a.harga_diskon));
                   $('#h_ppn').html(Math.floor(dpp));
-                  $('#s_ppn').show();
+                  $('#s_ppn').hide();
                 }
                 
                 $("#value_diskon_hb").val(value_diskon_hb);

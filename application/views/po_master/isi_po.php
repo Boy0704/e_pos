@@ -14,7 +14,9 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 				<thead>
 					<tr>
 						<th>No</th>
+						<th>Barcode</th>
 						<th>Produk</th>
+						<th>Disc Jual</th>
 						<th>Qty</th>
 						<th>Satuan</th>
 						<th>In Unit</th>
@@ -34,7 +36,9 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 					 ?>
 					<tr>
 						<td><?php echo $no; ?></td>
+						<td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'barcode1')); ?></td>
 						<td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'nama_produk')); ?></td>
+						<td><?php echo number_format(get_data('produk','id_produk',$rw->id_produk,'diskon')); ?></td>
 						<td><?php echo $rw->qty; ?></td>
 						<td><?php echo $rw->satuan; ?></td>
 						<td><?php echo $rw->in_unit; ?></td>
@@ -63,6 +67,11 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						<tr>
 							<td colspan="9">Total DPP</td>
 							<td colspan="2"><b id="ppn"><?php echo number_format($t / 1.1) ?></b></td>
+							<?php //$t = $t+($t * 0.1) ?>
+						</tr>
+						<tr>
+							<td colspan="9">Total PPN</td>
+							<td colspan="2"><b id="ppn"><?php echo number_format($t - ($t/ 1.1) ) ?></b></td>
 							<?php //$t = $t+($t * 0.1) ?>
 						</tr>
 
