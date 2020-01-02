@@ -10,7 +10,7 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 			<div style="text-align: right;">
 				<?php echo $retVal = ($po_master->ppn == 1) ? '<h4 class="label label-success"><i class="fa fa-check"></i> PPN</h4>' : '<h4 class="label label-danger"><i class="fa fa-close"></i> PPN</h4>' ; ?>
 			</div>
-			<table class="table table-bordered">
+			<table class="table table-bordered" id="example1">
 				<thead>
 					<tr>
 						<th>No</th>
@@ -60,25 +60,25 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 					<?php if ($po_master->ppn == 1){ ?>
 						<tr>
 							<td colspan="9">Total PPN</td>
-							<td colspan="2"><b id="ppn"><?php echo number_format($t * 0.1) ?></b></td>
+							<td colspan="4"><b id="ppn"><?php echo number_format($t * 0.1) ?></b></td>
 							<?php //$t = $t+($t * 0.1) ?>
 						</tr>
 					<?php } else { ?>
 						<tr>
 							<td colspan="9">Total DPP</td>
-							<td colspan="2"><b id="ppn"><?php echo number_format($t / 1.1) ?></b></td>
+							<td colspan="4"><b id="ppn"><?php echo number_format($t / 1.1) ?></b></td>
 							<?php //$t = $t+($t * 0.1) ?>
 						</tr>
 						<tr>
 							<td colspan="9">Total PPN</td>
-							<td colspan="2"><b id="ppn"><?php echo number_format($t - ($t/ 1.1) ) ?></b></td>
+							<td colspan="4"><b id="ppn"><?php echo number_format($t - ($t/ 1.1) ) ?></b></td>
 							<?php //$t = $t+($t * 0.1) ?>
 						</tr>
 
 					<?php } ?>
 					<tr>
 						<td colspan="9">Total Harga</td>
-						<td colspan="2">
+						<td colspan="4">
 							<b id="potongan"><?php echo number_format($t) ?></b></td>
 					</tr>
 					
