@@ -115,17 +115,19 @@
               })
               .done(function(a) {
                 console.log("success");
-                $('#h_diskon').html(a.harga_diskon);
+                
                 var ppn = parseInt(harga)+(parseInt(harga) * 0.1); 
                 $('#h_ppn').html(ppn);
                 // cek apakah ppn atau tidak
                 if (cek_ppn == '1') {
-                  var value_diskon_hb = parseInt(a.harga_diskon) + parseInt(parseInt(harga) * 0.1);
+                  var value_diskon_hb = parseInt(parseInt(harga) * 0.1);
                   $('#s_ppn').show();
+                  $('#h_diskon').html(parseInt((parseInt(harga)+(parseInt(harga) * 0.1))-parseInt(a.harga_diskon));
                 } else {
-                  var value_diskon_hb = parseInt(a.harga_diskon); 
+                  var value_diskon_hb = parseInt(harga); 
                   $('#s_ppn').html('DPP : <span id="h_ppn"></span>');
                   var dpp = parseInt(harga) / 1.1;
+                  $('#h_diskon').html(parseInt(parseInt(harga)-parseInt(a.harga_diskon));
                   $('#h_ppn').html(Math.floor(dpp));
                   $('#s_ppn').show();
                 }
