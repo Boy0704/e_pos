@@ -53,13 +53,20 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						<td colspan="5">Total Harga Sebelum PH</td>
 						<td colspan="2"><?php echo number_format($t) ?></td>
 					</tr> -->
-					<?php if ($po_master->ppn == 1): ?>
+					<?php if ($po_master->ppn == 1){ ?>
 						<tr>
 							<td colspan="9">Total PPN</td>
 							<td colspan="2"><b id="ppn"><?php echo number_format($t * 0.1) ?></b></td>
 							<?php //$t = $t+($t * 0.1) ?>
 						</tr>
-					<?php endif ?>
+					<?php } else { ?>
+						<tr>
+							<td colspan="9">Total DPP</td>
+							<td colspan="2"><b id="ppn"><?php echo number_format($t / 1.1) ?></b></td>
+							<?php //$t = $t+($t * 0.1) ?>
+						</tr>
+
+					<?php } ?>
 					<tr>
 						<td colspan="9">Total Harga</td>
 						<td colspan="2">
