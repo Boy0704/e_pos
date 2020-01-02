@@ -43,7 +43,7 @@
             <input type="text" class="form-control" name="harga_beli" id="harga_beli" placeholder="Harga Beli" value="<?php echo $harga_beli; ?>" />
             <br>
             <h4>Setelah Diskon : <span id="h_diskon"></span></h4>
-            <h4>Setelah PPN : <span id="h_ppn"></span></h4>
+            <h4 id="s_ppn">Setelah PPN : <span id="h_ppn"></span></h4>
         </div>
         <div class="form-group">
             <label for="varchar">Harga Jual </label>
@@ -53,8 +53,8 @@
             <label for="varchar">Diskon Jual </label>
             <input type="text" class="form-control" name="diskon_jual" id="diskon_jual" placeholder="Harga Jual" value="<?php echo $diskon_jual; ?>" />
         </div>
-        <div class="form-group">
-            <label for="varchar">Value Diskon HB (DISKON + PPN) </label>
+        <div class="form-group" >
+            <label for="varchar" id="show_diskon_hb">Value Diskon HB </label>
             <input type="text" class="form-control" name="value_diskon_hb" id="value_diskon_hb" placeholder="value_diskon_hb" value="<?php echo $value_diskon_hb; ?>" />
         </div>
 	    <div class="form-group">
@@ -68,6 +68,9 @@
    
    <script type="text/javascript">
        $(document).ready(function() {
+          $('#s_ppn').hide();
+          var cek_ppn = <?php echo cek_ppn($no_po) ?>
+
            $('#harga_beli').keyup(function() {
                var total = parseInt($('#qty').val()) *  parseInt($(this).val());
                $('#total').val(total);
@@ -115,9 +118,20 @@
                 $('#h_diskon').html(a.harga_diskon);
                 var ppn = parseInt(harga)+(parseInt(harga) * 0.1); 
                 $('#h_ppn').html(ppn);
-                var value_diskon_hb = parseInt(a.harga_diskon) + parseInt(parseInt(harga) * 0.1);
+                // cek apakah ppn atau tidak
+                if (cek_ppn == '1') {
+                  var value_diskon_hb = parseInt(a.harga_diskon) + parseInt(parseInt(harga) * 0.1);
+                  $('#s_ppn').show();
+                } else {
+                  var value_diskon_hb = parseInt(a.harga_diskon); 
+                  $('#s_ppn').html('DPP : <span id="h_ppn"></span>');
+                  var dpp = parseInt(harga) / 1.1;
+                  $('#h_ppn').html(Math.floor(dpp));
+                  $('#s_ppn').show();
+                }
+                
                 $("#value_diskon_hb").val(value_diskon_hb);
-                var total = parseInt($('#qty').val()) *  parseInt(a.harga_diskon);
+                var total = (parseInt($('#qty').val()) *  parseInt(a.harga_diskon)) + parseInt(parseInt(harga) * 0.1);
                $('#total').val(total);
               })
               .fail(function() {

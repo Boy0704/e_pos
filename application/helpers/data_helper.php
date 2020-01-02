@@ -1,5 +1,11 @@
 <?php 
 
+function cek_ppn($no_po)
+{
+	$cek = get_data('po_master','no_po',$no_po,'ppn');
+	return $cek;
+}
+
 function cek_return($n,$no)
 {
 	if ($n == '0') {
