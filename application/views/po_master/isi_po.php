@@ -16,13 +16,14 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						<th>No</th>
 						<th>Barcode</th>
 						<th>Produk</th>
-						<th>Disc Jual</th>
+						
 						<th>Qty</th>
 						<th>Satuan</th>
 						<th>In Unit</th>
 						<th>Diskon Beli</th>
 						<th>Harga Beli</th>
 						<th>HB + Diskon</th>
+						<th>Disc Jual</th>
 						<th>Harga Jual</th>
 						<th>Subtotal</th>
 						<th>Option</th>
@@ -38,13 +39,14 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						<td><?php echo $no; ?></td>
 						<td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'barcode1')); ?></td>
 						<td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'nama_produk')); ?></td>
-						<td><?php echo number_format(get_data('produk','id_produk',$rw->id_produk,'diskon')); ?></td>
+						
 						<td><?php echo $rw->qty; ?></td>
 						<td><?php echo $rw->satuan; ?></td>
 						<td><?php echo $rw->in_unit; ?></td>
 						<td><?php echo $rw->diskon; ?></td>
 						<td><?php echo number_format($rw->harga_beli) ?></td>
 						<td><?php echo number_format(get_diskon_beli($rw->diskon,$rw->harga_beli)) ?></td>
+						<td><?php echo number_format(get_data('produk','id_produk',$rw->id_produk,'diskon')); ?></td>
 						<td><?php echo number_format($rw->harga_jual) ?></td>
 						<td><?php echo number_format($rw->total); $t = $t + $rw->total ?></td>
 						<td>
