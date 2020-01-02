@@ -120,20 +120,22 @@
                 $('#h_ppn').html(ppn);
                 // cek apakah ppn atau tidak
                 if (cek_ppn == '1') {
-                  var value_diskon_hb = parseInt(parseInt(harga) * 0.1);
+                  var value_diskon_hb = parseInt( parseInt(harga) + (parseInt(harga) * 0.1) );
+                  var total = (parseInt($('#qty').val()) *  parseInt(a.harga_diskon)) + parseInt(parseInt(harga) * 0.1);
                   $('#s_ppn').show();
-                  $('#h_diskon').html(parseInt( (parseInt($('#qty').val() * parseInt(harga) ) +(parseInt(harga) * 0.1))-parseInt(a.harga_diskon)));
+                  $('#h_diskon').html(parseInt( parseInt(harga)  +(parseInt(harga) * 0.1))-parseInt(diskon));
                 } else {
                   var value_diskon_hb = parseInt(harga); 
                   $('#s_ppn').html('DPP : <span id="h_ppn"></span>');
                   var dpp = parseInt(harga) / 1.1;
+                  var total = (parseInt($('#qty').val()) *  parseInt(a.harga_diskon));
                   $('#h_diskon').html(parseInt(parseInt(harga)-parseInt(a.harga_diskon)));
                   $('#h_ppn').html(Math.floor(dpp));
                   $('#s_ppn').show();
                 }
                 
                 $("#value_diskon_hb").val(value_diskon_hb);
-                var total = (parseInt($('#qty').val()) *  parseInt(a.harga_diskon)) + parseInt(parseInt(harga) * 0.1);
+                
                $('#total').val(total);
               })
               .fail(function() {
