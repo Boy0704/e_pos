@@ -66,7 +66,7 @@
         <th>User</th>
         <th>Action</th>
             </tr><?php
-            $po_master_data = $this->db->query("SELECT * FROM po_master WHERE (jumlah_bayar=0 and sisa_bayar=0) or (jumlah_bayar > 0 and sisa_bayar > 0) ORDER BY id_po DESC; ");
+            $po_master_data = $this->db->query("SELECT * FROM po_master WHERE jumlah_bayar=0 and sisa_bayar=0 and selesai !='1' ORDER BY id_po DESC; ");
             foreach ($po_master_data->result() as $po_master)
             {
                 ?>
