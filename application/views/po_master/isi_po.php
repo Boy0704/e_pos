@@ -22,9 +22,10 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						<th>Diskon Beli</th>
 						<th>Harga Beli</th>
 						<th>HB + Diskon</th>
+						<th>Subtotal</th>
 						<th>Disc Jual</th>
 						<th>Harga Jual</th>
-						<th>Subtotal</th>
+						
 						<th>Option</th>
 					</tr>
 				</thead>
