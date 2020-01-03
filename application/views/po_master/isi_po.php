@@ -45,9 +45,10 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 						<td><?php echo $rw->diskon; ?></td>
 						<td><?php echo number_format($rw->harga_beli) ?></td>
 						<td><?php echo number_format(get_diskon_beli($rw->diskon,$rw->harga_beli)) ?></td>
+						<td><?php echo number_format($rw->total); $t = $t + $rw->total ?></td>
 						<td><?php echo number_format(get_data('produk','id_produk',$rw->id_produk,'diskon')); ?></td>
 						<td><?php echo number_format($rw->harga_jual) ?></td>
-						<td><?php echo number_format($rw->total); $t = $t + $rw->total ?></td>
+						
 						<td>
 							<a href="pembelian/update/<?php echo $rw->id_pembelian ?>" class="label label-info">Edit</a>
 							<a href="pembelian/delete/<?php echo $rw->id_pembelian.'/'.$rw->no_po ?>" class="label label-danger">Hapus</a>
