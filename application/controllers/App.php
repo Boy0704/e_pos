@@ -62,6 +62,22 @@ class App extends CI_Controller {
     	redirect('po_master','refresh');
     }
 
+    public function batal_status_po($id_po)
+    {
+        $no_po = get_data('po_master','id_po',$id_po,'no_po');
+        $this->db->where('id_po', $id_po);
+        $po_selesai = $this->db->update('po_master', array('selesai'=>'0'));
+        if ($po_batal) {
+
+            $this->db->where('no_po', $no_po);
+            $this->db->delete('stok_transfer');
+            // exit;
+        }
+
+        $this->session->set_flashdata('message', alert_biasa('Berhasil Batalkan PO','success'));
+        redirect('po_master','refresh');
+    }
+
     public function cek_produk_for_display()
     {
         $barcode = $this->input->post('barcode');
