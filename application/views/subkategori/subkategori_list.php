@@ -11,7 +11,7 @@
             <div class="col-md-1 text-right">
             </div>
             <div class="col-md-3 text-right">
-                <form action="<?php echo site_url('subkategori/index'); ?>" class="form-inline" method="get">
+                <!-- <form action="<?php echo site_url('subkategori/index'); ?>" class="form-inline" method="get">
                     <div class="input-group">
                         <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
                         <span class="input-group-btn">
@@ -26,16 +26,22 @@
                           <button class="btn btn-primary" type="submit">Search</button>
                         </span>
                     </div>
-                </form>
+                </form> -->
             </div>
         </div>
-        <table class="table table-bordered" style="margin-bottom: 10px">
+        <table class="table table-bordered" style="margin-bottom: 10px" id="example1">
+            <thead>
             <tr>
                 <th>No</th>
 		<th>Subkategori</th>
-		<th>Kategori</th>
+        <th>Kategori</th>
+        <th>Barcode</th>
+		<th>Suplier</th>
 		<th>Action</th>
-            </tr><?php
+            </tr>
+        </thead>
+        <tbody>
+            <?php
             foreach ($subkategori_data as $subkategori)
             {
                 ?>
@@ -43,6 +49,14 @@
 			<td width="80px"><?php echo ++$start ?></td>
 			<td><?php echo $subkategori->subkategori ?></td>
 			<td><?php echo get_data('kategori','id_kategori',$subkategori->id_kategori,'kategori') ?></td>
+            <td>
+                <?php 
+                echo $this->db->get_where('produk', array('id_subkategori'=>$subkategori->id_subkategori,'in_unit'=>1))->row()->barcode1;
+                 ?>
+            </td>
+            <td>
+                <?php echo get_data('suplier','id_suplier',$subkategori->id_suplier,'suplier') ?>
+            </td>
 			<td style="text-align:center" width="200px">
                 <a href="app/dropzone/<?php echo $subkategori->id_subkategori ?>" class="label label-success">Add Img Online</a>
                 <a href="app/produk/<?php echo $subkategori->id_subkategori ?>" class="label label-primary">Tambah Produk</a>
@@ -56,13 +70,14 @@
                 <?php
             }
             ?>
+        </tbody>
         </table>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-6">
                 <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
 	    </div>
             <div class="col-md-6 text-right">
                 <?php echo $pagination ?>
             </div>
-        </div>
+        </div> -->
     

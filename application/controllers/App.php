@@ -204,9 +204,14 @@ class App extends CI_Controller {
 
 
         foreach ($produk as $rw) {
+
+            $id_suplier_pro = get_data('subkategori','id_subkategori',$rw->id_subkategori,'id_suplier');
+            $suplier_from_produk = get_data('suplier','id_suplier',$id_suplier_pro,'suplier');
+            $sales_from_produk = get_data('suplier','id_suplier',$id_suplier_pro,'sales');
+
             $this->db->order_by('id_pembelian', 'desc');
             $cek_po_last = $this->db->get_where('pembelian', array('id_produk'=>$rw->id_produk));
-            if ($cek_po_last->num_rows > 0) {
+            if ($cek_po_last->num_rows() > 0) {
 
                 $no_po_ = $cek_po_last->row()->no_po;
                 $suplier = get_data('po_master','no_po',$no_po_,'nama_suplier');
@@ -221,7 +226,7 @@ class App extends CI_Controller {
                 //cek produk ini sdah ada di pembelian list atau belum
                 $cek_pembelian = $this->db->get_where('pembelian', array('id_produk'=>$rw->id_produk,'no_po'=>$no_po));
                 if ($cek_pembelian->num_rows() > 0) {
-                    echo "Produk 1 sudah ada NO PO ".$no_po;
+                    echo "Produk 1 sudah ada di NO PO ".$no_po;
                 } else {
                     // buat pembelian_lis
                     $pembelian = array(
@@ -245,14 +250,16 @@ class App extends CI_Controller {
 
                 if (get_data('po_master','no_po',$no_po,'nama_suplier') == '') {
                     //update_po_system
+
+
                     $this->db->where('no_po', $no_po);
-                    $this->db->update('po_master', array('nama_suplier'=>'SUPLIER CASH','sales'=>'NOT SET'));
+                    $this->db->update('po_master', array('nama_suplier'=>$suplier_from_produk,'sales'=>$sales_from_produk));
                 }
 
                 //cek produk ini sdah ada di pembelian list atau belum
                 $cek_pembelian = $this->db->get_where('pembelian', array('id_produk'=>$rw->id_produk,'no_po'=>$no_po));
                 if ($cek_pembelian->num_rows() > 0) {
-                    echo "Produk 2 sudah ada NO PO ".$no_po;
+                    echo "Produk 2 sudah ada di NO PO ".$no_po;
                 } else {
                     // buat pembelian_lis
                     $pembelian = array(

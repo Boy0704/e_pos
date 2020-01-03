@@ -70,7 +70,8 @@ class Subkategori extends CI_Controller
             'action' => site_url('subkategori/create_action'),
 	    'id_subkategori' => set_value('id_subkategori'),
 	    'subkategori' => set_value('subkategori'),
-	    'id_kategori' => set_value('id_kategori'),
+        'id_kategori' => set_value('id_kategori'),
+	    'id_suplier' => set_value('id_suplier'),
 	);
         $this->load->view('v_index', $data);
     }
@@ -84,7 +85,8 @@ class Subkategori extends CI_Controller
         } else {
             $data = array(
 		'subkategori' => $this->input->post('subkategori',TRUE),
-		'id_kategori' => $this->input->post('id_kategori',TRUE),
+        'id_kategori' => $this->input->post('id_kategori',TRUE),
+		'id_suplier' => $this->input->post('id_suplier',TRUE),
 	    );
 
             $this->Subkategori_model->insert($data);
@@ -105,7 +107,8 @@ class Subkategori extends CI_Controller
                 'action' => site_url('subkategori/update_action'),
 		'id_subkategori' => set_value('id_subkategori', $row->id_subkategori),
 		'subkategori' => set_value('subkategori', $row->subkategori),
-		'id_kategori' => set_value('id_kategori', $row->id_kategori),
+        'id_kategori' => set_value('id_kategori', $row->id_kategori),
+		'id_suplier' => set_value('id_suplier', $row->id_suplier),
 	    );
             $this->load->view('v_index', $data);
         } else {
@@ -123,7 +126,8 @@ class Subkategori extends CI_Controller
         } else {
             $data = array(
 		'subkategori' => $this->input->post('subkategori',TRUE),
-		'id_kategori' => $this->input->post('id_kategori',TRUE),
+        'id_kategori' => $this->input->post('id_kategori',TRUE),
+		'id_suplier' => $this->input->post('id_suplier',TRUE),
 	    );
 
             $this->Subkategori_model->update($this->input->post('id_subkategori', TRUE), $data);
