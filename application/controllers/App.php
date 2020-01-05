@@ -192,31 +192,7 @@ class App extends CI_Controller {
         $get_stok_min = $this->db->query("SELECT * FROM produk WHERE stok_min >= stok");
         $produk = $get_stok_min->result();
 
-        //cek_po master
-        $cek_po_system = $this->db->get_where('po_master', array('id_user'=>0,'selesai'=>0));
-        if ($cek_po_system->num_rows() > 0) {
-            $no_po = $cek_po_system->row()->no_po;
-
-        } else {
-            // buat po master
-            $po_master = array(
-                'no_po' => create_random(8),
-                'nama_suplier' => '',
-                'sales' => '',
-                'potongan_harga' => 0,
-                'total_harga' => 0,
-                'status_pembayaran' => 'cash',
-                'jumlah_bayar' => 0,
-                'sisa_bayar' => 0,
-                'ppn' => '0',
-                'date_create' => get_waktu(),
-                'id_user' => 0,
-                'selesai' => 0,
-            );
-            $this->db->insert('po_master', $po_master);
-            $no_po = get_data('po_master','id_po',$this->db->insert_id(),'no_po');
-        }
-        // log_r($no_po);
+        
 
 
         foreach ($produk as $rw) {
@@ -224,6 +200,35 @@ class App extends CI_Controller {
             $id_suplier_pro = get_data('subkategori','id_subkategori',$rw->id_subkategori,'id_suplier');
             $suplier_from_produk = get_data('suplier','id_suplier',$id_suplier_pro,'suplier');
             $sales_from_produk = get_data('suplier','id_suplier',$id_suplier_pro,'sales');
+
+            //cek_po master
+            $this->db->order_by('id_po', 'desc');
+            $cek_po_system = $this->db->get_where('po_master', array('id_user'=>0,'selesai'=>0,'nama_suplier'=>$suplier_from_produk));
+            if ($cek_po_system->num_rows() > 0) {
+                $no_po = $cek_po_system->row()->no_po;
+
+            } else {
+                // buat po master
+                $po_master = array(
+                    'no_po' => create_random(8),
+                    'nama_suplier' => '',
+                    'sales' => '',
+                    'potongan_harga' => 0,
+                    'total_harga' => 0,
+                    'status_pembayaran' => 'cash',
+                    'jumlah_bayar' => 0,
+                    'sisa_bayar' => 0,
+                    'ppn' => '0',
+                    'date_create' => get_waktu(),
+                    'id_user' => 0,
+                    'selesai' => 0,
+                );
+                $this->db->insert('po_master', $po_master);
+                $no_po = get_data('po_master','id_po',$this->db->insert_id(),'no_po');
+            }
+            // log_r($no_po);
+
+            
 
             $this->db->order_by('id_pembelian', 'desc');
             $cek_po_last = $this->db->get_where('pembelian', array('id_produk'=>$rw->id_produk));
@@ -246,8 +251,9 @@ class App extends CI_Controller {
                 } else {
 
                     // cek supplier apakah sama, jika sama buat po baru
-                    $suplier_skrg = get_data('po_master','no_po',$no_po_,'nama_suplier');
-                    if ($suplier_skrg = $suplier_from_produk) {
+                    $suplier_skrg = get_data('po_master','no_po',$no_po,'nama_suplier');
+                    log_data($suplier_skrg.' - '.$suplier_from_produk.' - '.$no_po);
+                    if ($suplier_skrg == $suplier_from_produk) {
                         // buat pembelian_lis
                         $pembelian = array(
                             'no_po' => $no_po,
@@ -304,6 +310,10 @@ class App extends CI_Controller {
 
             } else {
 
+                $this->db->order_by('id_po', 'desc');
+                $cek_po_system = $this->db->get_where('po_master', array('id_user'=>0,'selesai'=>0,'nama_suplier'=>$suplier_from_produk));
+                $no_po = $cek_po_system->row()->no_po;
+
                 if (get_data('po_master','no_po',$no_po,'nama_suplier') == '') {
                     //update_po_system
 
@@ -320,7 +330,8 @@ class App extends CI_Controller {
                     
                      // cek supplier apakah sama, jika sama buat po baru
                     $suplier_skrg = get_data('po_master','no_po',$no_po,'nama_suplier');
-                    if ($suplier_skrg = $suplier_from_produk) {
+                    log_data($suplier_skrg.' - '.$suplier_from_produk.' - '.$no_po);
+                    if ($suplier_skrg == $suplier_from_produk) {
                         // buat pembelian_lis
                         $pembelian = array(
                             'no_po' => $no_po,

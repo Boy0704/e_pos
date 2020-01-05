@@ -178,8 +178,12 @@
 <!-- page script -->
 <script>
   $(function () {
-    $('.select2').select2()
-    $('#example1').DataTable()
+    $('.select2').select2();
+    $('#example1').DataTable();
+    $('#example3').DataTable();
+    $('#example4').DataTable();
+    $('#example5').DataTable();
+    $('#example6').DataTable();
     $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,
