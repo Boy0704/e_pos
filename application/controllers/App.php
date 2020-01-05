@@ -244,20 +244,60 @@ class App extends CI_Controller {
                 if ($cek_pembelian->num_rows() > 0) {
                     echo "Produk 1 sudah ada di NO PO ".$no_po;
                 } else {
-                    // buat pembelian_lis
-                    $pembelian = array(
-                        'no_po' => $no_po,
-                        'id_produk'=>$rw->id_produk,
-                        'qty'=>$rw->note_po,
-                        'satuan'=>$rw->satuan,
-                        'harga_beli'=>$rw->harga_beli,
-                        'total'=>$rw->note_po * $rw->harga_beli,
-                        'in_unit'=>$rw->in_unit,
-                        'harga_jual'=>$rw->harga,
-                        'diskon_jual'=>$rw->diskon,
-                    );
-                    log_data($pembelian);
-                    $this->db->insert('pembelian', $pembelian);
+
+                    // cek supplier apakah sama, jika sama buat po baru
+                    $suplier_skrg = get_data('po_master','no_po',$no_po,'nama_suplier');
+                    if ($suplier_skrg == $suplier_from_produk) {
+                        // buat pembelian_lis
+                        $pembelian = array(
+                            'no_po' => $no_po,
+                            'id_produk'=>$rw->id_produk,
+                            'qty'=>$rw->note_po,
+                            'satuan'=>$rw->satuan,
+                            'harga_beli'=>$rw->harga_beli,
+                            'total'=>$rw->note_po * $rw->harga_beli,
+                            'in_unit'=>$rw->in_unit,
+                            'harga_jual'=>$rw->harga,
+                            'diskon_jual'=>$rw->diskon,
+                        );
+                        log_data($pembelian);
+                        $this->db->insert('pembelian', $pembelian);
+                    } else {
+                        // buat po baru dengan nama supplier baru
+                        $po_master = array(
+                            'no_po' => create_random(8),
+                            'nama_suplier' => $suplier_from_produk,
+                            'sales' => $sales_from_produk,
+                            'potongan_harga' => 0,
+                            'total_harga' => 0,
+                            'status_pembayaran' => 'cash',
+                            'jumlah_bayar' => 0,
+                            'sisa_bayar' => 0,
+                            'ppn' => '0',
+                            'date_create' => get_waktu(),
+                            'id_user' => 0,
+                            'selesai' => 0,
+                        );
+                        $this->db->insert('po_master', $po_master);
+                        $no_po = get_data('po_master','id_po',$this->db->insert_id(),'no_po');
+                        // buat pembelian_lis
+                        $pembelian = array(
+                            'no_po' => $no_po,
+                            'id_produk'=>$rw->id_produk,
+                            'qty'=>$rw->note_po,
+                            'satuan'=>$rw->satuan,
+                            'harga_beli'=>$rw->harga_beli,
+                            'total'=>$rw->note_po * $rw->harga_beli,
+                            'in_unit'=>$rw->in_unit,
+                            'harga_jual'=>$rw->harga,
+                            'diskon_jual'=>$rw->diskon,
+                        );
+                        log_data($pembelian);
+                        $this->db->insert('pembelian', $pembelian);
+
+                    }
+
+                    
                 }
 
                 
@@ -277,20 +317,59 @@ class App extends CI_Controller {
                 if ($cek_pembelian->num_rows() > 0) {
                     echo "Produk 2 sudah ada di NO PO ".$no_po;
                 } else {
-                    // buat pembelian_lis
-                    $pembelian = array(
-                        'no_po' => $no_po,
-                        'id_produk'=>$rw->id_produk,
-                        'qty'=>$rw->note_po,
-                        'satuan'=>$rw->satuan,
-                        'harga_beli'=>$rw->harga_beli,
-                        'total'=>$rw->note_po * $rw->harga_beli,
-                        'in_unit'=>$rw->in_unit,
-                        'harga_jual'=>$rw->harga,
-                        'diskon_jual'=>$rw->diskon,
-                    );
-                    log_data($pembelian);
-                    $this->db->insert('pembelian', $pembelian);
+                    
+                     // cek supplier apakah sama, jika sama buat po baru
+                    $suplier_skrg = get_data('po_master','no_po',$no_po,'nama_suplier');
+                    if ($suplier_skrg == $suplier_from_produk) {
+                        // buat pembelian_lis
+                        $pembelian = array(
+                            'no_po' => $no_po,
+                            'id_produk'=>$rw->id_produk,
+                            'qty'=>$rw->note_po,
+                            'satuan'=>$rw->satuan,
+                            'harga_beli'=>$rw->harga_beli,
+                            'total'=>$rw->note_po * $rw->harga_beli,
+                            'in_unit'=>$rw->in_unit,
+                            'harga_jual'=>$rw->harga,
+                            'diskon_jual'=>$rw->diskon,
+                        );
+                        log_data($pembelian);
+                        $this->db->insert('pembelian', $pembelian);
+                    } else {
+                        // buat po baru dengan nama supplier baru
+                        $po_master = array(
+                            'no_po' => create_random(8),
+                            'nama_suplier' => $suplier_from_produk,
+                            'sales' => $sales_from_produk,
+                            'potongan_harga' => 0,
+                            'total_harga' => 0,
+                            'status_pembayaran' => 'cash',
+                            'jumlah_bayar' => 0,
+                            'sisa_bayar' => 0,
+                            'ppn' => '0',
+                            'date_create' => get_waktu(),
+                            'id_user' => 0,
+                            'selesai' => 0,
+                        );
+                        $this->db->insert('po_master', $po_master);
+                        $no_po = get_data('po_master','id_po',$this->db->insert_id(),'no_po');
+                        // buat pembelian_lis
+                        $pembelian = array(
+                            'no_po' => $no_po,
+                            'id_produk'=>$rw->id_produk,
+                            'qty'=>$rw->note_po,
+                            'satuan'=>$rw->satuan,
+                            'harga_beli'=>$rw->harga_beli,
+                            'total'=>$rw->note_po * $rw->harga_beli,
+                            'in_unit'=>$rw->in_unit,
+                            'harga_jual'=>$rw->harga,
+                            'diskon_jual'=>$rw->diskon,
+                        );
+                        log_data($pembelian);
+                        $this->db->insert('pembelian', $pembelian);
+
+                    }
+
                 }
 
                 
