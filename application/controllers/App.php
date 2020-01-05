@@ -236,7 +236,7 @@ class App extends CI_Controller {
                 if (get_data('po_master','no_po',$no_po,'nama_suplier') == '') {
                     //update_po_system
                     $this->db->where('no_po', $no_po);
-                    $this->db->update('po_master', array('nama_suplier'=>$suplier,'sales'=>$sal));
+                    $this->db->update('po_master', array('nama_suplier'=>$suplier_from_produk,'sales'=>$sales_from_produk));
                 }
 
                 //cek produk ini sdah ada di pembelian list atau belum
