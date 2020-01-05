@@ -247,7 +247,7 @@ class App extends CI_Controller {
 
                     // cek supplier apakah sama, jika sama buat po baru
                     $suplier_skrg = get_data('po_master','no_po',$no_po,'nama_suplier');
-                    if ($suplier_skrg == $suplier_from_produk) {
+                    if ($suplier_skrg = $suplier_from_produk) {
                         // buat pembelian_lis
                         $pembelian = array(
                             'no_po' => $no_po,
@@ -320,7 +320,7 @@ class App extends CI_Controller {
                     
                      // cek supplier apakah sama, jika sama buat po baru
                     $suplier_skrg = get_data('po_master','no_po',$no_po,'nama_suplier');
-                    if ($suplier_skrg == $suplier_from_produk) {
+                    if ($suplier_skrg = $suplier_from_produk) {
                         // buat pembelian_lis
                         $pembelian = array(
                             'no_po' => $no_po,
