@@ -10,6 +10,7 @@
       
     </ul>
     <div class="tab-content">
+
       <div class="tab-pane active" id="tab_1">
         
 
@@ -49,7 +50,7 @@
             
         </div> -->
 
-
+        <div class="table-responsive">
         <table class="table table-bordered" style="margin-bottom: 10px">
             <tr>
                 <th>No</th>
@@ -107,6 +108,7 @@
             }
             ?>
         </table>
+        </div>
         <!-- <div class="row">
             <div class="col-md-6">
                 <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
@@ -122,7 +124,7 @@
 
       <!-- /.tab-pane 2-->
       <div class="tab-pane" id="tab_2">
-        
+        <div class="table-responsive">
         <table class="table table-bordered" id="example1" style="margin-bottom: 10px">
             <thead>
             <tr>
@@ -186,14 +188,14 @@
             ?>
             </tbody>
         </table>
-
+    </div>
       </div>
       <!-- /.tab-pane2 -->
 
 
        <!-- /.tab-pane 3-->
       <div class="tab-pane" id="tab_3">
-        
+        <div class="table-responsive">
         <table class="table table-bordered" id="example3" style="margin-bottom: 10px">
             <thead>
             <tr>
@@ -256,14 +258,14 @@
             ?>
             </tbody>
         </table>
-
+        </div>
       </div>
       <!-- /.tab-pane3 -->
 
 
       <!-- /.tab-pane 3-->
       <div class="tab-pane" id="tab_5">
-        
+        <div class="table-responsive">
         <table class="table table-bordered" id="example4" style="margin-bottom: 10px">
             <thead>
             <tr>
@@ -326,7 +328,7 @@
             ?>
             </tbody>
         </table>
-
+        </div>
       </div>
       <!-- /.tab-pane5 -->
 
@@ -334,7 +336,7 @@
 
       <!-- /.tab-pane -->
       <div class="tab-pane" id="tab_4">
-        
+        <div class="table-responsive">
         <table class="table table-bordered" id="example5" style="margin-bottom: 10px">
             <thead>
             <tr>
@@ -387,7 +389,7 @@
             ?>
             </tbody>
         </table>
-
+        </div>
       </div>
       <!-- /.tab-pane4 -->
       
