@@ -53,7 +53,7 @@
             <label for="varchar">Diskon Jual </label>
             <input type="text" class="form-control" name="diskon_jual" id="diskon_jual" placeholder="Harga Jual" value="<?php echo $diskon_jual; ?>" />
         </div>
-        <div class="form-group" >
+        <div class="form-group" style="display: none;">
             <label for="varchar" id="show_diskon_hb">Value Diskon HB </label>
             <input type="text" class="form-control" name="value_diskon_hb" id="value_diskon_hb" placeholder="value_diskon_hb" value="<?php echo $value_diskon_hb; ?>" />
         </div>

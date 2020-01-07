@@ -31,7 +31,9 @@ class App extends CI_Controller {
 
     public function ubah_status_po($id_po)
     {
+        
         $no_po = get_data('po_master','id_po',$id_po,'no_po');
+        $ppn = cek_ppn($no_po);
     	$this->db->where('id_po', $id_po);
     	$po_selesai = $this->db->update('po_master', array('selesai'=>'1'));
     	if ($po_selesai) {
@@ -45,7 +47,12 @@ class App extends CI_Controller {
     			// log_data($value->qty.' '.$value->in_unit);
 
                 $this->db->where('id_produk', $value->id_produk);
-                $this->db->update('produk', array('harga'=>$value->harga_jual,'harga_beli'=>$value->harga_beli,'diskon'=>$value->diskon_jual,'value_diskon_hb'=>$value->value_diskon_hb));
+                if ($ppn == '1') {
+                    $this->db->update('produk', array('harga'=>$value->harga_jual,'harga_beli'=>$value->value_diskon_hb,'diskon'=>$value->diskon_jual,'value_diskon_hb'=>$value->diskon));
+                } else {
+                    $this->db->update('produk', array('harga'=>$value->harga_jual,'harga_beli'=>$value->harga_beli,'diskon'=>$value->diskon_jual,'value_diskon_hb'=>$value->diskon));
+                }
+                
 
     			$this->db->insert('stok_transfer', array(
     				'id_produk'=>$value->id_produk,
@@ -67,7 +74,7 @@ class App extends CI_Controller {
         $no_po = get_data('po_master','id_po',$id_po,'no_po');
         $this->db->where('id_po', $id_po);
         $po_selesai = $this->db->update('po_master', array('selesai'=>'0'));
-        if ($po_batal) {
+        if ($po_selesai) {
 
             $this->db->where('no_po', $no_po);
             $this->db->delete('stok_transfer');

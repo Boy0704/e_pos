@@ -67,7 +67,7 @@
         <th>User</th>
         <th>Action</th>
             </tr><?php
-            $po_master_data = $this->db->query("SELECT * FROM po_master WHERE jumlah_bayar=0 and sisa_bayar=0 and selesai !='1' and dikirim !='1' ORDER BY id_po DESC; ");
+            $po_master_data = $this->db->query("SELECT * FROM po_master WHERE (jumlah_bayar=0 and sisa_bayar=0 and dikirim !='1') or selesai !='1'  ORDER BY id_po DESC; ");
             foreach ($po_master_data->result() as $po_master)
             {
                 ?>
@@ -107,14 +107,14 @@
             }
             ?>
         </table>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-6">
                 <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
         </div>
             <div class="col-md-6 text-right">
                 <?php echo $pagination ?>
             </div>
-        </div>
+        </div> -->
 
 
       </div>
