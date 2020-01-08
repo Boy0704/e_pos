@@ -199,9 +199,7 @@ class App extends CI_Controller {
         $get_stok_min = $this->db->query("SELECT * FROM produk WHERE stok_min >= stok");
         $produk = $get_stok_min->result();
 
-        
-
-
+    
         foreach ($produk as $rw) {
 
             $id_suplier_pro = get_data('subkategori','id_subkategori',$rw->id_subkategori,'id_suplier');
@@ -231,6 +229,7 @@ class App extends CI_Controller {
                     'selesai' => 0,
                 );
                 $this->db->insert('po_master', $po_master);
+                log_data($po_master);
                 $no_po = get_data('po_master','id_po',$this->db->insert_id(),'no_po');
             }
             // log_r($no_po);
@@ -292,6 +291,7 @@ class App extends CI_Controller {
                             'selesai' => 0,
                         );
                         $this->db->insert('po_master', $po_master);
+                        log_data($po_master);
                         $no_po = get_data('po_master','id_po',$this->db->insert_id(),'no_po');
                         // buat pembelian_lis
                         $pembelian = array(
@@ -318,8 +318,9 @@ class App extends CI_Controller {
             } else {
 
                 $this->db->order_by('id_po', 'desc');
-                $cek_po_system = $this->db->get_where('po_master', array('id_user'=>0,'selesai'=>0,'nama_suplier'=>$suplier_from_produk));
-                $no_po = $cek_po_system->row()->no_po;
+                $cek_po_system = $this->db->get_where('po_master', array('id_user'=>0,'selesai'=>0,'nama_suplier'=>$suplier_from_produk))->row();
+                // log_data($this->db->last_query());
+                $no_po = $cek_po_system->no_po;
 
                 if (get_data('po_master','no_po',$no_po,'nama_suplier') == '') {
                     //update_po_system
@@ -370,6 +371,7 @@ class App extends CI_Controller {
                             'selesai' => 0,
                         );
                         $this->db->insert('po_master', $po_master);
+                        log_data($po_master);
                         $no_po = get_data('po_master','id_po',$this->db->insert_id(),'no_po');
                         // buat pembelian_lis
                         $pembelian = array(
@@ -393,6 +395,18 @@ class App extends CI_Controller {
                 
             }
 
+        }
+
+        //cek po kosong;
+        $this->db->select('no_po');
+        $this->db->where('selesai', 0);
+        foreach ($this->db->get('po_master')->result() as $rw) {
+            $po_beli = $this->db->get_where('pembelian', array('no_po'=>$rw->no_po));
+            if ($po_beli->num_rows() == 0) {
+                $this->db->where('no_po', $rw->no_po);
+                $this->db->delete('po_master');
+            }
+            log_data($rw->no_po);
         }
 
     }
