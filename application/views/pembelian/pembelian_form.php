@@ -20,6 +20,7 @@
              </select>
 
         </div>
+     
 	    <div class="form-group">
             <label for="int">Qty PO<?php echo form_error('qty') ?></label>
             <span id="stok_now" class="label label-info"><?php echo get_data('produk','id_produk',$id_produk,'stok') ?></span> | <span class="label label-info" id="stok_min">Stok Min : <?php echo get_data('produk','id_produk',$id_produk,'stok_min') ?></span> | <span class="label label-info" id="note_po">Note PO : <?php echo get_data('produk','id_produk',$id_produk,'note_po') ?></span>
@@ -33,11 +34,11 @@
             <label for="varchar">In Unit</label>
             <input type="text" class="form-control" name="in_unit" id="in_unit" placeholder="Nilai Satuan terkecil" value="<?php echo $in_unit; ?>" />
         </div>
-
       <div class="form-group">
             <label for="varchar">Diskon</label>
             <input type="text" class="form-control" name="diskon" id="diskon" placeholder="Diskon Harga Beli" value="<?php echo $diskon; ?>" autocomplete="off" required/>
         </div>
+      
 	    <div class="form-group">
             <label for="varchar">Harga Beli <?php echo form_error('harga_beli') ?></label>
             <input type="text" class="form-control" name="harga_beli" id="harga_beli" placeholder="Harga Beli" value="<?php echo $harga_beli; ?>" />
@@ -57,6 +58,7 @@
             <label for="varchar" id="show_diskon_hb">Value Diskon HB </label>
             <input type="text" class="form-control" name="value_diskon_hb" id="value_diskon_hb" placeholder="value_diskon_hb" value="<?php echo $value_diskon_hb; ?>" />
         </div>
+       <div><a id="cek" class="btn btn-primary">CEK VALUE</a></div>
 	    <div class="form-group">
             <label for="varchar">Total <?php echo form_error('total') ?></label>
             <input type="text" class="form-control" name="total" id="total" placeholder="Total" value="<?php echo $total; ?>" readonly/>
@@ -69,7 +71,8 @@
    <script type="text/javascript">
        $(document).ready(function() {
           $('#s_ppn').hide();
-          var cek_ppn = <?php echo cek_ppn($no_po) ?>
+          var cek_ppn = <?php echo cek_ppn($no_po) ?>;
+          
 
            $('#harga_beli').keyup(function() {
                var total = parseInt($('#qty').val()) *  parseInt($(this).val());
@@ -89,6 +92,7 @@
                 $('#harga_beli').val(param.harga_beli);
                 $('#harga_jual').val(param.harga_jual);
                 $('#diskon_jual').val(param.diskon_jual);
+                $('#diskon').val(param.diskon_hb);
                 $('#qty').val(param.qty_po);
                 $('#stok_now').html("STOK NOW : "+param.stok);
                 $('#stok_min').html("STOK MIN : "+param.stok_min);
@@ -103,8 +107,8 @@
            });
 
 
-            $("#diskon").keyup(function(event) {
-              var diskon = $(this).val();
+            $("#cek").click(function(event) {
+              var diskon = $('#diskon').val();
               console.log(diskon);
               var harga = $('#harga_beli').val();
               $.ajax({

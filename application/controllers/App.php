@@ -115,9 +115,11 @@ class App extends CI_Controller {
         $harga_beli = get_data('produk','id_produk',$id_produk,'harga_beli');
         $diskon_jual = get_data('produk','id_produk',$id_produk,'diskon');
         $note_po = get_data('produk','id_produk',$id_produk,'note_po');
-    	$stok_min = get_data('produk','id_produk',$id_produk,'stok_min');
+        $stok_min = get_data('produk','id_produk',$id_produk,'stok_min');
+    	$diskon_hb = get_data('produk','id_produk',$id_produk,'value_diskon_hb');
         // $qty_po = explode(' ', $no_po);
-    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok,'harga_jual'=>$harga,'harga_beli'=>$harga_beli,'diskon_jual'=>$diskon_jual,'qty_po'=>$note_po,'stok_min'=>$stok_min));
+    	echo json_encode(array('satuan'=>$satuan,'in_unit'=>$in_unit,'stok'=>$stok,'harga_jual'=>$harga,'harga_beli'=>$harga_beli,'diskon_jual'=>$diskon_jual,'qty_po'=>$note_po,'stok_min'=>$stok_min,
+            'diskon_hb'=>$diskon_hb));
     }
 
     public function cek_diskon_beli()
@@ -196,7 +198,24 @@ class App extends CI_Controller {
         $no_po = '';
         $suplier = '';
         $sales = '';
-        $get_stok_min = $this->db->query("SELECT * FROM produk WHERE stok_min >= stok");
+        $sql = "
+        SELECT
+            * 
+        FROM
+            produk AS pr
+            WHERE pr.stok_min >= pr.stok 
+            AND pr.id_produk not in (
+            SELECT
+                pembelian.id_produk 
+            FROM
+                pembelian,
+                po_master 
+                WHERE
+            po_master.no_po = pembelian.no_po
+            and (po_master.selesai='0' or po_master.selesai=0)
+            )
+        ";
+        $get_stok_min = $this->db->query($sql);
         $produk = $get_stok_min->result();
 
     
@@ -271,6 +290,7 @@ class App extends CI_Controller {
                             'in_unit'=>$rw->in_unit,
                             'harga_jual'=>$rw->harga,
                             'diskon_jual'=>$rw->diskon,
+                            'diskon'=>$rw->value_diskon_hb,
                         );
                         log_data($pembelian);
                         $this->db->insert('pembelian', $pembelian);
@@ -304,6 +324,7 @@ class App extends CI_Controller {
                             'in_unit'=>$rw->in_unit,
                             'harga_jual'=>$rw->harga,
                             'diskon_jual'=>$rw->diskon,
+                            'diskon'=>$rw->value_diskon_hb,
                         );
                         log_data($pembelian);
                         $this->db->insert('pembelian', $pembelian);
@@ -351,6 +372,7 @@ class App extends CI_Controller {
                             'in_unit'=>$rw->in_unit,
                             'harga_jual'=>$rw->harga,
                             'diskon_jual'=>$rw->diskon,
+                            'diskon'=>$rw->value_diskon_hb,
                         );
                         log_data($pembelian);
                         $this->db->insert('pembelian', $pembelian);
@@ -384,6 +406,7 @@ class App extends CI_Controller {
                             'in_unit'=>$rw->in_unit,
                             'harga_jual'=>$rw->harga,
                             'diskon_jual'=>$rw->diskon,
+                            'diskon'=>$rw->value_diskon_hb,
                         );
                         log_data($pembelian);
                         $this->db->insert('pembelian', $pembelian);
