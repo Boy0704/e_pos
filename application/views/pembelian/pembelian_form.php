@@ -72,7 +72,7 @@
        $(document).ready(function() {
 
           //scan barcode
-          $("#id_produk option[value=20]").attr('selected', 'selected');
+          // $("#id_produk option[value=20 ]").attr('selected', 'selected');
 
           $('#s_ppn').hide();
           var cek_ppn = <?php echo cek_ppn($no_po) ?>;
