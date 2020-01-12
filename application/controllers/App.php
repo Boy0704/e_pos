@@ -291,6 +291,7 @@ class App extends CI_Controller {
                             'harga_jual'=>$rw->harga,
                             'diskon_jual'=>$rw->diskon,
                             'diskon'=>$rw->value_diskon_hb,
+                            'total'=> $rw->noe_po * get_diskon_beli($rw->value_diskon_hb,$rw->harga_beli);
                         );
                         log_data($pembelian);
                         $this->db->insert('pembelian', $pembelian);
@@ -325,6 +326,7 @@ class App extends CI_Controller {
                             'harga_jual'=>$rw->harga,
                             'diskon_jual'=>$rw->diskon,
                             'diskon'=>$rw->value_diskon_hb,
+                            'total'=> $rw->noe_po * get_diskon_beli($rw->value_diskon_hb,$rw->harga_beli);
                         );
                         log_data($pembelian);
                         $this->db->insert('pembelian', $pembelian);
@@ -373,6 +375,7 @@ class App extends CI_Controller {
                             'harga_jual'=>$rw->harga,
                             'diskon_jual'=>$rw->diskon,
                             'diskon'=>$rw->value_diskon_hb,
+                            'total'=> $rw->noe_po * get_diskon_beli($rw->value_diskon_hb,$rw->harga_beli);
                         );
                         log_data($pembelian);
                         $this->db->insert('pembelian', $pembelian);
@@ -407,6 +410,7 @@ class App extends CI_Controller {
                             'harga_jual'=>$rw->harga,
                             'diskon_jual'=>$rw->diskon,
                             'diskon'=>$rw->value_diskon_hb,
+                            'total'=> $rw->noe_po * get_diskon_beli($rw->value_diskon_hb,$rw->harga_beli);
                         );
                         log_data($pembelian);
                         $this->db->insert('pembelian', $pembelian);
