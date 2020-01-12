@@ -131,7 +131,7 @@
               .done(function(a) {
                 console.log("success");
                 
-                var ppn = parseInt(harga)+(parseInt(harga) * 0.1); 
+                var ppn = parseInt(harga); 
                 $('#h_ppn').html(ppn);
                 // cek apakah ppn atau tidak
                 if (cek_ppn == '1') {
