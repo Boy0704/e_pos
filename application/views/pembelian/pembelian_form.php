@@ -70,6 +70,10 @@
    
    <script type="text/javascript">
        $(document).ready(function() {
+
+          //scan barcode
+          $("#id_produk option[value=20]").attr('selected', 'selected');
+
           $('#s_ppn').hide();
           var cek_ppn = <?php echo cek_ppn($no_po) ?>;
           
@@ -110,7 +114,14 @@
             $("#cek").click(function(event) {
               var diskon = $('#diskon').val();
               console.log(diskon);
-              var harga = $('#harga_beli').val();
+              var harga = 0;
+              if (cek_ppn == '1') {
+                var harga = parseInt($('#harga_beli').val()) + (parseInt($('#harga_beli').val()) * 0.1 );
+              } else {
+                var harga = parseInt($('#harga_beli').val());
+              }
+              console.log(harga);
+              
               $.ajax({
                 url: 'app/cek_diskon_beli',
                 type: 'POST',
@@ -124,10 +135,12 @@
                 $('#h_ppn').html(ppn);
                 // cek apakah ppn atau tidak
                 if (cek_ppn == '1') {
-                  var value_diskon_hb = parseInt( parseInt(harga) + (parseInt(harga) * 0.1) );
-                  var total = (parseInt($('#qty').val()) *  parseInt(a.harga_diskon)) + parseInt(parseInt(harga) * 0.1);
+                  var value_diskon_hb = parseInt(harga);
+                  var total = parseInt($('#qty').val()) *  parseInt(a.harga_diskon) ;
                   $('#s_ppn').show();
-                  $('#h_diskon').html(parseInt( parseInt(harga)  +(parseInt(harga) * 0.1))-parseInt(diskon));
+                  $('#h_diskon').html(parseInt(a.harga_diskon));
+                  console.log('JIKA ADA PPN');
+                  console.log(a.harga_diskon);
                 } else {
                   var value_diskon_hb = parseInt(harga); 
                   $('#s_ppn').html('DPP : <span id="h_ppn"></span>');
@@ -137,6 +150,7 @@
                   $('#h_diskon').html(parseInt(a.harga_diskon));
                   $('#h_ppn').html(Math.floor(dpp));
                   $('#s_ppn').hide();
+                  console.log('JIKA TIDAK ADA PPN');
                 }
                 
                 $("#value_diskon_hb").val(value_diskon_hb);
