@@ -2,9 +2,29 @@
 $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segment(3)))->row();
  ?>
 <div style="margin-left: 10px;">
+	<div class="row">
+		<div class="col-md-3">
+			<label>BARCODE SCANNER</label>
+			<input type="text" name="barcode" class="form-control" id="barcode" autofocus="">
+			
+		</div>
+		<div class="col-md-6">
+			<label>SEARCH PRODUK</label>
+			<select name="produk_search" id="produk_search" class="form-control select2" >
+               <option value="">--CARI PRODUK--</option>
+               <?php 
+               foreach ($this->db->get('produk')->result() as $rw) {
+                ?>
+                <option value="<?php echo $rw->barcode1 ?>"><?php echo strtoupper($rw->nama_produk) ?></option>
+              <?php } ?>
+             </select>
+		</div>
+
+	</div><br>
 	<p>
 		<a href="pembelian/create/<?php echo $no_po ?>" class="btn btn-primary">Tambah Pembelian</a>
 	</p>
+
 	<div class="row">
 		<div class="col-md-12 table-responsive">
 			<div style="text-align: right;">
@@ -95,3 +115,62 @@ $po_master = $this->db->get_where('po_master', array('no_po'=>$this->uri->segmen
 	</div>
 	
 </div>
+
+<script type="text/javascript">
+	
+	$(document).ready(function() {
+
+		$('#barcode').keypress(function(e) {
+			if(e.which == 13) {
+				var barcode = $(this).val();
+				$.ajax({
+					url: 'app/simpan_barcode_pembelian/<?php echo $no_po ?>',
+					type: 'POST',
+					dataType: 'html',
+					data: {barcode: barcode},
+				})
+				.done(function() {
+					console.log("success");
+					window.location="<?php echo base_url() ?>app/isi_po/<?php echo $no_po ?>";
+				})
+				.fail(function() {
+					console.log("error");
+				})
+				.always(function() {
+					console.log("complete");
+				});
+				
+		        // $('tbody').append();
+		    }
+		});
+
+		$('#produk_search').change(function(e) {
+			
+				var barcode = $(this).val();
+				$.ajax({
+					url: 'app/simpan_barcode_pembelian/<?php echo $no_po ?>',
+					type: 'POST',
+					dataType: 'html',
+					data: {barcode: barcode},
+				})
+				.done(function() {
+					console.log("success");
+					window.location="<?php echo base_url() ?>app/isi_po/<?php echo $no_po ?>";
+				})
+				.fail(function() {
+					console.log("error");
+				})
+				.always(function() {
+					console.log("complete");
+				});
+				
+		        // $('tbody').append();
+		    
+		});
+
+
+
+	});
+
+
+</script>

@@ -193,6 +193,37 @@ class App extends CI_Controller {
         redirect('app/list_transaksi','refresh');
     }
 
+    public function simpan_barcode_pembelian($no_po)
+    {
+        $barcode = $this->input->post('barcode');
+        
+        
+        $produk_ = $this->db->query("SELECT * FROM produk where barcode1='$barcode' or barcode2=$barcode ");
+        if ($produk_->num_rows() > 0) {
+            $rw = $produk_->row();
+            $pembelian = array(
+                'no_po' => $no_po,
+                'id_produk'=>$rw->id_produk,
+                'qty'=>$rw->note_po,
+                'satuan'=>$rw->satuan,
+                'harga_beli'=>$rw->harga_beli,
+                'total'=>$rw->note_po * $rw->harga_beli,
+                'in_unit'=>$rw->in_unit,
+                'harga_jual'=>$rw->harga,
+                'diskon_jual'=>$rw->diskon,
+                'diskon'=>$rw->value_diskon_hb,
+                'total'=> $rw->note_po * get_diskon_beli($rw->value_diskon_hb,$rw->harga_beli)
+            );
+            log_data($pembelian);
+            $this->db->insert('pembelian', $pembelian);
+            
+        } else {
+            $this->session->set_flashdata('message', alert_biasa('Produk tidak ditemukan !','danger'));
+        }
+
+        // redirect('app/transaksi');
+    }
+
     public function po_auto()
     {
         $no_po = '';
