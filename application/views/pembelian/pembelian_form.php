@@ -48,7 +48,10 @@
         </div>
         <div class="form-group">
             <label for="varchar">Harga Jual </label>
-            <input type="text" class="form-control" name="harga_jual" id="harga_jual" placeholder="Harga Jual" value="<?php echo $harga_jual; ?>" />
+            <input type="hidden" class="form-control" name="harga_jual" id="harga_jual" placeholder="Harga Jual" value="<?php echo $harga_jual; ?>" />
+            <div id="list_hj">
+              
+            </div>
         </div>
         <div class="form-group">
             <label for="varchar">Diskon Jual </label>
@@ -69,10 +72,58 @@
 	</form>
    
    <script type="text/javascript">
+      function simpan_hj(id) {
+        var hj = $('#hj_'+id).val();
+        var subk = $('#id_subkategori_'+id).val();
+        
+        $.ajax({
+          url: 'app/simpan_hj_temp/<?php echo $no_po ?>',
+          type: 'POST',
+          dataType: 'html',
+          data: {id_produk: id, harga_jual: hj, id_subkategori: subk},
+        })
+        .done(function() {
+          console.log("success");
+          // $('#simpan_'+id).html('<a class="btn btn-success" >Success</a>')
+          $('#simpan_'+id).html('Success');
+          $('#simpan_'+id).attr('class', 'btn btn-success');
+        })
+        .fail(function() {
+          console.log("error");
+        })
+        .always(function() {
+          console.log("complete");
+        });
+        
+
+      }
        $(document).ready(function() {
 
           //scan barcode
           // $("#id_produk option[value=20 ]").attr('selected', 'selected');
+
+          <?php 
+          if ($id_produk != '') {
+           ?>
+          var id_subkategori = <?php echo get_data('produk','id_produk',$id_produk,'id_subkategori'); ?>;
+          $.ajax({
+            url: 'app/get_hj_po/'+id_subkategori+'/<?php echo $no_po ?>',
+            type: 'GET',
+            dataType: 'html'
+          })
+          .done(function(a) {
+            console.log("success");
+            $('#list_hj').html(a);
+          })
+          .fail(function() {
+            console.log("error");
+          })
+          .always(function() {
+            console.log("complete");
+          });
+          
+          <?php } ?>
+
 
           $('#s_ppn').hide();
           var cek_ppn = <?php echo cek_ppn($no_po) ?>;
@@ -101,6 +152,23 @@
                 $('#stok_now').html("STOK NOW : "+param.stok);
                 $('#stok_min').html("STOK MIN : "+param.stok_min);
                 $('#note_po').html("NOTE PO : "+param.qty_po);
+
+                  $.ajax({
+                    url: 'app/get_hj_po/'+param.id_subkategori+'/<?php echo $no_po ?>',
+                    type: 'GET',
+                    dataType: 'html'
+                  })
+                  .done(function(a) {
+                    console.log("success");
+                    $('#list_hj').html(a);
+                  })
+                  .fail(function() {
+                    console.log("error");
+                  })
+                  .always(function() {
+                    console.log("complete");
+                  });
+
               })
               .fail(function() {
                 console.log("error");
@@ -165,6 +233,10 @@
               });
               
             });
+
+
+            
+
 
        });
    </script>
