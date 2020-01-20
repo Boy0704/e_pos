@@ -105,6 +105,7 @@
           <?php 
           if ($id_produk != '') {
            ?>
+          var xid_produk = <?php echo $id_produk ?>;
           var id_subkategori = <?php echo get_data('produk','id_produk',$id_produk,'id_subkategori'); ?>;
           $.ajax({
             url: 'app/get_hj_po/'+id_subkategori+'/<?php echo $no_po ?>',
@@ -122,8 +123,9 @@
             console.log("complete");
           });
           
+          <?php } else { ?>
+          var xid_produk = $('#id_produk').val();
           <?php } ?>
-
 
           $('#s_ppn').hide();
           var cek_ppn = <?php echo cek_ppn($no_po) ?>;
@@ -181,6 +183,7 @@
 
             $("#cek").click(function(event) {
               var diskon = $('#diskon').val();
+              
               console.log(diskon);
               var harga = 0;
               if (cek_ppn == '1') {
@@ -191,7 +194,7 @@
               console.log(harga);
               
               $.ajax({
-                url: 'app/cek_diskon_beli',
+                url: 'app/cek_diskon_beli/<?php echo $no_po ?>/'+xid_produk,
                 type: 'POST',
                 dataType: 'JSON',
                 data: {diskon: diskon,harga : harga},
@@ -222,6 +225,9 @@
                 }
                 
                 $("#value_diskon_hb").val(value_diskon_hb);
+
+                //load harga_jual_temp
+                $('#list_hj').load("app/get_hj_po/"+a.id_subkategori+"/<?php echo $no_po ?>")
                 
                $('#total').val(total);
               })

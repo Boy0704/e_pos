@@ -36,10 +36,10 @@ class App extends CI_Controller {
 
     public function simpan_hj_temp($no_po)
     {
-        $this->db->insert('harga_jual_temp', array(
-            'no_po'=>$no_po,
-            'id_produk'=>$this->input->post('id_produk'),
-            'id_subkategori'=>$this->input->post('id_subkategori'),
+        $this->db->where('no_po', $no_po);
+        $this->db->where('id_produk', $this->input->post('id_produk'));
+        $this->db->where('id_subkategori', $this->input->post('id_subkategori'));
+        $this->db->update('harga_jual_temp', array(
             'harga_jual'=>$this->input->post('harga_jual'),
         ));
     }
@@ -67,14 +67,20 @@ class App extends CI_Controller {
                     //update  harga jual
                     foreach ($this->db->get_where('harga_jual_temp', array('no_po'=>$no_po))->result() as $hj) {
                         $this->db->where('id_produk', $hj->id_produk);
-                        $this->db->update('produk', array('harga'=>$hj->harga_jual));
+                        $this->db->update('produk', array(
+                            'harga'=>$hj->harga_jual,
+                            'harga_beli'=>$hj->harga_beli,
+                        ));
                     }
                 } else {
                     $this->db->update('produk', array('harga_beli'=>$value->harga_beli,'diskon'=>$value->diskon_jual,'value_diskon_hb'=>$value->diskon));
                     //update  harga jual
                     foreach ($this->db->get_where('harga_jual_temp', array('no_po'=>$no_po))->result() as $hj) {
                         $this->db->where('id_produk', $hj->id_produk);
-                        $this->db->update('produk', array('harga'=>$hj->harga_jual));
+                        $this->db->update('produk', array(
+                            'harga'=>$hj->harga_jual,
+                            'harga_beli'=>$hj->harga_beli,
+                        ));
                     }
                 }
                 
@@ -148,12 +154,59 @@ class App extends CI_Controller {
             'diskon_hb'=>$diskon_hb,'id_subkategori'=>$id_subk));
     }
 
-    public function cek_diskon_beli()
+    
+
+    public function cek_diskon_beli($no_po,$id_produk)
     {
+        $in_unit_now = get_data('produk','id_produk',$id_produk,'in_unit');
+        $id_subkategori = get_data('produk','id_produk',$id_produk,'id_subkategori');
         $diskon = $this->input->post('diskon');
         $total_h = $this->input->post('harga');
         $hd = get_diskon_beli($diskon,$total_h);
-        echo json_encode(array('harga_diskon'=>$hd));
+
+        //update harga_jual_temp
+        foreach ($this->db->get_where('harga_jual_temp', array('no_po'=>$no_po,'id_subkategori'=>$id_subkategori))->result() as $value) {
+
+            // log_r($this->db->last_query());
+            //cek_in_unit
+            $setelah_diskon = 0;
+            $setelah_ppn = 0;
+            $harga_beli = 0;
+            $in_unit_temp = get_data('produk','id_produk',$value->id_produk,'in_unit');
+            // log_data($id_produk);
+            if ($in_unit_now > $in_unit_temp) {
+                $setelah_diskon = $hd;
+                $setelah_ppn = $total_h/$in_unit_temp;
+                $harga_beli = $total_h/$in_unit_temp;
+            } elseif ($in_unit_now < $in_unit_temp) {
+                if ($in_unit_now == 1) {
+                    $setelah_diskon = $hd * $in_unit_temp;
+                    $setelah_ppn = $total_h * $in_unit_temp;
+                    $harga_beli = $total_h * $in_unit_temp;
+                } 
+                elseif ($in_unit_now > 1) {
+                    $setelah_diskon = ($in_unit_temp / $in_unit_now) * $hd;
+                    $setelah_ppn = ($in_unit_temp / $in_unit_now) * $total_h;
+                    $harga_beli = ($in_unit_temp / $in_unit_now) * $total_h;
+                }
+            } elseif ($in_unit_now == $in_unit_temp) {
+                $setelah_diskon = $hd;
+                $setelah_ppn = $total_h;
+                $harga_beli = $total_h;
+            }
+
+            $this->db->where('id_produk', $value->id_produk);
+            $this->db->update('harga_jual_temp', array(
+                'setelah_diskon'=>intval($setelah_diskon),
+                'setelah_ppn'=>intval($setelah_ppn),
+                'harga_beli'=>$harga_beli,
+            ));
+                    // log_data($setelah_diskon);
+                    // log_data($setelah_ppn);
+                    // log_data($harga_beli);  
+        }
+
+        echo json_encode(array('harga_diskon'=>$hd,'id_subkategori'=>get_data('produk','id_produk',$id_produk,'id_subkategori')));
     }
 
     public function get_sales()
