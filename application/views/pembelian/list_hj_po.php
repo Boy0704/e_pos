@@ -14,6 +14,8 @@
 				 ?>
 				<th>Setelah PPN</th>
 				<?php } ?>
+				<th>Disc Beli</th>
+				<th>Disc Jual</th>
 				<th>Harga Jual</th>
 				<th>Option</th>
 			</thead>
@@ -32,6 +34,8 @@
 						'harga_beli'=>$dt->harga_beli,
 						'setelah_diskon'=>0,
 						'setelah_ppn'=>0,
+						'diskon_hj'=>$dt->diskon,
+						'diskon_hb'=>$dt->diskon_hb,
 					));
 				}
 
@@ -53,7 +57,12 @@
 						if ($cek_p == '1') {
 					 ?>
 					<td><?php echo $rw->setelah_ppn ?></td>
+					
 					<?php } ?>
+					<td><?php echo $rw->diskon_hb ?></td>
+					<td>
+						<input type="text" class="form-control" id="diskon_hj_<?php echo $rw->id_produk ?>" name="diskon_hj" value="<?php echo $rw->diskon_hj; ?>">
+					</td>
 					<td>
 						<input type="text" class="form-control" id="hj_<?php echo $rw->id_produk ?>" name="harga_jual" value="<?php echo $rw->harga_jual; ?>">
 						<input type="hidden" class="form-control" id="id_produk_<?php echo $rw->id_produk ?>" name="id_produk" value="<?php echo $rw->id_produk ?>">

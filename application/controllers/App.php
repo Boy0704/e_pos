@@ -70,6 +70,8 @@ class App extends CI_Controller {
                         $this->db->update('produk', array(
                             'harga'=>$hj->harga_jual,
                             'harga_beli'=>$hj->harga_beli,
+                            'value_diskon_hb'=>$hj->diskon_hb,
+                            'diskon'=>$hj->diskon_hj,
                         ));
                     }
                 } else {
@@ -80,6 +82,8 @@ class App extends CI_Controller {
                         $this->db->update('produk', array(
                             'harga'=>$hj->harga_jual,
                             'harga_beli'=>$hj->harga_beli,
+                            'value_diskon_hb'=>$hj->diskon_hb,
+                            'diskon'=>$hj->diskon_hj,
                         ));
                     }
                 }
@@ -200,6 +204,7 @@ class App extends CI_Controller {
                 'setelah_diskon'=>intval($setelah_diskon),
                 'setelah_ppn'=>intval($setelah_ppn),
                 'harga_beli'=>$harga_beli,
+                'diskon_hb'=>$diskon,
             ));
                     // log_data($setelah_diskon);
                     // log_data($setelah_ppn);
