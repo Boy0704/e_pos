@@ -14,7 +14,7 @@
 
 	
 	<?php 
-		$x = 1;
+		$x = 0;
 		$no = $this->uri->segment(3);
 		foreach ($this->db->get_where('penjualan_detail', array('no_penjualan'=>$no))->result() as $rw) {
 		 ?>
