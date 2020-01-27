@@ -23,7 +23,7 @@
 			<?php 
 			// error_reporting(0);
 			$no = 1;
-			$hj_temp = $this->db->get('harga_jual_temp', array('no_po'=>$no_po,'id_subkategori'=>$id_subkategori));
+			$hj_temp = $this->db->get_where('harga_jual_temp', array('no_po'=>$no_po,'id_subkategori'=>$id_subkategori));
 			if ($hj_temp->num_rows() == 0) {
 				foreach ($this->db->get_where('produk',array('id_subkategori'=>$id_subkategori))->result() as $dt) {
 					$this->db->insert('harga_jual_temp', array(
@@ -35,7 +35,7 @@
 						'setelah_diskon'=>0,
 						'setelah_ppn'=>0,
 						'diskon_hj'=>$dt->diskon,
-						'diskon_hb'=>$dt->diskon_hb,
+						'diskon_hb'=>$dt->value_diskon_hb,
 					));
 				}
 

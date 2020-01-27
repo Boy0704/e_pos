@@ -107,6 +107,7 @@
            ?>
           var xid_produk = <?php echo $id_produk ?>;
           var id_subkategori = <?php echo get_data('produk','id_produk',$id_produk,'id_subkategori'); ?>;
+          console.log(id_subkategori);
           $.ajax({
             url: 'app/get_hj_po/'+id_subkategori+'/<?php echo $no_po ?>',
             type: 'GET',
