@@ -206,7 +206,7 @@ class App extends CI_Controller {
                     // echo "$setelah_ppn <br/>";
                     // echo "$harga_beli <br/>";
                 }
-                echo "$in_unit_now <  $in_unit_temp <br/>";
+                // echo "$in_unit_now <  $in_unit_temp <br/>";
             } elseif ($in_unit_now == $in_unit_temp) {
                 $setelah_diskon = $hd;
                 $setelah_ppn = $total_h;
