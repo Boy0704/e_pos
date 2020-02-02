@@ -179,24 +179,42 @@ class App extends CI_Controller {
             $in_unit_temp = get_data('produk','id_produk',$value->id_produk,'in_unit');
             // log_data($id_produk);
             if ($in_unit_now > $in_unit_temp) {
-                $setelah_diskon = $hd;
-                $setelah_ppn = $total_h/$in_unit_temp;
-                $harga_beli = $total_h/$in_unit_temp;
-            } elseif ($in_unit_now < $in_unit_temp) {
+                $setelah_diskon = $hd / ($in_unit_now / $in_unit_temp);
+                $setelah_ppn = $total_h/($in_unit_now / $in_unit_temp);
+                $harga_beli = $total_h/($in_unit_now / $in_unit_temp);
+                // echo "$in_unit_now >  $in_unit_temp <br/>";
+                // echo "$setelah_diskon = $hd / $in_unit_temp <br/>";
+                // echo "$setelah_ppn <br/>";
+                // echo "$harga_beli <br/>";
+            } 
+            elseif ($in_unit_now < $in_unit_temp) {
                 if ($in_unit_now == 1) {
                     $setelah_diskon = $hd * $in_unit_temp;
                     $setelah_ppn = $total_h * $in_unit_temp;
                     $harga_beli = $total_h * $in_unit_temp;
+                    // echo "$in_unit_now ==  1 <br/>";
+                    // echo "$setelah_diskon <br/>";
+                    // echo "$setelah_ppn <br/>";
+                    // echo "$harga_beli <br/>";
                 } 
-                elseif ($in_unit_now > 1) {
+                if ($in_unit_now > 1) {
                     $setelah_diskon = ($in_unit_temp / $in_unit_now) * $hd;
                     $setelah_ppn = ($in_unit_temp / $in_unit_now) * $total_h;
                     $harga_beli = ($in_unit_temp / $in_unit_now) * $total_h;
+                    // echo "$in_unit_now > '1' <br/>";
+                    // echo "$setelah_diskon <br/>";
+                    // echo "$setelah_ppn <br/>";
+                    // echo "$harga_beli <br/>";
                 }
+                echo "$in_unit_now <  $in_unit_temp <br/>";
             } elseif ($in_unit_now == $in_unit_temp) {
                 $setelah_diskon = $hd;
                 $setelah_ppn = $total_h;
                 $harga_beli = $total_h;
+                // echo "$in_unit_now ==  $in_unit_temp <br/>";
+                // echo "$setelah_diskon <br/>";
+                // echo "$setelah_ppn <br/>";
+                // echo "$harga_beli <br/>";
             }
 
             $this->db->where('id_produk', $value->id_produk);
