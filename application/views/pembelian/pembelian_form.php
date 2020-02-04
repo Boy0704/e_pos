@@ -97,15 +97,43 @@
         
 
       }
+
+      function cek_hb_new(id) {
+        var hb_now = $('#harga_beli').val();
+        var in_unit = $('#in_unit').val();
+        // alert(hb_now+' - '+id);
+
+        $.ajax({
+          url: 'app/simpan_hj_temp/<?php echo $no_po ?>',
+          type: 'POST',
+          dataType: 'html',
+          data: {id_produk: id, harga_jual: hj, id_subkategori: subk},
+        })
+        .done(function() {
+          console.log("success");
+          // $('#simpan_'+id).html('<a class="btn btn-success" >Success</a>')
+          $('#cek_hb_'+id).html('Success');
+          $('#cek_hb_'+id).attr('class', 'btn btn-success');
+
+          //load harga_jual_temp
+          $('#list_hj').load("app/get_hj_po/"+a.id_subkategori+"/<?php echo $no_po ?>")
+        })
+        .fail(function() {
+          console.log("error");
+        })
+        .always(function() {
+          console.log("complete");
+        });
+
+      }
+
        $(document).ready(function() {
 
           //scan barcode
           // $("#id_produk option[value=20 ]").attr('selected', 'selected');
 
-          <?php 
-          if ($id_produk != '') {
-           ?>
-          var xid_produk = <?php echo $id_produk ?>;
+         
+          
           var id_subkategori = <?php echo get_data('produk','id_produk',$id_produk,'id_subkategori'); ?>;
           console.log(id_subkategori);
           $.ajax({
@@ -124,9 +152,7 @@
             console.log("complete");
           });
           
-          <?php } else { ?>
-          var xid_produk = $('#id_produk').val();
-          <?php } ?>
+          
 
           $('#s_ppn').hide();
           var cek_ppn = <?php echo cek_ppn($no_po) ?>;
@@ -183,6 +209,7 @@
 
 
             $("#cek").click(function(event) {
+              var xid_produk = $('#id_produk').val();
               var diskon = $('#diskon').val();
               
               console.log(diskon);

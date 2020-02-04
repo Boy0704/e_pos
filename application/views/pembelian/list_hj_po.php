@@ -50,13 +50,13 @@
 					<td><?php echo get_data('produk','id_produk',$rw->id_produk,'nama_produk') ?></td>
 					<td><?php echo get_data('produk','id_produk',$rw->id_produk,'in_unit') ?></td>
 					<td><?php echo get_data('produk','id_produk',$rw->id_produk,'satuan') ?></td>
-					<td><?php echo $rw->harga_beli ?></td>
-					<td><?php echo $rw->setelah_diskon ?></td>
+					<td><?php echo number_format($rw->harga_beli) ?></td>
+					<td><?php echo number_format($rw->setelah_diskon) ?></td>
 					<?php 
 						$cek_p = cek_ppn($no_po);
 						if ($cek_p == '1') {
 					 ?>
-					<td><?php echo $rw->setelah_ppn ?></td>
+					<td><?php echo number_format($rw->setelah_ppn) ?></td>
 					
 					<?php } ?>
 					<td><?php echo $rw->diskon_hb ?></td>
@@ -70,6 +70,7 @@
 					</td>
 					<td>
 						<a id="simpan_<?php echo $rw->id_produk ?>" onclick="simpan_hj('<?php echo $rw->id_produk ?>');" class="btn btn-primary" >Simpan</a>
+						<!-- <a id="cek_hb_<?php echo $rw->id_produk ?>" onclick="cek_hb_new('<?php echo $rw->id_produk ?>');" class="btn btn-info" >CEK</a> -->
 					</td>
 					</form>
 				</tr>

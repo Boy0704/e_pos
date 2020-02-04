@@ -168,6 +168,8 @@ class App extends CI_Controller {
         $total_h = $this->input->post('harga');
         $hd = get_diskon_beli($diskon,$total_h);
 
+        // log_data($_POST);
+
         //update harga_jual_temp
         foreach ($this->db->get_where('harga_jual_temp', array('no_po'=>$no_po,'id_subkategori'=>$id_subkategori))->result() as $value) {
 
@@ -183,9 +185,16 @@ class App extends CI_Controller {
                 $setelah_ppn = $total_h/($in_unit_now / $in_unit_temp);
                 $harga_beli = $total_h/($in_unit_now / $in_unit_temp);
                 // echo "$in_unit_now >  $in_unit_temp <br/>";
-                // echo "$setelah_diskon = $hd / $in_unit_temp <br/>";
-                // echo "$setelah_ppn <br/>";
-                // echo "$harga_beli <br/>";
+                // echo "$setelah_diskon = $hd / ($in_unit_now / $in_unit_temp) <br/>";
+                // echo "$setelah_ppn = $total_h/($in_unit_now / $in_unit_temp) <br/>";
+                // echo "$harga_beli = $total_h/($in_unit_now / $in_unit_temp) <br/>";
+                 $this->db->where('id_produk', $value->id_produk);
+                $this->db->update('harga_jual_temp', array(
+                    'setelah_diskon'=>intval($setelah_diskon),
+                    'setelah_ppn'=>intval($setelah_ppn),
+                    'harga_beli'=>$harga_beli,
+                    'diskon_hb'=>$diskon,
+                ));
             } 
             elseif ($in_unit_now < $in_unit_temp) {
                 if ($in_unit_now == 1) {
@@ -196,6 +205,13 @@ class App extends CI_Controller {
                     // echo "$setelah_diskon <br/>";
                     // echo "$setelah_ppn <br/>";
                     // echo "$harga_beli <br/>";
+                     $this->db->where('id_produk', $value->id_produk);
+                        $this->db->update('harga_jual_temp', array(
+                            'setelah_diskon'=>intval($setelah_diskon),
+                            'setelah_ppn'=>intval($setelah_ppn),
+                            'harga_beli'=>$harga_beli,
+                            'diskon_hb'=>$diskon,
+                        ));
                 } 
                 if ($in_unit_now > 1) {
                     $setelah_diskon = ($in_unit_temp / $in_unit_now) * $hd;
@@ -205,6 +221,13 @@ class App extends CI_Controller {
                     // echo "$setelah_diskon <br/>";
                     // echo "$setelah_ppn <br/>";
                     // echo "$harga_beli <br/>";
+                     $this->db->where('id_produk', $value->id_produk);
+                        $this->db->update('harga_jual_temp', array(
+                            'setelah_diskon'=>intval($setelah_diskon),
+                            'setelah_ppn'=>intval($setelah_ppn),
+                            'harga_beli'=>$harga_beli,
+                            'diskon_hb'=>$diskon,
+                        ));
                 }
                 // echo "$in_unit_now <  $in_unit_temp <br/>";
             } elseif ($in_unit_now == $in_unit_temp) {
@@ -215,15 +238,16 @@ class App extends CI_Controller {
                 // echo "$setelah_diskon <br/>";
                 // echo "$setelah_ppn <br/>";
                 // echo "$harga_beli <br/>";
+                 $this->db->where('id_produk', $value->id_produk);
+                $this->db->update('harga_jual_temp', array(
+                    'setelah_diskon'=>intval($setelah_diskon),
+                    'setelah_ppn'=>intval($setelah_ppn),
+                    'harga_beli'=>$harga_beli,
+                    'diskon_hb'=>$diskon,
+                ));
             }
 
-            $this->db->where('id_produk', $value->id_produk);
-            $this->db->update('harga_jual_temp', array(
-                'setelah_diskon'=>intval($setelah_diskon),
-                'setelah_ppn'=>intval($setelah_ppn),
-                'harga_beli'=>$harga_beli,
-                'diskon_hb'=>$diskon,
-            ));
+           
                     // log_data($setelah_diskon);
                     // log_data($setelah_ppn);
                     // log_data($harga_beli);  
