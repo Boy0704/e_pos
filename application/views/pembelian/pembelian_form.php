@@ -74,13 +74,16 @@
    <script type="text/javascript">
       function simpan_hj(id) {
         var hj = $('#hj_'+id).val();
+        var diskon_hj = $('#diskon_hj_'+id).val();
         var subk = $('#id_subkategori_'+id).val();
+
+        console.log("ini diskon hj : "+diskon_hj)
         
         $.ajax({
           url: 'app/simpan_hj_temp/<?php echo $no_po ?>',
           type: 'POST',
           dataType: 'html',
-          data: {id_produk: id, harga_jual: hj, id_subkategori: subk},
+          data: {id_produk: id, harga_jual: hj, diskon_hj: diskon_hj,  id_subkategori: subk},
         })
         .done(function() {
           console.log("success");

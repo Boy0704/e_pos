@@ -41,6 +41,7 @@ class App extends CI_Controller {
         $this->db->where('id_subkategori', $this->input->post('id_subkategori'));
         $this->db->update('harga_jual_temp', array(
             'harga_jual'=>$this->input->post('harga_jual'),
+            'diskon_hj'=>$this->input->post('diskon_hj')
         ));
     }
 
