@@ -45,15 +45,32 @@ class App extends CI_Controller {
         ));
     }
 
-    public function edit_stok_khusus($id_produk,$id_subkategori)
+    public function edit_stok_khusus($id_produk,$id_subkategori,$in_unit)
     {
-        $in_qty = $_POST['stok_edit'] - $_POST['stok_now'];
-        $this->db->insert('stok_transfer', array(
-            'id_produk'=>$id_produk,
-            'id_subkategori'=>$id_subkategori,
-            'in_qty'=>$in_qty,
-            'milik'=>'gudang',
-        ));
+        if ($_POST['stok_edit'] > $_POST['stok_now']) {
+            $nilai = $_POST['stok_edit'] - $_POST['stok_now'];
+            $in_qty = $nilai * $in_unit;
+            // log_data($_POST);
+            // log_r($in_qty);
+            $this->db->insert('stok_transfer', array(
+                'id_produk'=>$id_produk,
+                'id_subkategori'=>$id_subkategori,
+                'in_qty'=>$in_qty,
+                'milik'=>'gudang',
+            ));
+        } elseif ($_POST['stok_edit'] < $_POST['stok_now']) {
+            $nilai = $_POST['stok_now'] - $_POST['stok_edit'];
+            $out_qty = $nilai * $in_unit;
+            // log_data($_POST);
+            // log_r($in_qty);
+            $this->db->insert('stok_transfer', array(
+                'id_produk'=>$id_produk,
+                'id_subkategori'=>$id_subkategori,
+                'out_qty'=>$out_qty,
+                'milik'=>'gudang',
+            ));
+        }
+        
         $this->session->set_flashdata('message', alert_biasa('Berhasil ubah stok Produk','success'));
         redirect('app/produk/'.$id_subkategori,'refresh');
 

@@ -67,7 +67,7 @@
 							          <h4 class="modal-title">Edit Stok Khusus</h4>
 							        </div>
 							        <div class="modal-body">
-							          <form action="app/edit_stok_khusus/<?php echo $rw->id_produk.'/'.$rw->id_subkategori ?>" method="POST">
+							          <form action="app/edit_stok_khusus/<?php echo $rw->id_produk.'/'.$rw->id_subkategori.'/'.$rw->in_unit ?>" method="POST">
 							          	<label>Stok</label>
 							          	<input type="text" name="stok_edit" value="<?php echo $rw->stok ?>" class="form-control">
 							          	<input type="hidden" name="stok_now" value="<?php echo $rw->stok ?>">
