@@ -45,6 +45,20 @@ class App extends CI_Controller {
         ));
     }
 
+    public function edit_stok_khusus($id_produk,$id_subkategori)
+    {
+        $in_qty = $_POST['stok_edit'] - $_POST['stok_now'];
+        $this->db->insert('stok_transfer', array(
+            'id_produk'=>$id_produk,
+            'id_subkategori'=>$id_subkategori,
+            'in_qty'=>$in_qty,
+            'milik'=>'gudang',
+        ));
+        $this->session->set_flashdata('message', alert_biasa('Berhasil ubah stok Produk','success'));
+        redirect('app/produk/'.$id_subkategori,'refresh');
+
+    }
+
     public function ubah_status_po($id_po)
     {
         

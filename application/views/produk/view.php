@@ -54,6 +54,35 @@
 							
 							<a href="produk/update/<?php echo $rw->id_produk ?>" class="label label-info">Edit</a>
 							<a onclick="javasciprt: return confirm('Yakin hapus produk ini ?')" href="produk/delete/<?php echo $rw->id_produk.'/'.$rw->id_subkategori ?>" class="label label-danger">Hapus</a>
+							<a href="#" class="label label-success" data-toggle="modal" data-target="#editStok">Edit Stok Khusus</a>
+
+							<!-- Modal Edit Stok Khusus-->
+							  <div class="modal fade" id="editStok" role="dialog">
+							    <div class="modal-dialog">
+							    
+							      <!-- Modal content-->
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <button type="button" class="close" data-dismiss="modal">&times;</button>
+							          <h4 class="modal-title">Edit Stok Khusus</h4>
+							        </div>
+							        <div class="modal-body">
+							          <form action="app/edit_stok_khusus/<?php echo $rw->id_produk.'/'.$rw->id_subkategori ?>" method="POST">
+							          	<label>Stok</label>
+							          	<input type="text" name="stok_edit" value="<?php echo $rw->stok ?>" class="form-control">
+							          	<input type="hidden" name="stok_now" value="<?php echo $rw->stok ?>">
+							          
+							        </div>
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							          <button type="submit" class="btn btn-info">UPDATE</button>
+							          </form>
+							        </div>
+							      </div>
+							      
+							    </div>
+							  </div>
+
 						</td>
 					</tr>
 					<?php $no++; } ?>
