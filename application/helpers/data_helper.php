@@ -3,6 +3,9 @@
 function cek_ppn($no_po)
 {
 	$cek = get_data('po_master','no_po',$no_po,'ppn');
+	if ($cek == NULL) {
+		$cek = 0;
+	}
 	return $cek;
 }
 

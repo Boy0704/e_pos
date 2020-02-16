@@ -138,7 +138,7 @@
          
           
           var id_subkategori = <?php echo get_data('produk','id_produk',$id_produk,'id_subkategori'); ?>;
-          console.log(id_subkategori);
+          console.log("ini id subk: "+id_subkategori);
           $.ajax({
             url: 'app/get_hj_po/'+id_subkategori+'/<?php echo $no_po ?>',
             type: 'GET',
