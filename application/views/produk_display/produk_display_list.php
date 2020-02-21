@@ -1,7 +1,20 @@
+<div class="col-md-12">
+  <!-- Custom Tabs -->
+  <div class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#tab_1" data-toggle="tab">LIST DISPLAY</a></li>
+      <li><a href="#tab_2" data-toggle="tab">AUTO DISPLAY</a></li>
+      
+    </ul>
+
+    <div class="tab-content">
+
+      <div class="tab-pane active" id="tab_1">
+
 
         <div class="row" style="margin-bottom: 10px">
             <div class="col-md-4">
-                <?php echo anchor(site_url('produk_display/create'),'Create', 'class="btn btn-primary"'); ?>
+                <?php //echo anchor(site_url('produk_display/create'),'Create', 'class="btn btn-primary"'); ?>
             </div>
             <div class="col-md-4 text-center">
                 <div style="margin-top: 8px" id="message">
@@ -48,6 +61,8 @@
 		<th>User By</th>
 		<th>Action</th>
             </tr><?php
+            $start = 0;
+            $produk_display_custom = $this->db->get_where('produk_display', array('auto_display'=1));
             foreach ($produk_display_data as $produk_display)
             {
                 ?>
@@ -68,9 +83,9 @@
 			<td><?php echo $produk_display->user_by ?></td>
 			<td style="text-align:center" width="100px">
 				<?php 
-				// echo anchor(site_url('produk_display/update/'.$produk_display->id_display),'<span class="label label-info">Ubah</span>'); 
+				echo anchor(site_url('produk_display/update/'.$produk_display->id_display),'<span class="label label-info">Ubah</span>'); 
 				// echo ' | '; 
-				echo anchor(site_url('produk_display/delete/'.$produk_display->id_display),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+				// echo anchor(site_url('produk_display/delete/'.$produk_display->id_display),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
 				?>
 			</td>
 		</tr>
@@ -79,12 +94,21 @@
             ?>
         </table>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-	    </div>
-            <div class="col-md-6 text-right">
-                <?php echo $pagination ?>
-            </div>
-        </div>
+</div>
+
+<div class="tab-pane" id="tab_2">
+
+
+
+</div>
+
+
+</div> <!-- BATAS TAB KONTEN -->
+    <!-- /.tab-content -->
+  </div>
+  <!-- nav-tabs-custom -->
+</div>
+<!-- /.col -->
+
+        
     

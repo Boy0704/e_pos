@@ -29,6 +29,57 @@ class App extends CI_Controller {
 		$this->load->view('v_index', $data);
     }
 
+    public function insert_manual_display_all()
+    {
+        $this->load->model('Produk_display_model');
+
+        $this->db->where('in_unit', 1);
+        $data_produk = $this->db->get('produk');
+        foreach ($data_produk->result() as $rw) {
+            
+                $data = array(
+                'id_produk' => $rw->id_produk,
+                'id_subkategori' => $rw->id_subkategori,
+                'stok' => 10,
+                'in_unit' => $rw->in_unit,
+                'display_min' => 5,
+                'display_max' => 10,
+                'stok_gudang' => $rw->stok,
+                'orderan' => 5,
+                'selisih_gudang' => 0,
+                'selisih_display' => 0,
+                'date_create' => get_waktu(),
+                'user_by' => $this->session->userdata('nama'),
+                );
+                    //cek apakah produk sudah ada di display
+                    $cek_display = $this->db->get_where('produk_display', array('id_produk'=>$rw->id_produk));
+                    if ($cek_display->num_rows() == 0) {
+                        $this->Produk_display_model->insert($data);
+                    }
+
+                    $out_produk_transfer = array(
+                        'id_produk' => $rw->id_produk,
+                        'id_subkategori' => $rw->id_subkategori,
+                        'out_qty' => floatval(10) * floatval($rw->in_unit)
+                    );
+                    $this->db->insert('stok_transfer', $out_produk_transfer);
+
+                    $in_display_transfer = array(
+                        'id_produk' => $rw->id_produk,
+                        'id_subkategori' => $rw->id_subkategori,
+                        'in_qty' => floatval(10) * floatval($rw->in_unit),
+                        'milik' => 'display'
+                    );
+                    $this->db->insert('stok_transfer', $in_display_transfer);
+
+
+        }
+
+            $this->session->set_flashdata('message', 'Create Record Success');
+            redirect(site_url('produk_display'));
+        
+    }
+
     public function get_hj_po($subkategori,$no_po)
     {
         $this->load->view('pembelian/list_hj_po',array('id_subkategori'=>$subkategori,'no_po'=>$no_po));
