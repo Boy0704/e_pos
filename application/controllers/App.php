@@ -49,7 +49,8 @@ class App extends CI_Controller {
                 'selisih_gudang' => 0,
                 'selisih_display' => 0,
                 'date_create' => get_waktu(),
-                'user_by' => $this->session->userdata('nama'),
+                'user_by' => $this->session->userdata('nama'),\
+                'auto_display'=>1,
                 );
                     //cek apakah produk sudah ada di display
                     $cek_display = $this->db->get_where('produk_display', array('id_produk'=>$rw->id_produk));
