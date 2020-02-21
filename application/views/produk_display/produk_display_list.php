@@ -34,7 +34,7 @@
             </tr><?php
             $start = 1;
             $produk_display_custom = $this->db->get_where('produk_display', array('auto_display'=1));
-            foreach ($produk_display_custom as $produk_display)
+            foreach ($produk_display_custom->result() as $produk_display)
             {
                 ?>
                 <tr>
