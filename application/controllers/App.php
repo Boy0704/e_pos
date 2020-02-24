@@ -29,6 +29,42 @@ class App extends CI_Controller {
 		$this->load->view('v_index', $data);
     }
 
+    public function auto_display()
+    {
+        $this->db->where('stok <= display_min');
+        $this->db->where('auto_display',1);
+        foreach ($this->db->get('produk_display')->result() as $v) {
+            $this->db->where('id_display', $v->id_display);
+            $this->db->update('produk_display', array('auto_display'=>0));
+        }
+    }
+
+    public function konfirm_auto_display($id_produk,$id_subkategori,$orderan)
+    {
+        $out_produk_transfer = array(
+            'id_produk' => $id_produk,
+            'id_subkategori' => $id_subkategori,
+            'out_qty' => floatval($orderan) * floatval(1),
+            'milik' => 'gudang'
+        );
+        $this->db->insert('stok_transfer', $out_produk_transfer);
+
+        $in_display_transfer = array(
+            'id_produk' => $id_produk,
+            'id_subkategori' => $id_subkategori,
+            'in_qty' => floatval($orderan) * floatval(1),
+            'milik' => 'display'
+        );
+        $this->db->insert('stok_transfer', $in_display_transfer);
+
+        $this->db->where('id_subkategori', $id_subkategori);
+        $this->db->update('produk_display', array('auto_display'=>1));
+
+        $this->session->set_flashdata('message', alert_biasa('Auto Display berhasil di konfirm','success'));
+        redirect(site_url('produk_display'));
+
+    }
+
     public function insert_manual_display_all()
     {
         $this->load->model('Produk_display_model');

@@ -11,7 +11,9 @@
 						<th>Foto</th>
 						<th>Sub Kategori</th>
 						<th>Produk</th>
-						<th>Stok</th>
+						<th>Stok Gudang</th>
+						<th>Stok Display</th>
+						<th>Total Stok</th>
 						<th>Satuan</th>
 						<th>In Unit</th>
 						<th>Stok Min</th>
@@ -38,6 +40,8 @@
 						<td><?php echo get_data('subkategori','id_subkategori',$rw->id_subkategori,'subkategori'); ?></td>
 						<td><?php echo $rw->nama_produk; ?></td>
 						<td><?php echo $rw->stok; ?></td>
+						<td><?php echo number_format(stok_display($rw->id_subkategori)/ $rw->in_unit,2); ?></td>
+						<td><?php $t_stok = (stok_display($rw->id_subkategori) + stok_gudang($rw->id_subkategori)) / $rw->in_unit; echo number_format($t_stok,2); ?></td>
 						<td><?php echo $rw->satuan ?></td>
 						<td><?php echo $rw->in_unit ?></td>
 						<td><?php echo $rw->stok_min ?></td>

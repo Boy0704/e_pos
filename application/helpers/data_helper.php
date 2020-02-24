@@ -1,5 +1,37 @@
 <?php 
 
+function stok_display($id_subkategori)
+{
+	$CI =& get_instance();
+	$sql = "
+	SELECT
+		((COALESCE(SUM(in_qty),0) - COALESCE(SUM(out_qty),0)) ) AS stok_akhir 
+	FROM
+		stok_transfer
+	WHERE
+		id_subkategori='$id_subkategori'
+		and milik='display';
+	";
+	$stok = $CI->db->query($sql)->row()->stok_akhir;
+	return $stok;
+}
+
+function stok_gudang($id_subkategori)
+{
+	$CI =& get_instance();
+	$sql = "
+	SELECT
+		((COALESCE(SUM(in_qty),0) - COALESCE(SUM(out_qty),0)) ) AS stok_akhir 
+	FROM
+		stok_transfer
+	WHERE
+		id_subkategori='$id_subkategori'
+		and milik='gudang';
+	";
+	$stok = $CI->db->query($sql)->row()->stok_akhir;
+	return $stok;
+}
+
 function cek_ppn($no_po)
 {
 	$cek = get_data('po_master','no_po',$no_po,'ppn');
