@@ -175,6 +175,30 @@ class Produk_display extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_display', TRUE));
         } else {
+
+            $selisih_display = $this->input->post('selisih_display');
+            $selisih_gudang = $this->input->post('selisih_gudang');
+            $id_subkategori = $this->input->post('id_subkategori');
+            $stok_display = stok_display($id_subkategori);
+            $stok_gudang = stok_gudang($id_subkategori);
+            if ($selisih_display > 0) {
+                $in_display_transfer = array(
+                    'id_produk' => $this->input->post('id_produk'),
+                    'id_subkategori' => $this->input->post('id_subkategori'),
+                    'in_qty' => -($selisih_display),
+                    'milik' => 'display'
+                );
+                $this->db->insert('stok_transfer', $in_display_transfer);
+            } elseif ($selisih_gudang > 0) {
+                $in_display_transfer = array(
+                    'id_produk' => $this->input->post('id_produk'),
+                    'id_subkategori' => $this->input->post('id_subkategori'),
+                    'in_qty' => -($selisih_gudang),
+                    'milik' => 'gudang'
+                );
+                $this->db->insert('stok_transfer', $in_display_transfer);
+            }
+
             $data = array(
 		'id_produk' => $this->input->post('id_produk',TRUE),
 		'id_subkategori' => $this->input->post('id_subkategori',TRUE),

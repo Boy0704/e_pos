@@ -58,7 +58,7 @@ class App extends CI_Controller {
         $this->db->insert('stok_transfer', $in_display_transfer);
 
         $this->db->where('id_subkategori', $id_subkategori);
-        $this->db->update('produk_display', array('auto_display'=>1));
+        $this->db->update('produk_display', array('auto_display'=>1,'date_create'=>get_waktu(),'user_by'=>$this->session->userdata('nama')));
 
         $this->session->set_flashdata('message', alert_biasa('Auto Display berhasil di konfirm','success'));
         redirect(site_url('produk_display'));
@@ -161,6 +161,37 @@ class App extends CI_Controller {
         
         $this->session->set_flashdata('message', alert_biasa('Berhasil ubah stok Produk','success'));
         redirect('app/produk/'.$id_subkategori,'refresh');
+
+    }
+
+    public function edit_stok_khusus_display($id_produk,$id_subkategori,$in_unit)
+    {
+        if ($_POST['stok_edit'] > $_POST['stok_now']) {
+            $nilai = $_POST['stok_edit'] - $_POST['stok_now'];
+            $in_qty = $nilai * $in_unit;
+            // log_data($_POST);
+            // log_r($in_qty);
+            $this->db->insert('stok_transfer', array(
+                'id_produk'=>$id_produk,
+                'id_subkategori'=>$id_subkategori,
+                'in_qty'=>$in_qty,
+                'milik'=>'display',
+            ));
+        } elseif ($_POST['stok_edit'] < $_POST['stok_now']) {
+            $nilai = $_POST['stok_now'] - $_POST['stok_edit'];
+            $out_qty = $nilai * $in_unit;
+            // log_data($_POST);
+            // log_r($in_qty);
+            $this->db->insert('stok_transfer', array(
+                'id_produk'=>$id_produk,
+                'id_subkategori'=>$id_subkategori,
+                'out_qty'=>$out_qty,
+                'milik'=>'display',
+            ));
+        }
+        
+        $this->session->set_flashdata('message', alert_biasa('Berhasil ubah stok Produk Display','success'));
+        redirect('produk_display','refresh');
 
     }
 
@@ -485,7 +516,12 @@ class App extends CI_Controller {
             * 
         FROM
             produk AS pr
-            WHERE pr.stok_min >= pr.stok 
+            WHERE pr.stok_min >= (SELECT
+        ((COALESCE(SUM(in_qty),0) - COALESCE(SUM(out_qty),0)) ) AS stok_akhir 
+    FROM
+        stok_transfer
+    WHERE
+        id_subkategori=pr.id_subkategori) 
             AND pr.id_produk not in (
             SELECT
                 pembelian.id_produk 

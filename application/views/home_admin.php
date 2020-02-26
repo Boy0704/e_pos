@@ -23,13 +23,18 @@
 			<tbody>
 				<?php
 				$no = 1; 
-				foreach ($this->db->query("SELECT * FROM produk WHERE stok_min >= stok")->result() as $rw) {
+				foreach ($this->db->query("SELECT * FROM produk as p WHERE p.stok_min >= (SELECT
+		((COALESCE(SUM(in_qty),0) - COALESCE(SUM(out_qty),0)) ) AS stok_akhir 
+	FROM
+		stok_transfer
+	WHERE
+		id_subkategori=p.id_subkategori)")->result() as $rw) {
 				 ?>
 				<tr>
 					<td><?php echo $no; ?></td>
 					<td><?php echo strtoupper(get_data('subkategori','id_subkategori',$rw->id_subkategori,'subkategori')); ?></td>
 					<td><?php echo strtoupper($rw->nama_produk) ?></td>
-					<td><?php echo $rw->stok ?></td>
+					<td><?php echo stok_display($rw->id_subkategori) + stok_gudang($rw->id_subkategori) ?></td>
 					<td><?php echo $rw->stok_min ?></td>
 				</tr>
 				<?php } ?>

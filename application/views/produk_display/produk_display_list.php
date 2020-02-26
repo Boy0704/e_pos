@@ -14,7 +14,8 @@
 
        
         <div class="table-responsive">
-        <table class="table table-bordered" style="margin-bottom: 10px">
+        <table class="table table-bordered" style="margin-bottom: 10px" id="example1">
+            <thead>
             <tr>
                 <th>No</th>
 		<th>Subkategori</th>
@@ -33,7 +34,9 @@
 		<th>Date Create</th>
 		<th>User By</th>
 		<th>Action</th>
-            </tr><?php
+            </tr>
+            </thead>
+            <tbody><?php
             $bg = '';
             $start = 1;
             $produk_display_custom = $this->db->get_where('produk_display', array('auto_display'=>1));
@@ -68,12 +71,44 @@
 				// echo ' | '; 
 				// echo anchor(site_url('produk_display/delete/'.$produk_display->id_display),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
 				?>
+                <a href="#" class="label label-success" data-toggle="modal" data-target="#editStok<?php echo $produk_display->id_produk; ?>">Edit Stok Khusus</a>
+
+
+                <!-- Modal Edit Stok Khusus-->
+                  <div class="modal fade" id="editStok<?php echo $produk_display->id_produk; ?>" role="dialog">
+                    <div class="modal-dialog">
+                    
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Edit Stok Khusus Display</h4>
+                        </div>
+                        <div class="modal-body">
+                          <form action="app/edit_stok_khusus_display/<?php echo $produk_display->id_produk.'/'.$produk_display->id_subkategori.'/'.$produk_display->in_unit ?>" method="POST">
+                            <label>Stok</label>
+                            <input type="text" name="stok_edit" value="<?php echo $produk_display->stok ?>" class="form-control">
+                            <input type="hidden" name="stok_now" value="<?php echo $produk_display->stok ?>">
+                          
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-info">UPDATE</button>
+                          </form>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+
+                  
 			</td>
 		</tr>
                 <?php
                 $start++;
             }
             ?>
+            </tbody>
         </table>
         </div>
 </div>
@@ -81,7 +116,8 @@
 <div class="tab-pane" id="tab_2">
 
     <div class="table-responsive">
-        <table class="table table-bordered" style="margin-bottom: 10px">
+        <table class="table table-bordered" style="margin-bottom: 10px" id="example2">
+            <thead>
             <tr>
                 <th>No</th>
         <th>Subkategori</th>
@@ -100,7 +136,10 @@
         <th>Date Create</th>
         <th>User By</th>
         <th>Action</th>
-            </tr><?php
+            </tr>
+            </thead>
+            <tbody>
+            <?php
             $start = 1;
             $produk_display_custom = $this->db->get_where('produk_display', array('auto_display'=>0));
             foreach ($produk_display_custom->result() as $produk_display)
@@ -130,8 +169,11 @@
                 // echo ' | '; 
                 // echo anchor(site_url('produk_display/delete/'.$produk_display->id_display),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
                 ?>
+
+
             </td>
         </tr>
+        </tbody>
                 <?php
                 $start++;
             }
