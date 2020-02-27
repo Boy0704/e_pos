@@ -87,6 +87,36 @@
 							    </div>
 							  </div>
 
+							<a href="#" class="label label-warning" data-toggle="modal" data-target="#editStokDisp<?php echo $rw->id_produk; ?>">Edit Stok Display</a>
+
+
+			                <!-- Modal Edit Stok Khusus-->
+			                  <div class="modal fade" id="editStokDisp<?php echo $rw->id_produk; ?>" role="dialog">
+			                    <div class="modal-dialog">
+			                    
+			                      <!-- Modal content-->
+			                      <div class="modal-content">
+			                        <div class="modal-header">
+			                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			                          <h4 class="modal-title">Edit Stok Khusus Display</h4>
+			                        </div>
+			                        <div class="modal-body">
+			                          <form action="app/edit_stok_khusus_display/<?php echo $rw->id_produk.'/'.$rw->id_subkategori.'/'.$rw->in_unit ?>" method="POST">
+			                            <label>Stok</label>
+			                            <input type="text" name="stok_edit" value="<?php echo $rw->stok ?>" class="form-control">
+			                            <input type="hidden" name="stok_now" value="<?php echo $rw->stok ?>">
+			                          
+			                        </div>
+			                        <div class="modal-footer">
+			                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			                          <button type="submit" class="btn btn-info">UPDATE</button>
+			                          </form>
+			                        </div>
+			                      </div>
+			                      
+			                    </div>
+			                  </div>
+
 						</td>
 					</tr>
 					<?php $no++; } ?>

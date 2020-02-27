@@ -191,7 +191,7 @@ class App extends CI_Controller {
         }
         
         $this->session->set_flashdata('message', alert_biasa('Berhasil ubah stok Produk Display','success'));
-        redirect('produk_display','refresh');
+        redirect('app/produk/'.$id_subkategori,'refresh');
 
     }
 
