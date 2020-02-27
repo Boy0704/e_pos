@@ -214,7 +214,7 @@ class App extends CI_Controller {
     public function edit_orderan($id)
     {
         $orderan = $this->input->post('orderan');
-        $this->db->where('id_display', $id);
+        $this->db->where('id_produk', $id);
         $this->db->update('produk_display', array('orderan'=>$orderan));
         $this->session->set_flashdata('message', alert_biasa('Berhasil Edit Orderan Display !','success'));
             redirect('produk_display','refresh');
