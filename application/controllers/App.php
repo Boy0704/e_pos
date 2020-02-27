@@ -199,7 +199,7 @@ class App extends CI_Controller {
     {
         $this->db->where('id', $id);
         $this->db->delete('selisih_display');
-        $this->session->set_flashdata('message', alert_biasa('Berhasil Hapus Selisih '.$value,'success'));
+        $this->session->set_flashdata('message', alert_biasa('Berhasil Hapus Selisih !','success'));
             redirect('produk_display','refresh');
     }
 

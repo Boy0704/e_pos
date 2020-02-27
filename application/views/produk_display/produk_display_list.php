@@ -195,6 +195,7 @@
                   <th>Selisih Gudang</th>
                   <th>Date</th>
                   <th>User By</th>
+                  <th>Option</th>
               </tr>
           </thead>
           <tbody>
@@ -208,13 +209,12 @@
                    <td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'nama_produk')) ?></td>
                    <td><?php echo $rw->stok_display_old ?></td>
                    <td><?php echo $rw->stok_gudang_old ?></td>
-                   <td>6</td>
                    <td><center><?php echo $rw->selisih_display ?></center></td>
                    <td><center><?php echo $rw->selisih_gudang ?></center></td>
                    <td><?php echo $rw->date_create ?></td>
                    <td><?php echo $rw->user_by ?></td>
                    <td>
-                     <a href="app/delete_selisih/<?php echo $rw->id ?>" class="label label-danger" onclick="javasciprt: return confirm('Yakin Akan Hapus ?')">Hapus</a>
+                     <a href="app/hapus_selisih/<?php echo $rw->id ?>" class="label label-danger" onclick="javasciprt: return confirm('Yakin Akan Hapus ?')">Hapus</a>
                    </td>
                </tr>
 
