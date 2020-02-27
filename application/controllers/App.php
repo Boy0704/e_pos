@@ -195,6 +195,14 @@ class App extends CI_Controller {
 
     }
 
+    public function hapus_selisih($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('selisih_display');
+        $this->session->set_flashdata('message', alert_biasa('Berhasil Hapus Selisih '.$value,'success'));
+            redirect('produk_display','refresh');
+    }
+
     public function edit_selisih($value,$id_produk)
     {
         $dt = $this->db->get_where('produk_display', array('id_produk'=>$id_produk))->row();
@@ -202,6 +210,16 @@ class App extends CI_Controller {
             $n = $this->input->post('selisih_gudang');
             $this->db->where('id_produk', $id_produk);
             $this->db->update('produk_display', array('selisih_gudang'=>$n,'date_create'=>get_waktu(),'user_by'=>$this->session->userdata('nama')));
+
+            $data = array(
+                'id_produk'=>$id_produk,
+                'selisih_gudang'=>$n,
+                'stok_display_old'=>stok_display($dt->id_subkategori),
+                'stok_gudang_old'=>stok_gudang($dt->id_subkategori),
+                'date_create'=>get_waktu(),
+                'user_by'=>$this->session->userdata('nama')
+            );
+            $this->db->insert('selisih_display', $data);
 
             //stok transfer
             $selisih_gudang = $n;
@@ -229,19 +247,24 @@ class App extends CI_Controller {
             }
 
             
-            $data = array(
-                'id_produk'=>$id_produk,
-                'selisih_gudang'=>$n,
-                'date_create'=>get_waktu(),
-                'user_by'=>$this->session->userdata('nama')
-            );
-            $this->db->insert('selisih_display', $data);
+            
             $this->session->set_flashdata('message', alert_biasa('Berhasil Edit Selisih '.$value,'success'));
             redirect('produk_display','refresh');
         } elseif ($value == 'display') {
             $n = $this->input->post('selisih_display');
             $this->db->where('id_produk', $id_produk);
             $this->db->update('produk_display', array('selisih_display'=>$n,'date_create'=>get_waktu(),'user_by'=>$this->session->userdata('nama')));
+
+
+            $data = array(
+                'id_produk'=>$id_produk,
+                'selisih_display'=>$n,
+                'stok_display_old'=>stok_display($dt->id_subkategori),
+                'stok_gudang_old'=>stok_gudang($dt->id_subkategori),
+                'date_create'=>get_waktu(),
+                'user_by'=>$this->session->userdata('nama')
+            );
+            $this->db->insert('selisih_display', $data);
 
             //stok transfer
             $selisih_display = $n;
@@ -268,13 +291,7 @@ class App extends CI_Controller {
 
            
             
-            $data = array(
-                'id_produk'=>$id_produk,
-                'selisih_display'=>$n,
-                'date_create'=>get_waktu(),
-                'user_by'=>$this->session->userdata('nama')
-            );
-            $this->db->insert('selisih_display', $data);
+
             $this->session->set_flashdata('message', alert_biasa('Berhasil Edit Selisih '.$value,'success'));
             redirect('produk_display','refresh');
         }

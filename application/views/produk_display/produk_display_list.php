@@ -4,6 +4,7 @@
     <ul class="nav nav-tabs">
       <li class="active"><a href="#tab_1" data-toggle="tab">LIST DISPLAY</a></li>
       <li><a href="#tab_2" data-toggle="tab">AUTO DISPLAY</a></li>
+      <li><a href="#tab_3" data-toggle="tab">RIWAYAT SELISIH</a></li>
       
     </ul>
 
@@ -31,7 +32,6 @@
         <th>Orderan</th>
         <th>Selisih Gudang</th>
         <th>Selisih Display</th>
-        <th>Log Display</th>
 		<th>Date Create</th>
 		<th>User By</th>
 		<th>Action</th>
@@ -66,7 +66,7 @@
                 <form action="app/edit_selisih/gudang/<?php echo $produk_display->id_produk ?>" method="POST">
                     
                   <div class="input-group">
-                    <input type="text" class="form-control input-sm" name="selisih_gudang" value="<?php echo $produk_display->selisih_gudang ?>">
+                    <input type="text" class="form-control input-sm" name="selisih_gudang" value="0">
                     <div class="input-group-btn">
                       <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return confirm('Yakin Akan Melakukan Edit Selisih ?')">
                         <i class="glyphicon glyphicon-edit"></i>
@@ -79,7 +79,7 @@
                 <form action="app/edit_selisih/display/<?php echo $produk_display->id_produk ?>" method="POST">
                     
                   <div class="input-group">
-                    <input type="text" class="form-control input-sm" name="selisih_display" value="<?php echo $produk_display->selisih_display ?>">
+                    <input type="text" class="form-control input-sm" name="selisih_display" value="0">
                     <div class="input-group-btn">
                       <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return confirm('Yakin Akan Melakukan Edit Selisih ?')">
                         <i class="glyphicon glyphicon-edit"></i>
@@ -88,57 +88,7 @@
                   </div>
                 </form>
             </td>
-            <td>
-                <a href="#" class="label label-warning" data-toggle="modal" data-target="#l_selisih<?php echo $produk_display->id_produk; ?>">lihat log selisih</a>
-
-                <!-- Modal Edit Stok Khusus-->
-                  <div class="modal fade" id="l_selisih<?php echo $produk_display->id_produk; ?>" role="dialog">
-                    <div class="modal-dialog modal-lg">
-                    
-                      <!-- Modal content-->
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Riwayat Selisih <b><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'nama_produk')) ?></b></h4>
-                        </div>
-                        <div class="modal-body">
-                          
-                          <table class="table table-bordered selisih">
-                              <thead>
-                                  <tr>
-                                      <th>#</th>
-                                      <th>Selisih Display</th>
-                                      <th>Selisih Gudang</th>
-                                      <th>Date</th>
-                                      <th>User By</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <?php 
-                                  $no = 1;
-                                  foreach ($this->db->get_where('selisih_display', array('id_produk'=>$produk_display->id_produk))->result() as $rw) {
-                                   ?>
-                                   <tr>
-                                       <td><?php echo $no; ?></td>
-                                       <td><center><?php echo $rw->selisih_display ?></center></td>
-                                       <td><center><?php echo $rw->selisih_gudang ?></center></td>
-                                       <td><?php echo $rw->date_create ?></td>
-                                       <td><?php echo $rw->user_by ?></td>
-                                   </tr>
-
-                                <?php $no++;} ?>
-                              </tbody>
-                          </table>
-                          
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                      
-                    </div>
-                  </div>
-            </td>
+            
 			<td><?php echo $produk_display->date_create ?></td>
 			<td><?php echo $produk_display->user_by ?></td>
 			<td style="text-align:center" width="100px">
@@ -227,6 +177,51 @@
             ?>
         </table>
         </div>
+
+</div>
+
+<div class="tab-pane" id="tab_3">
+
+  <div class="table-responsive">
+    <table class="table table-bordered selisih">
+          <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Barcode</th>
+                  <th>Produk</th>
+                  <th>Stok Display Sblmnya</th>
+                  <th>Stok Gudang Sblmnya</th>
+                  <th>Selisih Display</th>
+                  <th>Selisih Gudang</th>
+                  <th>Date</th>
+                  <th>User By</th>
+              </tr>
+          </thead>
+          <tbody>
+              <?php 
+              $no = 1;
+              foreach ($this->db->get('selisih_display')->result() as $rw) {
+               ?>
+               <tr>
+                   <td><?php echo $no; ?></td>
+                   <td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'barcode1')) ?></td>
+                   <td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'nama_produk')) ?></td>
+                   <td><?php echo $rw->stok_display_old ?></td>
+                   <td><?php echo $rw->stok_gudang_old ?></td>
+                   <td>6</td>
+                   <td><center><?php echo $rw->selisih_display ?></center></td>
+                   <td><center><?php echo $rw->selisih_gudang ?></center></td>
+                   <td><?php echo $rw->date_create ?></td>
+                   <td><?php echo $rw->user_by ?></td>
+                   <td>
+                     <a href="app/delete_selisih/<?php echo $rw->id ?>" class="label label-danger" onclick="javasciprt: return confirm('Yakin Akan Hapus ?')">Hapus</a>
+                   </td>
+               </tr>
+
+            <?php $no++;} ?>
+          </tbody>
+      </table>
+  </div>
 
 </div>
 
