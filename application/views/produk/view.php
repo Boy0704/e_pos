@@ -103,8 +103,8 @@
 			                        <div class="modal-body">
 			                          <form action="app/edit_stok_khusus_display/<?php echo $rw->id_produk.'/'.$rw->id_subkategori.'/'.$rw->in_unit ?>" method="POST">
 			                            <label>Stok</label>
-			                            <input type="text" name="stok_edit" value="<?php echo $rw->stok ?>" class="form-control">
-			                            <input type="hidden" name="stok_now" value="<?php echo $rw->stok ?>">
+			                            <input type="text" name="stok_edit" value="<?php echo stok_display($rw->id_subkategori) ?>" class="form-control">
+			                            <input type="hidden" name="stok_now" value="<?php echo stok_display($rw->id_subkategori) ?>">
 			                          
 			                        </div>
 			                        <div class="modal-footer">
