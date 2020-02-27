@@ -203,6 +203,14 @@ class App extends CI_Controller {
             redirect('produk_display','refresh');
     }
 
+    public function cancel_auto_display($id)
+    {
+        $this->db->where('id_display', $id);
+        $this->db->update('produk_display', array('auto_display'=>1));
+        $this->session->set_flashdata('message', alert_biasa('Berhasil Cancel Display !','success'));
+            redirect('produk_display','refresh');
+    }
+
     public function edit_selisih($value,$id_produk)
     {
         $dt = $this->db->get_where('produk_display', array('id_produk'=>$id_produk))->row();
