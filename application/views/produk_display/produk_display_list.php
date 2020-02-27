@@ -155,7 +155,19 @@
             <td><?php echo $produk_display->display_min ?></td>
             <td><?php echo $produk_display->display_max ?></td>
 
-            <td><?php echo $produk_display->orderan ?></td>
+            <td>
+                <form action="app/edit_orderan/<?php echo $produk_display->id_produk ?>" method="POST">
+                    
+                  <div class="input-group">
+                    <input type="text" class="form-control input-sm" name="orderan" value="<?php echo $produk_display->orderan ?>">
+                    <div class="input-group-btn">
+                      <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return confirm('Yakin Akan Melakukan Edit Orderan ?')">
+                        <i class="glyphicon glyphicon-edit"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+            </td>
             <td><?php echo $produk_display->selisih_gudang ?></td>
             <td><?php echo $produk_display->selisih_display ?></td>
             <td><?php echo $produk_display->date_create ?></td>
