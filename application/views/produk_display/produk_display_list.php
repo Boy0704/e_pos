@@ -31,6 +31,7 @@
         <th>Orderan</th>
         <th>Selisih Gudang</th>
         <th>Selisih Display</th>
+        <th>Log Display</th>
 		<th>Date Create</th>
 		<th>User By</th>
 		<th>Action</th>
@@ -61,8 +62,83 @@
             <td><?php echo $produk_display->display_max ?></td>
 
             <td><?php echo $produk_display->orderan ?></td>
-            <td><?php echo $produk_display->selisih_gudang ?></td>
-            <td><?php echo $produk_display->selisih_display ?></td>
+            <td>
+                <form action="app/edit_selisih/gudang/<?php echo $produk_display->id_produk ?>" method="POST">
+                    
+                  <div class="input-group">
+                    <input type="text" class="form-control input-sm" name="selisih_gudang" value="<?php echo $produk_display->selisih_gudang ?>">
+                    <div class="input-group-btn">
+                      <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return confirm('Yakin Akan Melakukan Edit Selisih ?')">
+                        <i class="glyphicon glyphicon-edit"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+            </td>
+            <td>
+                <form action="app/edit_selisih/display/<?php echo $produk_display->id_produk ?>" method="POST">
+                    
+                  <div class="input-group">
+                    <input type="text" class="form-control input-sm" name="selisih_display" value="<?php echo $produk_display->selisih_display ?>">
+                    <div class="input-group-btn">
+                      <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return confirm('Yakin Akan Melakukan Edit Selisih ?')">
+                        <i class="glyphicon glyphicon-edit"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+            </td>
+            <td>
+                <a href="#" class="label label-warning" data-toggle="modal" data-target="#l_selisih<?php echo $produk_display->id_produk; ?>">lihat log selisih</a>
+
+                <!-- Modal Edit Stok Khusus-->
+                  <div class="modal fade" id="l_selisih<?php echo $produk_display->id_produk; ?>" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                    
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Riwayat Selisih <b><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'nama_produk')) ?></b></h4>
+                        </div>
+                        <div class="modal-body">
+                          
+                          <table class="table table-bordered selisih">
+                              <thead>
+                                  <tr>
+                                      <th>#</th>
+                                      <th>Selisih Display</th>
+                                      <th>Selisih Gudang</th>
+                                      <th>Date</th>
+                                      <th>User By</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <?php 
+                                  $no = 1;
+                                  foreach ($this->db->get_where('selisih_display', array('id_produk'=>$produk_display->id_produk))->result() as $rw) {
+                                   ?>
+                                   <tr>
+                                       <td><?php echo $no; ?></td>
+                                       <td><center><?php echo $rw->selisih_display ?></center></td>
+                                       <td><center><?php echo $rw->selisih_gudang ?></center></td>
+                                       <td><?php echo $rw->date_create ?></td>
+                                       <td><?php echo $rw->user_by ?></td>
+                                   </tr>
+
+                                <?php $no++;} ?>
+                              </tbody>
+                          </table>
+                          
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+            </td>
 			<td><?php echo $produk_display->date_create ?></td>
 			<td><?php echo $produk_display->user_by ?></td>
 			<td style="text-align:center" width="100px">

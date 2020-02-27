@@ -184,6 +184,7 @@
     $('#example4').DataTable();
     $('#example5').DataTable();
     $('#example6').DataTable();
+    $('.selisih').DataTable();
     $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,

@@ -23,7 +23,7 @@
 			<tbody>
 				<?php
 				$no = 1; 
-				foreach ($this->db->query("SELECT * FROM produk as p WHERE p.stok_min >= (SELECT
+				foreach ($this->db->query("SELECT * FROM produk as p, subkategori as subk WHERE p.id_subkategori=subk.id_subkategori and p.stok_min >= (SELECT
 		((COALESCE(SUM(in_qty),0) - COALESCE(SUM(out_qty),0)) ) AS stok_akhir 
 	FROM
 		stok_transfer

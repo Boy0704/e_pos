@@ -195,6 +195,91 @@ class App extends CI_Controller {
 
     }
 
+    public function edit_selisih($value,$id_produk)
+    {
+        $dt = $this->db->get_where('produk_display', array('id_produk'=>$id_produk))->row();
+        if ($value == 'gudang') {
+            $n = $this->input->post('selisih_gudang');
+            $this->db->where('id_produk', $id_produk);
+            $this->db->update('produk_display', array('selisih_gudang'=>$n,'date_create'=>get_waktu(),'user_by'=>$this->session->userdata('nama')));
+
+            //stok transfer
+            $selisih_gudang = $n;
+            $id_subkategori = $dt->id_subkategori;
+            $stok_gudang = stok_gudang($id_subkategori);
+            
+            if ($selisih_gudang > 0) {
+                $in_display_transfer = array(
+                    'id_produk' => $id_produk,
+                    'id_subkategori' => $rw->id_subkategori,
+                    'in_qty' => -($selisih_gudang),
+                    'milik' => 'gudang'
+                );
+                $this->db->insert('stok_transfer', $in_display_transfer);
+            } 
+            
+            if ($selisih_gudang < 0) {
+                $in_display_transfer = array(
+                    'id_produk' => $id_produk,
+                    'id_subkategori' => $dt->id_subkategori,
+                    'in_qty' => $selisih_gudang,
+                    'milik' => 'gudang'
+                );
+                $this->db->insert('stok_transfer', $in_display_transfer);
+            }
+
+            
+            $data = array(
+                'id_produk'=>$id_produk,
+                'selisih_gudang'=>$n,
+                'date_create'=>get_waktu(),
+                'user_by'=>$this->session->userdata('nama')
+            );
+            $this->db->insert('selisih_display', $data);
+            $this->session->set_flashdata('message', alert_biasa('Berhasil Edit Selisih '.$value,'success'));
+            redirect('produk_display','refresh');
+        } elseif ($value == 'display') {
+            $n = $this->input->post('selisih_display');
+            $this->db->where('id_produk', $id_produk);
+            $this->db->update('produk_display', array('selisih_display'=>$n,'date_create'=>get_waktu(),'user_by'=>$this->session->userdata('nama')));
+
+            //stok transfer
+            $selisih_display = $n;
+            $id_subkategori = $dt->id_subkategori;
+            $stok_display = stok_display($id_subkategori);
+            if ($selisih_display > 0) {
+                $in_display_transfer = array(
+                    'id_produk' => $id_produk,
+                    'id_subkategori' => $dt->id_subkategori,
+                    'in_qty' => -($selisih_display),
+                    'milik' => 'display'
+                );
+                $this->db->insert('stok_transfer', $in_display_transfer);
+            } 
+            if ($selisih_display < 0) {
+                $in_display_transfer = array(
+                    'id_produk' => $id_produk,
+                    'id_subkategori' => $dt->id_subkategori,
+                    'in_qty' => $selisih_display,
+                    'milik' => 'display'
+                );
+                $this->db->insert('stok_transfer', $in_display_transfer);
+            } 
+
+           
+            
+            $data = array(
+                'id_produk'=>$id_produk,
+                'selisih_display'=>$n,
+                'date_create'=>get_waktu(),
+                'user_by'=>$this->session->userdata('nama')
+            );
+            $this->db->insert('selisih_display', $data);
+            $this->session->set_flashdata('message', alert_biasa('Berhasil Edit Selisih '.$value,'success'));
+            redirect('produk_display','refresh');
+        }
+    }
+
     public function ubah_status_po($id_po)
     {
         
