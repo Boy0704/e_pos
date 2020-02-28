@@ -176,8 +176,8 @@
                   </div>
                 </form>
             </td>
-            <td><?php echo $produk_display->selisih_gudang ?></td>
-            <td><?php echo $produk_display->selisih_display ?></td>
+            <td>0</td>
+            <td>0</td>
             <td><?php echo $produk_display->date_create ?></td>
             <td><?php echo $produk_display->user_by ?></td>
             <td style="text-align:center" width="100px">
