@@ -53,7 +53,7 @@
                 ?>
                 <tr <?php echo $bg ?> >
 			<td width="80px"><?php echo $start ?></td>
-      <td><img src="image/produk/<?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'foto')) ?>" style="width: 100px;"></td>
+      <td><img src="image/produk/<?php echo get_data('produk','id_produk',$produk_display->id_produk,'foto') ?>" style="width: 100px;"></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode1')) ?></td>
 			<td><?php echo strtoupper(get_data('subkategori','id_subkategori',$produk_display->id_subkategori,'subkategori')) ?></td>
 			<td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'nama_produk')) ?></td>
@@ -151,7 +151,7 @@
                 ?>
                 <tr>
             <td width="80px"><?php echo $start ?></td>
-            <td><img src="image/produk/<?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'foto')) ?>" style="width: 100px;"></td>
+            <td><img src="image/produk/<?php echo get_data('produk','id_produk',$produk_display->id_produk,'foto') ?>" style="width: 100px;"></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode1')) ?></td>
             <td><?php echo strtoupper(get_data('subkategori','id_subkategori',$produk_display->id_subkategori,'subkategori')) ?></td>
             <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'nama_produk')) ?></td>
@@ -227,7 +227,7 @@
                ?>
                <tr>
                    <td><?php echo $no; ?></td>
-                   <td><img src="image/produk/<?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'foto')) ?>" style="width: 100px;"></td>
+                   <td><img src="image/produk/<?php echo get_data('produk','id_produk',$rw->id_produk,'foto') ?>" style="width: 100px;"></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'barcode1')) ?></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'nama_produk')) ?></td>
                    <td><?php echo $rw->stok_display_old ?></td>

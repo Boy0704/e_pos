@@ -261,28 +261,14 @@ class App extends CI_Controller {
             $id_subkategori = $dt->id_subkategori;
             $stok_gudang = stok_gudang($id_subkategori);
             
-            if ($selisih_gudang > 0) {
-                $in_display_transfer = array(
-                    'id_produk' => $id_produk,
-                    'id_subkategori' => $dt->id_subkategori,
-                    'in_qty' => -($selisih_gudang),
-                    'milik' => 'gudang'
-                );
-                // echo "INI";
-                // log_r($in_display_transfer);
-                $this->db->insert('stok_transfer', $in_display_transfer);
-            } elseif ($selisih_gudang < 0) {
-                $in_display_transfer = array(
-                    'id_produk' => $id_produk,
-                    'id_subkategori' => $dt->id_subkategori,
-                    'in_qty' => $selisih_gudang*(-1),
-                    'milik' => 'gudang'
-                );
-                // log_r($in_display_transfer);
-                $this->db->insert('stok_transfer', $in_display_transfer);
-            }
-
+            $in_display_transfer = array(
+                'id_produk' => $id_produk,
+                'id_subkategori' => $dt->id_subkategori,
+                'in_qty' => $selisih_gudang,
+                'milik' => 'gudang'
+            );
             
+            $this->db->insert('stok_transfer', $in_display_transfer);
             
             $this->session->set_flashdata('message', alert_biasa('Berhasil Edit Selisih '.$value,'success'));
             redirect('produk_display','refresh');
@@ -306,26 +292,13 @@ class App extends CI_Controller {
             $selisih_display = $n;
             $id_subkategori = $dt->id_subkategori;
             $stok_display = stok_display($id_subkategori);
-            if ($selisih_display > 0) {
-                $in_display_transfer = array(
-                    'id_produk' => $id_produk,
-                    'id_subkategori' => $dt->id_subkategori,
-                    'in_qty' => -($selisih_display),
-                    'milik' => 'display'
-                );
-                $this->db->insert('stok_transfer', $in_display_transfer);
-            } elseif ($selisih_display < 0) {
-                $in_display_transfer = array(
-                    'id_produk' => $id_produk,
-                    'id_subkategori' => $dt->id_subkategori,
-                    'in_qty' => $selisih_display*(-1),
-                    'milik' => 'display'
-                );
-                $this->db->insert('stok_transfer', $in_display_transfer);
-            } 
-
-           
-            
+            $in_display_transfer = array(
+                'id_produk' => $id_produk,
+                'id_subkategori' => $dt->id_subkategori,
+                'in_qty' => $selisih_display,
+                'milik' => 'display'
+            );
+            $this->db->insert('stok_transfer', $in_display_transfer);
 
             $this->session->set_flashdata('message', alert_biasa('Berhasil Edit Selisih '.$value,'success'));
             redirect('produk_display','refresh');
