@@ -211,11 +211,29 @@ class App extends CI_Controller {
             redirect('produk_display','refresh');
     }
 
-    public function edit_orderan($id)
+    public function edit_orderan($id_produk,$id_subkategori,$orderan)
     {
         $orderan = $this->input->post('orderan');
-        $this->db->where('id_produk', $id);
-        $this->db->update('produk_display', array('orderan'=>$orderan));
+
+        $out_produk_transfer = array(
+            'id_produk' => $id_produk,
+            'id_subkategori' => $id_subkategori,
+            'out_qty' => floatval($orderan) * floatval(1),
+            'milik' => 'gudang'
+        );
+        $this->db->insert('stok_transfer', $out_produk_transfer);
+
+        $in_display_transfer = array(
+            'id_produk' => $id_produk,
+            'id_subkategori' => $id_subkategori,
+            'in_qty' => floatval($orderan) * floatval(1),
+            'milik' => 'display'
+        );
+        $this->db->insert('stok_transfer', $in_display_transfer);
+
+        $this->db->where('id_subkategori', $id_subkategori);
+        $this->db->update('produk_display', array('auto_display'=>1,'date_create'=>get_waktu(),'user_by'=>$this->session->userdata('nama')));
+
         $this->session->set_flashdata('message', alert_biasa('Berhasil Edit Orderan Display !','success'));
             redirect('produk_display','refresh');
     }

@@ -19,6 +19,8 @@
             <thead>
             <tr>
                 <th>No</th>
+    <th>Foto</th>
+    <th>Barcode</th>
 		<th>Subkategori</th>
 		<th>Produk</th>
 		<th>Stok Display</th>
@@ -51,6 +53,8 @@
                 ?>
                 <tr <?php echo $bg ?> >
 			<td width="80px"><?php echo $start ?></td>
+      <td><img src="image/produk/<?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'foto')) ?>" style="width: 100px;"></td>
+                   <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode1')) ?></td>
 			<td><?php echo strtoupper(get_data('subkategori','id_subkategori',$produk_display->id_subkategori,'subkategori')) ?></td>
 			<td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'nama_produk')) ?></td>
 			<td><?php echo $produk_display->stok ?></td>
@@ -117,6 +121,8 @@
             <thead>
             <tr>
                 <th>No</th>
+        <th>Foto</th>
+        <th>Barcode</th>
         <th>Subkategori</th>
         <th>Produk</th>
         <th>Stok Display</th>
@@ -145,6 +151,8 @@
                 ?>
                 <tr>
             <td width="80px"><?php echo $start ?></td>
+            <td><img src="image/produk/<?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'foto')) ?>" style="width: 100px;"></td>
+                   <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode1')) ?></td>
             <td><?php echo strtoupper(get_data('subkategori','id_subkategori',$produk_display->id_subkategori,'subkategori')) ?></td>
             <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'nama_produk')) ?></td>
             <td><?php echo $produk_display->stok ?></td>
@@ -156,7 +164,7 @@
             <td><?php echo $produk_display->display_max ?></td>
 
             <td>
-                <form action="app/edit_orderan/<?php echo $produk_display->id_produk ?>" method="POST">
+                <form action="app/edit_orderan/<?php echo $produk_display->id_produk.'/'.$produk_display->id_subkategori.'/'.$produk_display->orderan ?>" method="POST">
                     
                   <div class="input-group">
                     <input type="text" class="form-control input-sm" name="orderan" value="<?php echo $produk_display->orderan ?>">
@@ -200,6 +208,7 @@
           <thead>
               <tr>
                   <th>#</th>
+                  <th>Foto</th>
                   <th>Barcode</th>
                   <th>Produk</th>
                   <th>Stok Display Sblmnya</th>
@@ -218,6 +227,7 @@
                ?>
                <tr>
                    <td><?php echo $no; ?></td>
+                   <td><img src="image/produk/<?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'foto')) ?>" style="width: 100px;"></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'barcode1')) ?></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'nama_produk')) ?></td>
                    <td><?php echo $rw->stok_display_old ?></td>
@@ -246,5 +256,4 @@
 </div>
 <!-- /.col -->
 
-        
     

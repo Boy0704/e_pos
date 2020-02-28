@@ -188,11 +188,14 @@
     $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,
-      'searching'   : false,
+      'searching'   : true,
       'ordering'    : true,
       'info'        : true,
       'autoWidth'   : false
-    })
+    });
+    $('#example1_filter input').focus();
+    $('#example2_filter input').focus();
+    $('.selisih_filter input').focus();
   })
 </script>
 </body>
