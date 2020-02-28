@@ -246,20 +246,21 @@ class App extends CI_Controller {
             if ($selisih_gudang > 0) {
                 $in_display_transfer = array(
                     'id_produk' => $id_produk,
-                    'id_subkategori' => $rw->id_subkategori,
+                    'id_subkategori' => $dt->id_subkategori,
                     'in_qty' => -($selisih_gudang),
                     'milik' => 'gudang'
                 );
+                // echo "INI";
+                // log_r($in_display_transfer);
                 $this->db->insert('stok_transfer', $in_display_transfer);
-            } 
-            
-            if ($selisih_gudang < 0) {
+            } elseif ($selisih_gudang < 0) {
                 $in_display_transfer = array(
                     'id_produk' => $id_produk,
                     'id_subkategori' => $dt->id_subkategori,
-                    'in_qty' => $selisih_gudang,
+                    'in_qty' => $selisih_gudang*(-1),
                     'milik' => 'gudang'
                 );
+                // log_r($in_display_transfer);
                 $this->db->insert('stok_transfer', $in_display_transfer);
             }
 
@@ -295,12 +296,11 @@ class App extends CI_Controller {
                     'milik' => 'display'
                 );
                 $this->db->insert('stok_transfer', $in_display_transfer);
-            } 
-            if ($selisih_display < 0) {
+            } elseif ($selisih_display < 0) {
                 $in_display_transfer = array(
                     'id_produk' => $id_produk,
                     'id_subkategori' => $dt->id_subkategori,
-                    'in_qty' => $selisih_display,
+                    'in_qty' => $selisih_display*(-1),
                     'milik' => 'display'
                 );
                 $this->db->insert('stok_transfer', $in_display_transfer);

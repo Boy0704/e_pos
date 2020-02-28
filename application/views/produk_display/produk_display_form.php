@@ -61,12 +61,12 @@
 
          <div class="form-group">
             <label for="int">Selisih Gudang </label>
-            <input type="text" class="form-control" name="selisih_gudang" id="selisih_gudang" placeholder="Selisih Gudang" value="<?php echo $selisih_gudang; ?>" />
+            <input type="text" class="form-control" name="selisih_gudang" id="selisih_gudang" placeholder="Selisih Gudang" value="0" />
         </div>
 
         <div class="form-group">
             <label for="int">Selisih Display </label>
-            <input type="text" class="form-control" name="selisih_display" id="selisih_display" placeholder="Selisih Display" value="<?php echo $selisih_display; ?>" />
+            <input type="text" class="form-control" name="selisih_display" id="selisih_display" placeholder="Selisih Display" value="0" />
         </div>
 
 <!-- 	    <div class="form-group">
