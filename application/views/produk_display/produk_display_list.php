@@ -47,7 +47,8 @@
             foreach ($produk_display_custom->result() as $produk_display)
             {
                 if (stok_gudang($produk_display->id_subkategori) < $produk_display->orderan) {
-                    $bg = 'style="background-color: red; color: white"';
+                    // $bg = 'style="background-color: red; color: white"';
+                    $bg = '';
                 } else {
                     $bg = '';
                 }
