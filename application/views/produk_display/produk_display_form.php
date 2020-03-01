@@ -32,7 +32,7 @@
         </div> -->
 	    <div class="form-group">
             <label for="double">Stok Display <?php echo form_error('stok') ?> <span id="stok_now" class="label label-info"></span></label>
-            <input type="text" class="form-control" name="stok" id="stok" placeholder="Stok" value="<?php echo $stok; ?>" />
+            <input type="text" class="form-control" name="stok" id="stok" placeholder="Stok" value="<?php echo stok_display($id_subkategori); ?>" />
         </div>
 	    <div class="form-group">
             <label for="int">In Unit <?php echo form_error('in_unit') ?></label>
@@ -51,8 +51,9 @@
 
         <div class="form-group">
             <label for="int">Stok Gudang </label>
-            <input type="text" class="form-control" name="stok_gudang" id="stok_gudang" placeholder="Stok Gudang" value="<?php echo $stok_gudang; ?>" />
+            <input type="text" class="form-control" name="stok_gudang" id="stok_gudang" placeholder="Stok Gudang" value="<?php echo stok_gudang($id_subkategori) ?>" />
         </div>
+        
 
          <div class="form-group">
             <label for="int">Orderan </label>

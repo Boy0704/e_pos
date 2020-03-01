@@ -21,6 +21,7 @@
                 <th>No</th>
     <th>Foto</th>
     <th>Barcode</th>
+    <th style="display: none;">Barcode2</th>
 		<th>Subkategori</th>
 		<th>Produk</th>
 		<th>Stok Display</th>
@@ -45,7 +46,7 @@
             $produk_display_custom = $this->db->get_where('produk_display', array('auto_display'=>1));
             foreach ($produk_display_custom->result() as $produk_display)
             {
-                if ($produk_display->stok <= $produk_display->display_min) {
+                if (stok_gudang($produk_display->id_subkategori) < $produk_display->orderan) {
                     $bg = 'style="background-color: red; color: white"';
                 } else {
                     $bg = '';
@@ -55,6 +56,7 @@
 			<td width="80px"><?php echo $start ?></td>
       <td><img src="image/produk/<?php echo get_data('produk','id_produk',$produk_display->id_produk,'foto') ?>" style="width: 100px;"></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode1')) ?></td>
+                   <td style="display: none;"><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode2')) ?></td>
 			<td><?php echo strtoupper(get_data('subkategori','id_subkategori',$produk_display->id_subkategori,'subkategori')) ?></td>
 			<td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'nama_produk')) ?></td>
 			<td><?php echo $produk_display->stok ?></td>
@@ -73,7 +75,7 @@
                     <input type="text" class="form-control input-sm" name="selisih_gudang" value="0">
                     <div class="input-group-btn">
                       <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return confirm('Yakin Akan Melakukan Edit Selisih ?')">
-                        <i class="glyphicon glyphicon-edit"></i>
+                        G
                       </button>
                     </div>
                   </div>
@@ -86,7 +88,7 @@
                     <input type="text" class="form-control input-sm" name="selisih_display" value="0">
                     <div class="input-group-btn">
                       <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return confirm('Yakin Akan Melakukan Edit Selisih ?')">
-                        <i class="glyphicon glyphicon-edit"></i>
+                        D
                       </button>
                     </div>
                   </div>
@@ -123,6 +125,7 @@
                 <th>No</th>
         <th>Foto</th>
         <th>Barcode</th>
+        <th style="display: none;">Barcode2</th>
         <th>Subkategori</th>
         <th>Produk</th>
         <th>Stok Display</th>
@@ -153,6 +156,7 @@
             <td width="80px"><?php echo $start ?></td>
             <td><img src="image/produk/<?php echo get_data('produk','id_produk',$produk_display->id_produk,'foto') ?>" style="width: 100px;"></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode1')) ?></td>
+                   <td style="display: none;"><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode2')) ?></td>
             <td><?php echo strtoupper(get_data('subkategori','id_subkategori',$produk_display->id_subkategori,'subkategori')) ?></td>
             <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'nama_produk')) ?></td>
             <td><?php echo $produk_display->stok ?></td>
@@ -210,6 +214,7 @@
                   <th>#</th>
                   <th>Foto</th>
                   <th>Barcode</th>
+                  <th style="display: none;">Barcode2</th>
                   <th>Produk</th>
                   <th>Stok Display Sblmnya</th>
                   <th>Stok Gudang Sblmnya</th>
@@ -229,6 +234,7 @@
                    <td><?php echo $no; ?></td>
                    <td><img src="image/produk/<?php echo get_data('produk','id_produk',$rw->id_produk,'foto') ?>" style="width: 100px;"></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'barcode1')) ?></td>
+                   <td style="display: none;"><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'barcode2')) ?></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'nama_produk')) ?></td>
                    <td><?php echo $rw->stok_display_old ?></td>
                    <td><?php echo $rw->stok_gudang_old ?></td>
