@@ -1,8 +1,8 @@
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label>BARCODE SCANNER</label>
             <input type="text" name="barcode" class="form-control" id="barcode" autofocus="" autocomplete="off">
-        </div>
+        </div> -->
         <form action="<?php echo $action; ?>" method="post">
         
 	    <div class="form-group">
