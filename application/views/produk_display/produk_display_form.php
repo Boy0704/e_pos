@@ -7,7 +7,7 @@
         
 	    <div class="form-group">
             <label for="int">Nama Produk <?php echo form_error('id_produk') ?></label>
-            <input type="text" class="form-control" name="id_produk" id="id_produk" placeholder="Id Produk" value="<?php echo get_data('produk','id_produk',$id_produk,'nama_produk') ?>" />
+            <input type="text" class="form-control" name="id_produk" id="id_produk" placeholder="Id Produk" value="<?php echo get_data('produk','id_produk',$id_produk,'nama_produk') ?>" readonly/>
             <input type="hidden" class="form-control" name="id_produk" id="id_produk" placeholder="Id Produk" value="<?php echo $id_produk; ?>" />
             <!-- <select name="id_produk" id="id_produk" class="form-control select2">
                 <option value="<?php echo $id_produk ?>"><?php echo get_data('produk','id_produk',$id_produk,'nama_produk') ?></option>
