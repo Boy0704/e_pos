@@ -56,7 +56,14 @@
 			<td width="80px"><?php echo $start ?></td>
       <td><img src="image/produk/<?php echo get_data('produk','id_produk',$produk_display->id_produk,'foto') ?>" style="width: 100px;"></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode1')) ?></td>
-                   <td style="display: none;"><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode2')) ?></td>
+                   <td style="display: none;">
+                    <?php 
+                    $barc = $this->db->query("SELECT barcode1,barcode2 FROM `produk` where id_subkategori='$produk_display->id_subkategori'");
+                    foreach ($barc->result() as $br) {
+                      echo $br->barcode1.' '.$br->barcode2.' ';
+                    }
+                     ?>
+                   </td>
 			<td><?php echo strtoupper(get_data('subkategori','id_subkategori',$produk_display->id_subkategori,'subkategori')) ?></td>
 			<td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'nama_produk')) ?></td>
 			<td><?php echo $produk_display->stok ?></td>
@@ -150,13 +157,25 @@
             $produk_display_custom = $this->db->get_where('produk_display', array('auto_display'=>0));
             foreach ($produk_display_custom->result() as $produk_display)
             {
+
+                 if (stok_gudang($produk_display->id_subkategori) < $produk_display->orderan) {
+                    $bg = 'style="background-color: red; color: white"';
+                } else {
+                    $bg = '';
+                }
+                ?>
                
                 ?>
-                <tr>
+                <tr <?php echo $bg ?>  >
             <td width="80px"><?php echo $start ?></td>
             <td><img src="image/produk/<?php echo get_data('produk','id_produk',$produk_display->id_produk,'foto') ?>" style="width: 100px;"></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode1')) ?></td>
-                   <td style="display: none;"><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode2')) ?></td>
+                   <td style="display: none;"><?php 
+                    $barc = $this->db->query("SELECT barcode1,barcode2 FROM `produk` where id_subkategori='$produk_display->id_subkategori'");
+                    foreach ($barc->result() as $br) {
+                      echo $br->barcode1.' '.$br->barcode2.' ';
+                    }
+                     ?></td>
             <td><?php echo strtoupper(get_data('subkategori','id_subkategori',$produk_display->id_subkategori,'subkategori')) ?></td>
             <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'nama_produk')) ?></td>
             <td><?php echo $produk_display->stok ?></td>
@@ -229,12 +248,18 @@
               <?php 
               $no = 1;
               foreach ($this->db->get('selisih_display')->result() as $rw) {
+                $id_subkategori = get_data('produk','id_produk',$rw->id_produk,'id_subkategori');
                ?>
                <tr>
                    <td><?php echo $no; ?></td>
                    <td><img src="image/produk/<?php echo get_data('produk','id_produk',$rw->id_produk,'foto') ?>" style="width: 100px;"></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'barcode1')) ?></td>
-                   <td style="display: none;"><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'barcode2')) ?></td>
+                   <td style="display: none;"><?php 
+                    $barc = $this->db->query("SELECT barcode1,barcode2 FROM `produk` where id_subkategori='$id_subkategori'");
+                    foreach ($barc->result() as $br) {
+                      echo $br->barcode1.' '.$br->barcode2.' ';
+                    }
+                     ?></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$rw->id_produk,'nama_produk')) ?></td>
                    <td><?php echo $rw->stok_display_old ?></td>
                    <td><?php echo $rw->stok_gudang_old ?></td>
