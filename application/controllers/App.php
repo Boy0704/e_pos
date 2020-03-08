@@ -428,11 +428,17 @@ class App extends CI_Controller {
         $diskon = $this->input->post('diskon');
         $total_h = $this->input->post('harga');
         $hd = get_diskon_beli($diskon,$total_h);
+        
 
+
+        
+               
         // log_data($_POST);
 
         //update harga_jual_temp
         foreach ($this->db->get_where('harga_jual_temp', array('no_po'=>$no_po,'id_subkategori'=>$id_subkategori))->result() as $value) {
+
+            $diskon_tambahan = '';
 
             // log_r($this->db->last_query());
             //cek_in_unit
@@ -446,17 +452,31 @@ class App extends CI_Controller {
                 $setelah_diskon = $hd / ($in_unit_now / $in_unit_temp);
                 $setelah_ppn = $total_h/($in_unit_now / $in_unit_temp);
                 $harga_beli = $total_h/($in_unit_now / $in_unit_temp);
-                $diskon_beli = $diskon/($in_unit_now / $in_unit_temp);
+                
                 // echo "$in_unit_now >  $in_unit_temp <br/>";
                 // echo "$setelah_diskon = $hd / ($in_unit_now / $in_unit_temp) <br/>";
                 // echo "$setelah_ppn = $total_h/($in_unit_now / $in_unit_temp) <br/>";
                 // echo "$harga_beli = $total_h/($in_unit_now / $in_unit_temp) <br/>";
+
+                $d_ph = explode(';', $diskon);
+                foreach ($d_ph as $key => $vl) {
+                    if (strstr($vl, '%')) {
+                        $diskon_persen = str_replace('%', '', $vl);
+                        $diskon_tambahan .= $diskon_persen.'% ';
+                    } else {
+                        
+                        $diskon_beli = $vl/($in_unit_now / $in_unit_temp);
+                        $diskon_tambahan .= $diskon_beli.' ';
+                        // log_r($t_h_now);
+                    }
+                }
+
                  $this->db->where('id_produk', $value->id_produk);
                 $this->db->update('harga_jual_temp', array(
                     'setelah_diskon'=>intval($setelah_diskon),
                     'setelah_ppn'=>intval($setelah_ppn),
                     'harga_beli'=>$harga_beli,
-                    'diskon_hb'=>$diskon_beli,
+                    'diskon_hb'=>$diskon_tambahan,
                 ));
             } 
             elseif ($in_unit_now < $in_unit_temp) {
@@ -464,34 +484,62 @@ class App extends CI_Controller {
                     $setelah_diskon = $hd * $in_unit_temp;
                     $setelah_ppn = $total_h * $in_unit_temp;
                     $harga_beli = $total_h * $in_unit_temp;
-                    $diskon_beli = $diskon * $in_unit_temp;
+                    
                     // echo "$in_unit_now ==  1 <br/>";
                     // echo "$setelah_diskon <br/>";
                     // echo "$setelah_ppn <br/>";
                     // echo "$harga_beli <br/>";
+
+                    $d_ph = explode(';', $diskon);
+                    foreach ($d_ph as $key => $vl) {
+                        if (strstr($vl, '%')) {
+                            $diskon_persen = str_replace('%', '', $vl);
+                            $diskon_tambahan .= $diskon_persen.'% ';
+                        } else {
+                            
+                            $diskon_beli = $vl * $in_unit_temp;
+                            $diskon_tambahan .= $diskon_beli.' ';
+                            // log_r($t_h_now);
+                        }
+                    }
+
                      $this->db->where('id_produk', $value->id_produk);
                         $this->db->update('harga_jual_temp', array(
                             'setelah_diskon'=>intval($setelah_diskon),
                             'setelah_ppn'=>intval($setelah_ppn),
                             'harga_beli'=>$harga_beli,
-                            'diskon_hb'=>$diskon_beli,
+                            'diskon_hb'=>$diskon_tambahan,
                         ));
                 } 
                 if ($in_unit_now > 1) {
                     $setelah_diskon = ($in_unit_temp / $in_unit_now) * $hd;
                     $setelah_ppn = ($in_unit_temp / $in_unit_now) * $total_h;
                     $harga_beli = ($in_unit_temp / $in_unit_now) * $total_h;
-                    $diskon_beli = ($in_unit_temp / $in_unit_now) * $diskon;
+                    
                     // echo "$in_unit_now > '1' <br/>";
                     // echo "$setelah_diskon <br/>";
                     // echo "$setelah_ppn <br/>";
                     // echo "$harga_beli <br/>";
+
+                    $d_ph = explode(';', $diskon);
+                    foreach ($d_ph as $key => $vl) {
+                        if (strstr($vl, '%')) {
+                            $diskon_persen = str_replace('%', '', $vl);
+                            $diskon_tambahan .= $diskon_persen.'% ';
+                        } else {
+                            
+                            $diskon_beli = ($in_unit_temp / $in_unit_now) * $vl;
+                            $diskon_tambahan .= $diskon_beli.' ';
+                            // log_r($t_h_now);
+                        }
+                    }
+
                      $this->db->where('id_produk', $value->id_produk);
                         $this->db->update('harga_jual_temp', array(
                             'setelah_diskon'=>intval($setelah_diskon),
                             'setelah_ppn'=>intval($setelah_ppn),
                             'harga_beli'=>$harga_beli,
-                            'diskon_hb'=>$diskon_beli,
+                            'diskon_hb'=>$diskon_tambahan,
                         ));
                 }
                 // echo "$in_unit_now <  $in_unit_temp <br/>";
@@ -499,17 +547,31 @@ class App extends CI_Controller {
                 $setelah_diskon = $hd;
                 $setelah_ppn = $total_h;
                 $harga_beli = $total_h;
-                $diskon_beli = $diskon;
+                
                 // echo "$in_unit_now ==  $in_unit_temp <br/>";
                 // echo "$setelah_diskon <br/>";
                 // echo "$setelah_ppn <br/>";
                 // echo "$harga_beli <br/>";
+
+                $d_ph = explode(';', $diskon);
+                foreach ($d_ph as $key => $vl) {
+                    if (strstr($vl, '%')) {
+                        $diskon_persen = str_replace('%', '', $vl);
+                        $diskon_tambahan .= $diskon_persen.'% ';
+                    } else {
+                        
+                        $diskon_beli = $vl;
+                        $diskon_tambahan .= $diskon_beli.' ';
+                        // log_r($t_h_now);
+                    }
+                }
+
                  $this->db->where('id_produk', $value->id_produk);
                 $this->db->update('harga_jual_temp', array(
                     'setelah_diskon'=>intval($setelah_diskon),
                     'setelah_ppn'=>intval($setelah_ppn),
                     'harga_beli'=>$harga_beli,
-                    'diskon_hb'=>$diskon_beli,
+                    'diskon_hb'=>$diskon_tambahan,
                 ));
             }
 
