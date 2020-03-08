@@ -587,12 +587,22 @@ class App extends CI_Controller {
 
     public function simpan_barcode_pembelian($no_po)
     {
+
         $barcode = $this->input->post('barcode');
+
+
         
         
         $produk_ = $this->db->query("SELECT * FROM produk where barcode1='$barcode' or barcode2=$barcode ");
         if ($produk_->num_rows() > 0) {
             $rw = $produk_->row();
+
+            $cek_br = $this->db->get_where('pembelian', array('id_produk'=>$rw->id_produk,'no_po'=>$no_po));
+            if ($cek_br->num_rows() > 0) {
+                $this->session->set_flashdata('message', alert_biasa('Produk Sudah Ada !','danger'));
+                exit();
+            }
+
             $pembelian = array(
                 'no_po' => $no_po,
                 'id_produk'=>$rw->id_produk,
