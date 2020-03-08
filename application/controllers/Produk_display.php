@@ -85,6 +85,7 @@ class Produk_display extends CI_Controller
         'orderan' => set_value('orderan'),
         'selisih_gudang' => set_value('selisih_gudang'),
         'selisih_display' => set_value('selisih_display'),
+        'keterangan' => set_value('keterangan'),
 	);
         $this->load->view('v_index', $data);
     }
@@ -107,7 +108,8 @@ class Produk_display extends CI_Controller
         'stok_gudang' => $this->input->post('stok_gudang',TRUE),
         'orderan' => $this->input->post('orderan',TRUE),
         'selisih_gudang' => $this->input->post('selisih_gudang',TRUE),
-		'selisih_display' => $this->input->post('selisih_display',TRUE),
+        'selisih_display' => $this->input->post('selisih_display',TRUE),
+		'keterangan' => $this->input->post('keterangan',TRUE),
 		'date_create' => get_waktu(),
 		'user_by' => $this->session->userdata('nama'),
 	    );
@@ -157,7 +159,8 @@ class Produk_display extends CI_Controller
         'stok_gudang' => set_value('stok_gudang', $row->stok_gudang),
         'orderan' => set_value('orderan', $row->orderan),
         'selisih_gudang' => set_value('selisih_gudang', $row->selisih_gudang),
-		'selisih_display' => set_value('selisih_display', $row->selisih_display),
+        'selisih_display' => set_value('selisih_display', $row->selisih_display),
+		'keterangan' => set_value('keterangan', $row->selisih_display),
 		'date_create' => set_value('date_create', $row->date_create),
 		'user_by' => set_value('user_by', $row->user_by),
 	    );
@@ -225,7 +228,8 @@ class Produk_display extends CI_Controller
         'stok_gudang' => $this->input->post('stok_gudang',TRUE),
         'orderan' => $this->input->post('orderan',TRUE),
         'selisih_gudang' => $this->input->post('selisih_gudang',TRUE),
-		'selisih_display' => $this->input->post('selisih_display',TRUE),
+        'selisih_display' => $this->input->post('selisih_display',TRUE),
+		'keterangan' => $this->input->post('keterangan',TRUE),
 		'date_create' => get_waktu(),
         'user_by' => $this->session->userdata('nama'),
 	    );

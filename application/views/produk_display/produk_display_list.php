@@ -127,13 +127,13 @@
 <div class="tab-pane" id="tab_2">
 
     <div class="table-responsive">
-        <table class="table table-bordered" style="margin-bottom: 10px" id="example2">
+        <table class="table table-bordered selisih" style="margin-bottom: 10px">
             <thead>
             <tr>
                 <th>No</th>
         <th>Foto</th>
         <th>Barcode</th>
-        <th style="display: none;">Barcode2</th>
+        <th >Barcode2</th>
         <th>Subkategori</th>
         <th>Produk</th>
         <th>Stok Display</th>
@@ -166,12 +166,11 @@
                 }
                 ?>
                
-                ?>
-                <tr <?php echo $bg ?>  >
+                <tr <?php echo $bg ?>>
             <td width="80px"><?php echo $start ?></td>
             <td><img src="image/produk/<?php echo get_data('produk','id_produk',$produk_display->id_produk,'foto') ?>" style="width: 100px;"></td>
                    <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'barcode1')) ?></td>
-                   <td style="display: none;"><?php 
+                   <td ><?php 
                     $barc = $this->db->query("SELECT barcode1,barcode2 FROM `produk` where id_subkategori='$produk_display->id_subkategori'");
                     foreach ($barc->result() as $br) {
                       echo $br->barcode1.' '.$br->barcode2.' ';
@@ -215,11 +214,12 @@
 
             </td>
         </tr>
-        </tbody>
+        
                 <?php
                 $start++;
             }
             ?>
+            </tbody>
         </table>
         </div>
 

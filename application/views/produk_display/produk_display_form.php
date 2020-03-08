@@ -70,6 +70,10 @@
             <label for="int">Selisih Display </label>
             <input type="text" class="form-control" name="selisih_display" id="selisih_display" placeholder="Selisih Display" value="0" />
         </div>
+        <div class="form-group">
+            <label>Keterangan Selisih</label>
+            <textarea class="form-control" name="keterangan" rows="3"></textarea>
+        </div>
 
 <!-- 	    <div class="form-group">
             <label for="datetime">Date Create <?php echo form_error('date_create') ?></label>
