@@ -240,8 +240,14 @@ class App extends CI_Controller {
 
     public function edit_selisih($value,$id_produk)
     {
+        
+        $ket = $this->input->post('ket');
         $dt = $this->db->get_where('produk_display', array('id_produk'=>$id_produk))->row();
         if ($value == 'gudang') {
+            if ($_POST['selisih_gudang'] == 0) {
+                redirect('produk_display','refresh');
+                exit;
+            }
             $n = $this->input->post('selisih_gudang');
             $this->db->where('id_produk', $id_produk);
             $this->db->update('produk_display', array('selisih_gudang'=>$n,'date_create'=>get_waktu(),'user_by'=>$this->session->userdata('nama')));
@@ -252,7 +258,8 @@ class App extends CI_Controller {
                 'stok_display_old'=>stok_display($dt->id_subkategori),
                 'stok_gudang_old'=>stok_gudang($dt->id_subkategori),
                 'date_create'=>get_waktu(),
-                'user_by'=>$this->session->userdata('nama')
+                'user_by'=>$this->session->userdata('nama'),
+                'ket_selisih_gudang'=>$ket
             );
             $this->db->insert('selisih_display', $data);
 
@@ -273,6 +280,12 @@ class App extends CI_Controller {
             $this->session->set_flashdata('message', alert_biasa('Berhasil Edit Selisih '.$value,'success'));
             redirect('produk_display','refresh');
         } elseif ($value == 'display') {
+
+            if ($_POST['selisih_display'] == 0) {
+                redirect('produk_display','refresh');
+                exit;
+            }
+
             $n = $this->input->post('selisih_display');
             $this->db->where('id_produk', $id_produk);
             $this->db->update('produk_display', array('selisih_display'=>$n,'date_create'=>get_waktu(),'user_by'=>$this->session->userdata('nama')));
@@ -284,7 +297,8 @@ class App extends CI_Controller {
                 'stok_display_old'=>stok_display($dt->id_subkategori),
                 'stok_gudang_old'=>stok_gudang($dt->id_subkategori),
                 'date_create'=>get_waktu(),
-                'user_by'=>$this->session->userdata('nama')
+                'user_by'=>$this->session->userdata('nama'),
+                'ket_selisih_display'=>$ket
             );
             $this->db->insert('selisih_display', $data);
 
@@ -652,17 +666,27 @@ class App extends CI_Controller {
 
         $barcode = $this->input->post('barcode');
 
-
-        
-        
         $produk_ = $this->db->query("SELECT * FROM produk where barcode1='$barcode' or barcode2=$barcode ");
         if ($produk_->num_rows() > 0) {
             $rw = $produk_->row();
 
             $cek_br = $this->db->get_where('pembelian', array('id_produk'=>$rw->id_produk,'no_po'=>$no_po));
             if ($cek_br->num_rows() > 0) {
-                $this->session->set_flashdata('message', alert_biasa('Produk Sudah Ada !','danger'));
-                exit();
+                $v_no = $cek_br->row()->no_urut;
+                if ($v_no != '') {
+                    exit;
+                } else {
+                    $no_urut = $this->db->query("SELECT * FROM pembelian WHERE no_urut is not null or no_urut!='' ORDER BY no_urut DESC ")->row()->no_urut;
+                    if ($no_urut == '') {
+                        $no_urut = 1;
+                    } else {
+                        $no_urut = $no_urut + 1;
+                    }
+                    $this->db->where('id_produk', $rw->id_produk);
+                    $this->db->where('no_po', $no_po);
+                    $this->db->update('pembelian', array('no_urut'=>$no_urut));
+                }
+                exit;
             }
 
             $pembelian = array(
@@ -1110,12 +1134,24 @@ class App extends CI_Controller {
         if ($this->session->userdata('level') != 'admin') {
             redirect('login');
         }
+        // $cek_urut = $this->db->query("SELECT * FROM pembelian WHERE no_urut is null AND no_po='$po' ");
+        // if ($cek_urut->num_rows() > 0) {
+        //     $this->db->order_by('id_pembelian', 'desc');
+        //     $this->db->order_by('no_urut', 'ASC');
+        // } else {
+        //     $this->db->order_by('no_urut', 'asc');
+        // }
+
 		$data = array(
 			'konten' => 'po_master/isi_po',
             'judul_page' => 'Buat PO Pembelian',
             'no_po' => $po,
-            'data' => $this->db->get_where('pembelian', array('no_po'=>$po)),
+            'data' => $this->db->query("SELECT *
+                            FROM `pembelian`
+                            WHERE `no_po` = '$po'
+                            ORDER BY no_urut IS NULL ASC, no_urut ASC"),
 		);
+        // log_r($this->db->last_query());
 		$this->load->view('v_index', $data);
     }
 

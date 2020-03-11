@@ -78,11 +78,11 @@
             <td><?php echo $produk_display->orderan ?></td>
             <td>
                 <form action="app/edit_selisih/gudang/<?php echo $produk_display->id_produk ?>" method="POST">
-                    
+                  <input type="hidden" name="ket" id="ket_selisih_gudang" value="">
                   <div class="input-group">
                     <input type="text" class="form-control input-sm" name="selisih_gudang" value="0">
                     <div class="input-group-btn">
-                      <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return confirm('Yakin Akan Melakukan Edit Selisih ?')">
+                      <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return add_ket_selisih_gudang();">
                         G
                       </button>
                     </div>
@@ -91,11 +91,11 @@
             </td>
             <td>
                 <form action="app/edit_selisih/display/<?php echo $produk_display->id_produk ?>" method="POST">
-                    
+                  <input type="hidden" name="ket" id="ket_selisih_display" value="">
                   <div class="input-group">
                     <input type="text" class="form-control input-sm" name="selisih_display" value="0">
                     <div class="input-group-btn">
-                      <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return confirm('Yakin Akan Melakukan Edit Selisih ?')">
+                      <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return add_ket_selisih_display()">
                         D
                       </button>
                     </div>
@@ -240,6 +240,8 @@
                   <th>Stok Gudang Sblmnya</th>
                   <th>Selisih Display</th>
                   <th>Selisih Gudang</th>
+                  <th>Ket Selisih Gudang</th>
+                  <th>Ket Selisih Display</th>
                   <th>Date</th>
                   <th>User By</th>
                   <th>Option</th>
@@ -266,6 +268,8 @@
                    <td><?php echo $rw->stok_gudang_old ?></td>
                    <td><center><?php echo $rw->selisih_display ?></center></td>
                    <td><center><?php echo $rw->selisih_gudang ?></center></td>
+                   <td><?php echo $rw->ket_selisih_gudang ?></td>
+                   <td><?php echo $rw->ket_selisih_display ?></td>
                    <td><?php echo $rw->date_create ?></td>
                    <td><?php echo $rw->user_by ?></td>
                    <td>
@@ -287,5 +291,19 @@
   <!-- nav-tabs-custom -->
 </div>
 <!-- /.col -->
+
+<script type="text/javascript">
+  function add_ket_selisih_gudang() {
+    var ket = prompt("Keterangan Selisih Gudang:", "");
+    document.getElementById("ket_selisih_gudang").value = ket;
+
+  }
+
+  function add_ket_selisih_display() {
+    var ket = prompt("Keterangan Selisih Display:", "");
+    document.getElementById("ket_selisih_display").value = ket;
+
+  }
+</script>
 
     
