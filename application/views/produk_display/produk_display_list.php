@@ -295,13 +295,23 @@
 <script type="text/javascript">
   function add_ket_selisih_gudang() {
     var ket = prompt("Keterangan Selisih Gudang:", "");
-    document.getElementById("ket_selisih_gudang").value = ket;
+    if (ket == null || ket == "") {
+      document.getElementById("selisih_gudang").value = '0';
+    } else {
+      document.getElementById("ket_selisih_gudang").value = ket;
+    }
+    
 
   }
 
   function add_ket_selisih_display() {
     var ket = prompt("Keterangan Selisih Display:", "");
-    document.getElementById("ket_selisih_display").value = ket;
+    if (ket == null || ket == "") {
+      document.getElementById("selisih_display").value = '0';
+    } else {
+      document.getElementById("ket_selisih_display").value = ket;
+    }
+   
 
   }
 </script>
