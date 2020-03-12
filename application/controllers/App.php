@@ -670,40 +670,53 @@ class App extends CI_Controller {
         if ($produk_->num_rows() > 0) {
             $rw = $produk_->row();
 
-            $cek_br = $this->db->get_where('pembelian', array('id_produk'=>$rw->id_produk,'no_po'=>$no_po));
-            if ($cek_br->num_rows() > 0) {
-                $v_no = $cek_br->row()->no_urut;
-                if ($v_no != '') {
-                    exit;
-                } else {
-                    $no_urut = $this->db->query("SELECT * FROM pembelian WHERE no_urut is not null or no_urut!='' ORDER BY no_urut DESC ")->row()->no_urut;
-                    if ($no_urut == '') {
-                        $no_urut = 1;
-                    } else {
-                        $no_urut = $no_urut + 1;
-                    }
-                    $this->db->where('id_produk', $rw->id_produk);
-                    $this->db->where('no_po', $no_po);
-                    $this->db->update('pembelian', array('no_urut'=>$no_urut));
-                }
-                exit;
-            }
+            //cek subkategori produk yg sama
+            $subkategori1 = get_data('produk','id_produk',$rw->id_produk,'id_subkategori');
 
-            $pembelian = array(
-                'no_po' => $no_po,
-                'id_produk'=>$rw->id_produk,
-                'qty'=>$rw->note_po,
-                'satuan'=>$rw->satuan,
-                'harga_beli'=>$rw->harga_beli,
-                'total'=>$rw->note_po * $rw->harga_beli,
-                'in_unit'=>$rw->in_unit,
-                'harga_jual'=>$rw->harga,
-                'diskon_jual'=>$rw->diskon,
-                'diskon'=>$rw->value_diskon_hb,
-                'total'=> $rw->note_po * get_diskon_beli($rw->value_diskon_hb,$rw->harga_beli)
-            );
-            log_data($pembelian);
-            $this->db->insert('pembelian', $pembelian);
+
+            $cek_br = $this->db->get_where('pembelian', array('id_produk'=>$rw->id_produk,'no_po'=>$no_po));
+            $id_produk_pembelian = $cek_br->row()->id_produk;
+            $subkategori2 = get_data('produk','id_produk',$id_produk_pembelian,'id_subkategori');
+            if ($subkategori1 == $subkategori2) {
+                if ($cek_br->num_rows() > 0) {
+                    $v_no = $cek_br->row()->no_urut;
+                    if ($v_no != '') {
+                        exit;
+                    } else {
+                        $no_urut = $this->db->query("SELECT * FROM pembelian WHERE no_urut is not null or no_urut!='' ORDER BY no_urut DESC ")->row()->no_urut;
+                        if ($no_urut == '') {
+                            $no_urut = 1;
+                        } else {
+                            $no_urut = $no_urut + 1;
+                        }
+                        $this->db->where('id_produk', $rw->id_produk);
+                        $this->db->where('no_po', $no_po);
+                        $this->db->update('pembelian', array('no_urut'=>$no_urut));
+                    }
+                    exit;
+                }
+            } else {
+
+                $pembelian = array(
+                    'no_po' => $no_po,
+                    'id_produk'=>$rw->id_produk,
+                    'qty'=>$rw->note_po,
+                    'satuan'=>$rw->satuan,
+                    'harga_beli'=>$rw->harga_beli,
+                    'total'=>$rw->note_po * $rw->harga_beli,
+                    'in_unit'=>$rw->in_unit,
+                    'harga_jual'=>$rw->harga,
+                    'diskon_jual'=>$rw->diskon,
+                    'diskon'=>$rw->value_diskon_hb,
+                    'total'=> $rw->note_po * get_diskon_beli($rw->value_diskon_hb,$rw->harga_beli)
+                );
+                log_data($pembelian);
+                $this->db->insert('pembelian', $pembelian);
+
+            }
+            
+
+            
             
         } else {
             $this->session->set_flashdata('message', alert_biasa('Produk tidak ditemukan !','danger'));
