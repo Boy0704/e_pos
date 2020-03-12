@@ -80,7 +80,7 @@
                 <form action="app/edit_selisih/gudang/<?php echo $produk_display->id_produk ?>" method="POST">
                   <input type="hidden" name="ket" id="ket_selisih_gudang" value="">
                   <div class="input-group">
-                    <input type="text" class="form-control input-sm" name="selisih_gudang" value="0">
+                    <input type="text" class="form-control input-sm" name="selisih_gudang" value="0" id="selisih_gudang">
                     <div class="input-group-btn">
                       <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return add_ket_selisih_gudang();">
                         G
@@ -93,7 +93,7 @@
                 <form action="app/edit_selisih/display/<?php echo $produk_display->id_produk ?>" method="POST">
                   <input type="hidden" name="ket" id="ket_selisih_display" value="">
                   <div class="input-group">
-                    <input type="text" class="form-control input-sm" name="selisih_display" value="0">
+                    <input type="text" class="form-control input-sm" name="selisih_display" value="0" id="selisih_display">
                     <div class="input-group-btn">
                       <button class="btn btn-info btn-sm" type="submit" onclick="javasciprt: return add_ket_selisih_display()">
                         D
