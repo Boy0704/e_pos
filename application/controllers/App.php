@@ -676,21 +676,29 @@ class App extends CI_Controller {
 
             
             $subkategori2 = get_data('v_pembelian','id_subkategori',$subkategori1,'id_subkategori');
+            // log_r($subkategori2);
             if ($subkategori2 != '') {
-                $id_produk = get_data('v_pembelian','id_subkategori',$subkategori1,'id_produk');
+
+                $id_produk = $this->db->get_where('v_pembelian', array('no_po'=>$no_po,'id_subkategori'=>$subkategori2))->row()->id_produk;
+                
                 $cek_br = $this->db->get_where('pembelian', array('id_produk'=>$id_produk,'no_po'=>$no_po));
+
                 if ($cek_br->num_rows() > 0) {
+
                     $v_no = $cek_br->row()->no_urut;
                     if ($v_no != '') {
                         exit;
                     } else {
-                        $no_urut = $this->db->query("SELECT * FROM pembelian WHERE no_urut is not null or no_urut!='' ORDER BY no_urut DESC ")->row()->no_urut;
+                        $no_urut = $this->db->query("SELECT * FROM v_pembelian WHERE no_po='$no_po' ORDER BY no_urut DESC ")->row()->no_urut;
+                        
                         if ($no_urut == '') {
                             $no_urut = 1;
+
                         } else {
                             $no_urut = $no_urut + 1;
                         }
-                        $this->db->where('id_produk', $rw->id_produk);
+                        // log_r($no_urut);
+                        $this->db->where('id_produk', $id_produk);
                         $this->db->where('no_po', $no_po);
                         $this->db->update('pembelian', array('no_urut'=>$no_urut));
                     }
