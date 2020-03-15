@@ -1,5 +1,11 @@
 <?php 
 
+function total_stok($id_subkategori)
+{
+	$total = stok_display($id_subkategori) + stok_gudang($id_subkategori);
+	return $total;
+}
+
 function stok_display($id_subkategori)
 {
 	$CI =& get_instance();
