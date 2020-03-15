@@ -36,6 +36,7 @@
 		<th>Subkategori</th>
         <th>Kategori</th>
         <th>Barcode</th>
+        <th style="display: none;">Barcode 2</th>
 		<th>Suplier</th>
 		<th>Action</th>
             </tr>
@@ -53,6 +54,14 @@
                 <?php 
                 echo $this->db->get_where('produk', array('id_subkategori'=>$subkategori->id_subkategori,'in_unit'=>1))->row()->barcode1;
                  ?>
+            </td>
+            <td style="display: none;">
+                    <?php 
+                    $barc = $this->db->query("SELECT barcode1,barcode2 FROM `produk` where id_subkategori='$subkategori->id_subkategori'");
+                    foreach ($barc->result() as $br) {
+                      echo $br->barcode1.' '.$br->barcode2.' ';
+                    }
+                     ?>
             </td>
             <td>
                 <?php echo get_data('suplier','id_suplier',$subkategori->id_suplier,'suplier') ?>
