@@ -117,7 +117,7 @@ class Produk extends CI_Controller
             }
             
             $data = array(
-		'nama_produk' => $produk,
+		'nama_produk' => $produk_nama,
 		'satuan' => $this->input->post('satuan',TRUE),
 		'stok' => $this->input->post('stok',TRUE),
 		'stok_min' => $this->input->post('stok_min',TRUE),
