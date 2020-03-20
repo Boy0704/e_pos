@@ -675,9 +675,12 @@ class App extends CI_Controller {
 
 
             
-            $subkategori2 = get_data('v_pembelian','id_subkategori',$subkategori1,'id_subkategori');
+            $cek_subkategori2 = $this->db->get_where('v_pembelian', array('id_subkategori'=>$subkategori1,'no_po'=>$no_po));
+            // log_r($this->db->last_query());
             // log_r($subkategori2);
-            if ($subkategori2 != '') {
+            if ($cek_subkategori2->num_rows() > 0) {
+
+                $subkategori2 = $cek_subkategori2->row()->id_subkategori;
 
                 $id_produk = $this->db->get_where('v_pembelian', array('no_po'=>$no_po,'id_subkategori'=>$subkategori2))->row()->id_produk;
                 
