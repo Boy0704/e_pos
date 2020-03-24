@@ -180,6 +180,7 @@ class Produk extends CI_Controller
     
     public function update_action() 
     {
+        // log_r($_POST);
         $produk_nama = $this->input->post('nama_produk');
         $this->_rules();
 

@@ -598,6 +598,19 @@ class App extends CI_Controller {
         echo json_encode(array('harga_diskon'=>$hd,'id_subkategori'=>get_data('produk','id_produk',$id_produk,'id_subkategori')));
     }
 
+    public function cek_diskon_beli_return($id_produk)
+    {
+        $in_unit_now = get_data('produk','id_produk',$id_produk,'in_unit');
+        $id_subkategori = get_data('produk','id_produk',$id_produk,'id_subkategori');
+        $diskon = $this->input->post('diskon');
+        $total_h = $this->input->post('harga');
+        $hd = get_diskon_beli($diskon,$total_h);
+        
+
+        echo json_encode(array('harga_diskon'=>$hd,'id_subkategori'=>get_data('produk','id_produk',$id_produk,'id_subkategori')));
+    }
+
+
     public function get_sales()
     {
         $value = $this->input->post('value');
@@ -728,6 +741,41 @@ class App extends CI_Controller {
             }
             
 
+            
+            
+        } else {
+            $this->session->set_flashdata('message', alert_biasa('Produk tidak ditemukan !','danger'));
+        }
+
+        // redirect('app/transaksi');
+    }
+
+    public function simpan_barcode_return($id_return)
+    {
+
+        $barcode = $this->input->post('barcode');
+
+        $produk_ = $this->db->query("SELECT * FROM produk where barcode1='$barcode' or barcode2=$barcode ");
+        if ($produk_->num_rows() > 0) {
+            $rw = $produk_->row();
+
+        
+
+                $detail_return = array(
+                    'id_return' => $id_return,
+                    'id_produk'=>$rw->id_produk,
+                    'qty'=>$rw->note_po,
+                    'satuan'=>$rw->satuan,
+                    'harga_beli'=>$rw->harga_beli,
+                    'total'=>$rw->note_po * $rw->harga_beli,
+                    'in_unit'=>$rw->in_unit,
+                    'diskon'=>$rw->value_diskon_hb,
+                    'total'=> $rw->note_po * get_diskon_beli($rw->value_diskon_hb,$rw->harga_beli)
+                );
+                log_data($detail_return);
+                $this->db->insert('detail_return', $detail_return);
+
+           
             
             
         } else {
@@ -1178,6 +1226,32 @@ class App extends CI_Controller {
 		);
         // log_r($this->db->last_query());
 		$this->load->view('v_index', $data);
+    }
+
+    public function isi_return($id_return)
+    {
+
+        if ($this->session->userdata('level') != 'admin') {
+            redirect('login');
+        }
+        // $cek_urut = $this->db->query("SELECT * FROM pembelian WHERE no_urut is null AND no_po='$po' ");
+        // if ($cek_urut->num_rows() > 0) {
+        //     $this->db->order_by('id_pembelian', 'desc');
+        //     $this->db->order_by('no_urut', 'ASC');
+        // } else {
+        //     $this->db->order_by('no_urut', 'asc');
+        // }
+
+        $data = array(
+            'konten' => 'return_new/isi_return',
+            'judul_page' => 'Buat Return',
+            'id_return' => $id_return,
+            'data' => $this->db->query("SELECT *
+                            FROM `detail_return`
+                            WHERE `id_return` = '$id_return'"),
+        );
+        // log_r($this->db->last_query());
+        $this->load->view('v_index', $data);
     }
 
     public function kirim_po_sales($po)
