@@ -89,7 +89,7 @@
                 $('#harga_jual').val(param.harga_jual);
                 $('#diskon_jual').val(param.diskon_jual);
                 $('#diskon').val(param.diskon_hb);
-                $('#qty').val(param.qty_po);
+                $('#qty').val('');
                 $('#stok_now').html("STOK NOW : "+param.stok);
                 $('#stok_min').html("STOK MIN : "+param.stok_min);
                 $('#note_po').html("NOTE PO : "+param.qty_po);
