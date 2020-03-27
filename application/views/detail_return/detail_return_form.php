@@ -34,7 +34,7 @@
             <input type="text" class="form-control" name="harga_beli" id="harga_beli" placeholder="Harga Beli" value="<?php echo $harga_beli; ?>" />
             <br>
             <h4>Setelah Diskon : <span id="h_diskon"></span></h4>
-            <h4 id="s_ppn">Setelah PPN : <span id="h_ppn"></span></h4>
+            <!-- <h4 id="s_ppn">Setelah PPN : <span id="h_ppn"></span></h4> -->
         </div>
 	    
 	    <div class="form-group" style="display: none;">
@@ -67,7 +67,7 @@
           
 
           $('#s_ppn').hide();
-          var cek_ppn = '1';
+          var cek_ppn = '0';
           
 
            $('#harga_beli').keyup(function() {
