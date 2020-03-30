@@ -764,13 +764,13 @@ class App extends CI_Controller {
                 $detail_return = array(
                     'id_return' => $id_return,
                     'id_produk'=>$rw->id_produk,
-                    'qty'=>$rw->note_po,
+                    'qty'=>0,
                     'satuan'=>$rw->satuan,
                     'harga_beli'=>$rw->harga_beli,
                     'total'=>$rw->note_po * $rw->harga_beli,
                     'in_unit'=>$rw->in_unit,
                     'diskon'=>$rw->value_diskon_hb,
-                    'total'=> $rw->note_po * get_diskon_beli($rw->value_diskon_hb,$rw->harga_beli)
+                    'total'=> 0
                 );
                 log_data($detail_return);
                 $this->db->insert('detail_return', $detail_return);
