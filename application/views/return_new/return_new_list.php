@@ -10,7 +10,7 @@
             </div>
             <div class="col-md-1 text-right">
             </div>
-            <div class="col-md-3 text-right">
+            <!-- <div class="col-md-3 text-right">
                 <form action="<?php echo site_url('return_new/index'); ?>" class="form-inline" method="get">
                     <div class="input-group">
                         <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
@@ -27,9 +27,10 @@
                         </span>
                     </div>
                 </form>
-            </div>
+            </div> -->
         </div>
-        <table class="table table-bordered" style="margin-bottom: 10px">
+        <table class="table table-bordered" style="margin-bottom: 10px" id="example1">
+            <thead>
             <tr>
                 <th>No</th>
 		<th>Suplier</th>
@@ -38,7 +39,10 @@
 		<th>Keterangan</th>
 		<th>Date Create</th>
 		<th>Action</th>
-            </tr><?php
+            </tr>
+            </thead>
+            <tbody>
+            <?php
             foreach ($return_new_data as $return_new)
             {
                 ?>
@@ -62,13 +66,14 @@
                 <?php
             }
             ?>
+            </tbody>
         </table>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-6">
                 <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
 	    </div>
             <div class="col-md-6 text-right">
                 <?php echo $pagination ?>
             </div>
-        </div>
+        </div> -->
     
