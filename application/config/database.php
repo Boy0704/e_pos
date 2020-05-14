@@ -13,7 +13,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'db_epos',
+	'database' => 'e_pos',
 
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

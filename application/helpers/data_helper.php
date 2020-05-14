@@ -1,5 +1,22 @@
 <?php 
 
+function total_modal_produk($no_penjualan)
+{
+	$CI =& get_instance();
+	$modal = 0;
+
+	foreach ($CI->db->get('penjualan_detail', array('no_penjualan'=>$no_penjualan))->result() as $rw) {
+		$modal = $modal + ( modal_produk($rw->id_produk) * $rw->qty ) ;
+	}
+	return $modal;
+}
+
+function modal_produk($id_produk)
+{
+	$modal = get_data('produk','id_produk',$id_produk,'harga_beli');
+	return $modal;
+}
+
 function total_stok($id_subkategori)
 {
 	$total = stok_display($id_subkategori) + stok_gudang($id_subkategori);

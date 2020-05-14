@@ -14,11 +14,15 @@
         </div>
 	    <div class="form-group">
             <label for="varchar">Level <?php echo form_error('level') ?></label>
-            <input type="text" class="form-control" name="level" id="level" placeholder="Level" value="<?php echo $level; ?>" />
+            <!-- <input type="text" class="form-control" name="level" id="level" placeholder="Level" value="<?php echo $level; ?>" /> -->
+            <select name="level" class="form-control">
+                <option value="admin">Admin</option>
+                <option value="kasir">Kasir</option>
+            </select>
         </div>
 	    <div class="form-group">
             <label for="varchar">Foto <?php echo form_error('foto') ?></label>
-            <input type="text" class="form-control" name="foto" id="foto" placeholder="Foto" value="<?php echo $foto; ?>" />
+            <input type="file" class="form-control" name="foto" id="foto" placeholder="Foto" value="<?php echo $foto; ?>" />
         </div>
 	    <input type="hidden" name="id_user" value="<?php echo $id_user; ?>" /> 
 	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 

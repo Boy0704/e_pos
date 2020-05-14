@@ -57,6 +57,19 @@
         
         <li><a href="suplier"><i class="fa fa-bank"></i> <span>SUPLIER</span></a></li>
         <li><a href="return_new"><i class="fa fa-external-link-square"></i> <span>Return List</span></a></li>
+        <li class="treeview">
+          <a href="#">
+              <i class="fa fa-print"></i>
+              <span>Laporan</span>
+              <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+              <li><a href="laporan/penjualan"><i class="fa fa-angle-double-right"></i> Penjualan</a></li>
+              <li><a href=""><i class="fa fa-angle-double-right"></i> Pembelian</a></li>
+              <li><a href=""><i class="fa fa-angle-double-right"></i> Pembayaran</a></li>
+              <li><a href=""><i class="fa fa-angle-double-right"></i> Barang</a></li>
+          </ul>
+        </li>
         <li><a href="owner"><i class="fa fa-share-square"></i> <span>Setting</span></a></li>
         <li><a href="pengaturan_aplikasi"><i class="fa fa-share-square"></i> <span>Setting Aplikasi</span></a></li>
         <li><a href="a_user"><i class="fa fa-users"></i> <span>Master User</span></a></li>
