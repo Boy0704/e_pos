@@ -57,6 +57,7 @@
         
         <li><a href="suplier"><i class="fa fa-bank"></i> <span>SUPLIER</span></a></li>
         <li><a href="return_new"><i class="fa fa-external-link-square"></i> <span>Return List</span></a></li>
+        <li><a href="kas_awal"><i class="fa fa-download"></i> <span>Kas Awal</span></a></li>
         <li class="treeview">
           <a href="#">
               <i class="fa fa-print"></i>

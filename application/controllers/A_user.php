@@ -50,13 +50,13 @@ class A_user extends CI_Controller
         $row = $this->A_user_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id_user' => $row->id_user,
-		'nama_lengkap' => $row->nama_lengkap,
-		'username' => $row->username,
-		'password' => $row->password,
-		'level' => $row->level,
-		'foto' => $row->foto,
-	    );
+        'id_user' => $row->id_user,
+        'nama_lengkap' => $row->nama_lengkap,
+        'username' => $row->username,
+        'password' => $row->password,
+        'level' => $row->level,
+        'foto' => $row->foto,
+        );
             $this->load->view('a_user/a_user_read', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -71,13 +71,13 @@ class A_user extends CI_Controller
             'konten' => 'a_user/a_user_form',
             'button' => 'Create',
             'action' => site_url('a_user/create_action'),
-	    'id_user' => set_value('id_user'),
-	    'nama_lengkap' => set_value('nama_lengkap'),
-	    'username' => set_value('username'),
-	    'password' => set_value('password'),
-	    'level' => set_value('level'),
-	    'foto' => set_value('foto'),
-	);
+        'id_user' => set_value('id_user'),
+        'nama_lengkap' => set_value('nama_lengkap'),
+        'username' => set_value('username'),
+        'password' => set_value('password'),
+        'level' => set_value('level'),
+        'foto' => set_value('foto'),
+    );
         $this->load->view('v_index', $data);
     }
     
@@ -88,13 +88,14 @@ class A_user extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+            $img = upload_gambar_biasa('user', 'image/user/', 'jpg|png|jpeg', 10000, 'foto');
             $data = array(
-		'nama_lengkap' => $this->input->post('nama_lengkap',TRUE),
-		'username' => $this->input->post('username',TRUE),
-		'password' => $this->input->post('password',TRUE),
-		'level' => $this->input->post('level',TRUE),
-		'foto' => $this->input->post('foto',TRUE),
-	    );
+        'nama_lengkap' => $this->input->post('nama_lengkap',TRUE),
+        'username' => $this->input->post('username',TRUE),
+        'password' => md5($this->input->post('password',TRUE)),
+        'level' => $this->input->post('level',TRUE),
+        'foto' => $img,
+        );
 
             $this->A_user_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
@@ -112,13 +113,13 @@ class A_user extends CI_Controller
                 'konten' => 'a_user/a_user_form',
                 'button' => 'Update',
                 'action' => site_url('a_user/update_action'),
-		'id_user' => set_value('id_user', $row->id_user),
-		'nama_lengkap' => set_value('nama_lengkap', $row->nama_lengkap),
-		'username' => set_value('username', $row->username),
-		'password' => set_value('password', $row->password),
-		'level' => set_value('level', $row->level),
-		'foto' => set_value('foto', $row->foto),
-	    );
+        'id_user' => set_value('id_user', $row->id_user),
+        'nama_lengkap' => set_value('nama_lengkap', $row->nama_lengkap),
+        'username' => set_value('username', $row->username),
+        'password' => set_value('password', $row->password),
+        'level' => set_value('level', $row->level),
+        'foto' => set_value('foto', $row->foto),
+        );
             $this->load->view('v_index', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -134,12 +135,12 @@ class A_user extends CI_Controller
             $this->update($this->input->post('id_user', TRUE));
         } else {
             $data = array(
-		'nama_lengkap' => $this->input->post('nama_lengkap',TRUE),
-		'username' => $this->input->post('username',TRUE),
-		'password' => $this->input->post('password',TRUE),
-		'level' => $this->input->post('level',TRUE),
-		'foto' => $this->input->post('foto',TRUE),
-	    );
+        'nama_lengkap' => $this->input->post('nama_lengkap',TRUE),
+        'username' => $this->input->post('username',TRUE),
+        'password' => $retVal = ($this->input->post('password') == '') ? $_POST['password_old'] : md5($this->input->post('password',TRUE)),
+        'level' => $this->input->post('level',TRUE),
+        'foto' => $retVal = ($_FILES['foto']['name'] == '') ? $_POST['foto_old'] : upload_gambar_biasa('user', 'image/user/', 'jpeg|png|jpg|gif', 10000, 'foto'),
+        );
 
             $this->A_user_model->update($this->input->post('id_user', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
@@ -163,14 +164,14 @@ class A_user extends CI_Controller
 
     public function _rules() 
     {
-	$this->form_validation->set_rules('nama_lengkap', 'nama lengkap', 'trim|required');
-	$this->form_validation->set_rules('username', 'username', 'trim|required');
-	$this->form_validation->set_rules('password', 'password', 'trim|required');
-	$this->form_validation->set_rules('level', 'level', 'trim|required');
-	$this->form_validation->set_rules('foto', 'foto', 'trim|required');
+    $this->form_validation->set_rules('nama_lengkap', 'nama lengkap', 'trim|required');
+    $this->form_validation->set_rules('username', 'username', 'trim|required');
+    // $this->form_validation->set_rules('password', 'password', 'trim|required');
+    $this->form_validation->set_rules('level', 'level', 'trim|required');
+    // $this->form_validation->set_rules('foto', 'foto', 'trim|required');
 
-	$this->form_validation->set_rules('id_user', 'id_user', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    $this->form_validation->set_rules('id_user', 'id_user', 'trim');
+    $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
 }
