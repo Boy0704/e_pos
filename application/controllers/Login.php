@@ -39,7 +39,7 @@ class Login extends CI_Controller {
 					redirect('app','refresh');
 				// 	echo 'Server TimeOut';
 				} elseif ($this->session->userdata('level') == 'kasir') {
-					redirect('#','refresh');
+					redirect('app','refresh');
 				}
 
 				// redirect('app/index');
