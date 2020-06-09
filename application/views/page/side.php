@@ -26,7 +26,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         
-        
+        <?php if ($this->session->userdata('level') == 'admin'){ ?>
         <li><a href="app"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
         <li class="treeview">
           <a href="#">
@@ -74,6 +74,21 @@
         <li><a href="owner"><i class="fa fa-share-square"></i> <span>Setting</span></a></li>
         <li><a href="pengaturan_aplikasi"><i class="fa fa-share-square"></i> <span>Setting Aplikasi</span></a></li>
         <li><a href="a_user"><i class="fa fa-users"></i> <span>Master User</span></a></li>
+
+        <?php } elseif ($this->session->userdata('level') == 'kasir') {?>
+
+        <li><a href="app"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        
+        <li><a href="app/transaksi"><i class="fa fa-cart-plus"></i> <span>Transaksi Penjualan</span></a></li>
+        <li><a href="app/list_transaksi"><i class="fa fa-keyboard-o"></i> <span>List Transaksi</span></a></li>
+        <li><a href="produk_display"><i class="fa fa-cube"></i> <span>Produk Display</span></a></li>
+        <li><a href="return_new"><i class="fa fa-external-link-square"></i> <span>Return List</span></a></li>
+        <li><a href="kas_awal"><i class="fa fa-download"></i> <span>Kas Awal</span></a></li>
+        
+
+        <?php } ?>
+        
+        
 
         <li class="header">LABELS</li>
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Faqs</span></a></li>
