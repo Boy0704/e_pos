@@ -66,9 +66,9 @@
           </a>
           <ul class="treeview-menu">
               <li><a href="laporan/penjualan"><i class="fa fa-angle-double-right"></i> Penjualan</a></li>
-              <li><a href=""><i class="fa fa-angle-double-right"></i> Pembelian</a></li>
-              <li><a href=""><i class="fa fa-angle-double-right"></i> Pembayaran</a></li>
-              <li><a href=""><i class="fa fa-angle-double-right"></i> Barang</a></li>
+              <li><a href="laporan/pembelian"><i class="fa fa-angle-double-right"></i> Pembelian</a></li>
+              <li><a href="laporan/pembayaran"><i class="fa fa-angle-double-right"></i> Pembayaran</a></li>
+              <li><a href="laporan/barang"><i class="fa fa-angle-double-right"></i> Barang</a></li>
           </ul>
         </li>
         <li><a href="owner"><i class="fa fa-share-square"></i> <span>Setting</span></a></li>
