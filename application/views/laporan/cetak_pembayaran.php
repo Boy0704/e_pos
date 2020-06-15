@@ -48,7 +48,7 @@
 			<td><?php echo number_format($rw->jumlah_bayar) ?></td>
 			<td><?php echo number_format($rw->sisa_bayar) ?></td>
 			<td><?php echo number_format($rw->total_harga); $total = $total + $rw->total_harga ?></td>
-			<td><?php echo number_format($rw->total_harga * 0.1); $total_pajak = $total_pajak + ($rw->total_harga * 0.1) ?></td>
+			<td><?php echo number_format($rw->total_harga * 1.1); $total_pajak = $total_pajak + ($rw->total_harga * 1.1) ?></td>
 			<td></td>
 		</tr>
 	<?php } ?>
