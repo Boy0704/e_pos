@@ -41,6 +41,7 @@
         		<th>Barcode</th>
         		<th>Nama Barang</th>
         		<th>Diskon</th>
+        		<th>Nilai Diskon</th>
         		<th>Satuan</th>
         		<th>Jumlah</th>
         		<th>Harga</th>
@@ -48,12 +49,25 @@
         	</tr>
         	<tr>
         	<?php $i=1; $no=1; $total_disc=0;?>
-            <?php foreach($this->cart->contents() as $items): ?>
+            <?php foreach($this->cart->contents() as $items):
+            	$diskon = 0;
+            	$a = get_produk($items['id'],'diskon');
+        		$b = explode("%", $a);
+        		$diskon = $b[0];
+        		if (isset($b[1])) {
+        			$n_diskon = $items['price'] * ($diskon/100);
+        		} else {
+        			$n_diskon = $diskon;
+        		}
+        		
+
+             ?>
         		<td><?php echo $no; ?></td>
                 <td><img src="image/produk/<?php echo get_produk($items['id'],'foto') ?>" style="width: 100px;"></td>
                 <td><?php echo $items['id']; ?></td>
                 <td><?php echo strtoupper($items['name']); ?></td>
-                <td><?php echo $items['qty']*floatval(get_produk($items['id'],'diskon')); $total_disc = $total_disc+($items['qty']*floatval(get_produk($items['id'],'diskon'))); ?></td>
+                <td><?php echo get_produk($items['id'],'diskon'); ?></td>
+                <td><?php echo number_format($items['qty']*$n_diskon); $total_disc = $total_disc+($items['qty']*$n_diskon); ?></td>
                 <td>
                 	<select name="satuan" id="satuan" row-id="<?php echo $items['rowid'] ?>" qty="<?php echo $items['qty'] ?>">
                 		<option value="<?php echo strtoupper(get_produk($items['id'],'satuan')) ?>"><?php echo strtoupper(get_produk($items['id'],'satuan')) ?></option>
