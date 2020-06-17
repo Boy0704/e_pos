@@ -44,7 +44,7 @@
                             <h1><strong>APLIKASI</strong> <?php echo get_setting('nama_aplikasi') ?></h1>
                             <div class="description">
                                 <p>
-                                    Aplikasi Penjualan Toko Retail dan Toko Online dari <a href="https://jualkoding.com"><strong>Jualkoding.com</strong></a>, customize and use it as you like!
+                                    Aplikasi Penjualan Toko Retail dan Toko Online dari <a href="https://jualkoding.com"><strong>Jualkoding.com</strong></a>
                                 </p>
                             </div>
                         </div>
