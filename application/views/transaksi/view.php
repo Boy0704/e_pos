@@ -50,15 +50,16 @@
         	<tr>
         	<?php $i=1; $no=1; $total_disc=0;?>
             <?php foreach($this->cart->contents() as $items):
-            	$diskon = 0;
-            	$a = get_produk($items['id'],'diskon');
-        		$b = explode("%", $a);
-        		$diskon = $b[0];
-        		if (isset($b[1])) {
-        			$n_diskon = $items['price'] * ($diskon/100);
-        		} else {
-        			$n_diskon = $diskon;
-        		}
+            	$subtotal_diskon = 0;
+            	$diskon = get_produk($items['id'],'diskon');
+          //   	$a = get_produk($items['id'],'diskon');
+        		// $b = explode("%", $a);
+        		// $diskon = $b[0];
+        		// if (isset($b[1])) {
+        		// 	$n_diskon = $items['price'] * ($diskon/100);
+        		// } else {
+        		// 	$n_diskon = $diskon;
+        		// }
         		
 
              ?>
@@ -67,7 +68,7 @@
                 <td><?php echo $items['id']; ?></td>
                 <td><?php echo strtoupper($items['name']); ?></td>
                 <td><?php echo get_produk($items['id'],'diskon'); ?></td>
-                <td><?php echo number_format($items['qty']*$n_diskon); $total_disc = $total_disc+($items['qty']*$n_diskon); ?></td>
+                <td><?php echo number_format(get_diskon_beli($diskon,$items['price'])); $total_disc = $total_disc+($items['qty']*get_diskon_beli($diskon,$items['price'])); ?></td>
                 <td>
                 	<select name="satuan" id="satuan" row-id="<?php echo $items['rowid'] ?>" qty="<?php echo $items['qty'] ?>">
                 		<option value="<?php echo strtoupper(get_produk($items['id'],'satuan')) ?>"><?php echo strtoupper(get_produk($items['id'],'satuan')) ?></option>
@@ -81,7 +82,7 @@
                 <!-- <td><input type="text" name="qty" class="form-control" style="width: 70px;" value="<?php echo $items['qty']; ?>" id="qty<?php echo get_produk($items['id'],'id_produk') ?>"></td> -->
                 <td><?php echo $items['qty']; ?></td>
                 <td>Rp. <?php echo $this->cart->format_number($items['price']); ?></td>
-                <td>Rp. <?php echo $this->cart->format_number($items['subtotal']-floatval(get_produk($items['id'],'diskon'))); ?></td>
+                <td>Rp. <?php echo $this->cart->format_number($items['subtotal']); ?></td>
                 <td>
                     <a href="app/hapus_cart/<?php echo $items['rowid'] ?>" class="btn btn-warning btn-sm">X</a>
                 </td>
@@ -89,12 +90,12 @@
         	<?php $i++; $no++; ?>
             <?php endforeach; ?>
             <tr>
-        		<th colspan="8" style="text-align: right;">Total Disc</th>
-        		<th colspan="2">Rp. <?php echo $this->cart->format_number($total_disc); ?></th>
+        		<th colspan="8" style="text-align: right;">Total Harga Sebelum Disc</th>
+        		<th colspan="2">Rp. <?php echo $this->cart->format_number($this->cart->total()); ?></th>
         	</tr>
-            <tr>
-        		<th colspan="8" style="text-align: right;">Total Harga</th>
-        		<th colspan="2">Rp. <?php echo $this->cart->format_number($this->cart->total()-$total_disc); ?></th>
+        	<tr>
+        		<th colspan="8" style="text-align: right;">Total Setelah Disc</th>
+        		<th colspan="2">Rp. <?php echo $this->cart->format_number($total_disc); ?></th>
         	</tr>
         </table>
 

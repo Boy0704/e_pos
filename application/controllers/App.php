@@ -4,6 +4,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class App extends CI_Controller {
 
 	public $image = '';
+
+    public function tes()
+    {
+        $a = "10";
+        $b = explode("%", $a);
+        print_r($b);
+        if (isset($b[1])) {
+            echo "1";
+        } else {
+            echo "0";
+        }
+    }
 	
 	public function index()
 	{
