@@ -124,7 +124,7 @@
 		          	</div>
 		          	<div class="form-group">
 		          		<label>Total Bayar</label>
-		          		<input type="text" name="total_bayar" class="form-control" id="total_bayar" value="<?php echo $this->cart->total()-$total_disc ?>">
+		          		<input type="text" name="total_bayar" class="form-control" id="total_bayar" value="<?php echo $total_disc ?>">
 		          	</div>
 		          	<div class="form-group">
 		          		<label>Dibayar</label>
