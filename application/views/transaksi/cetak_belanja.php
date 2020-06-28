@@ -58,7 +58,7 @@
 						<td>TOTAL BAYAR : <?php echo get_data('penjualan_header','no_penjualan',$no,'total_harga'); ?></td>
 					</tr>
 					<tr>
-						<td>CASH/DANA/DOKU : <?php echo get_data('penjualan_header','no_penjualan',$no,'total_bayar'); ?></td>
+						<td>CASH : <?php echo get_data('penjualan_header','no_penjualan',$no,'total_bayar'); ?></td>
 					</tr>
 					<tr>
 						<td>KEMBALI : <?php echo get_data('penjualan_header','no_penjualan',$no,'kembalian'); ?></td>

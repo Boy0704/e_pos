@@ -118,8 +118,8 @@
 		          		<label>Jenis Pembayaran</label>
 		          		<select name="jenis_pembayaran"id="jenis_pembayaran" class="form-control">
 		          			<option value="CASH">CASH</option>
-		          			<option value="DOKU">DOKU</option>
-		          			<option value="GOPAY">GOPAY</option>
+		          			<!-- <option value="DOKU">DOKU</option>
+		          			<option value="GOPAY">GOPAY</option> -->
 		          		</select>
 		          	</div>
 		          	<div class="form-group">
