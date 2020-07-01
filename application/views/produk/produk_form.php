@@ -65,7 +65,7 @@
 	    <div class="form-group">
             <label for="int">Subkategori <?php echo form_error('id_subkategori') ?></label>
             <!-- <input type="text" class="form-control" name="id_subkategori" id="id_subkategori" placeholder="Id Subkategori" value="<?php echo $id_subkategori; ?>" /> -->
-            <?php echo select_option('id_subkategori','subkategori','subkategori','id_subkategori',null,null,'id=subkategori','<option value="'.$id_subkategori.'">'.get_data('subkategori','id_subkategori',$id_subkategori,'subkategori').'</option>'); ?>
+            <?php echo select_option('id_subkategori','v_subkategori','subkategori','id_subkategori',null,null,'id=subkategori','<option value="'.$id_subkategori.'">'.get_data('subkategori','id_subkategori',$id_subkategori,'subkategori').'</option>'); ?>
         </div>
 	    
 	    <input type="hidden" name="id_produk" value="<?php echo $id_produk; ?>" /> 

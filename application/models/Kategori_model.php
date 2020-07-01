@@ -40,8 +40,9 @@ class Kategori_model extends CI_Model
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL) {
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('id_kategori', $q);
-	$this->db->or_like('kategori', $q);
+        $this->db->where('status_delete', '0');
+        $this->db->like('( id_kategori', $q);
+	$this->db->or_like('kategori )', $q);
 	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }

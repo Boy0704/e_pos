@@ -29,6 +29,7 @@ class Subkategori extends CI_Controller
         $config['page_query_string'] = TRUE;
         $config['total_rows'] = $this->Subkategori_model->total_rows($q);
         $subkategori = $this->Subkategori_model->get_limit_data($config['per_page'], $start, $q);
+        // log_data($this->db->last_query());
 
         $this->load->library('pagination');
         $this->pagination->initialize($config);
@@ -141,7 +142,9 @@ class Subkategori extends CI_Controller
         $row = $this->Subkategori_model->get_by_id($id);
 
         if ($row) {
-            $this->Subkategori_model->delete($id);
+            // $this->Subkategori_model->delete($id);
+            $this->db->where('id_subkategori', $id);
+            $this->db->update('subkategori', array('status_delete'=>'1'));
             $this->session->set_flashdata('message', 'Delete Record Success');
             redirect(site_url('subkategori'));
         } else {

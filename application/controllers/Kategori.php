@@ -132,7 +132,9 @@ class Kategori extends CI_Controller
         $row = $this->Kategori_model->get_by_id($id);
 
         if ($row) {
-            $this->Kategori_model->delete($id);
+            // $this->Kategori_model->delete($id);
+            $this->db->where('id_kategori', $id);
+            $this->db->update('kategori', array('status_delete'=>'1'));
             $this->session->set_flashdata('message', 'Delete Record Success');
             redirect(site_url('kategori'));
         } else {
