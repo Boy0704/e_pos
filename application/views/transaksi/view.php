@@ -164,7 +164,7 @@
 	  },
 	  computed: {
                 link: function() {
-                    return 'app/simpan_penjualan/<?php echo $this->cart->total()?>/<?php echo $this->cart->total()-$total_disc ?>/'+this.dibayar+'/'+this.kembalian;
+                    return 'app/simpan_penjualan/<?php echo $total_disc ?>/<?php echo $this->cart->total()-$total_disc ?>/'+this.dibayar+'/'+this.kembalian;
                 }
             }
 
@@ -203,7 +203,7 @@
 			var dibayar = $('#dibayar').val();
 			var kembalian = $('#kembalian').val();
 			$.ajax({
-				url: 'app/simpan_penjualan/<?php echo $this->cart->total() ?>/<?php echo $this->cart->total()-$total_disc ?>/'+dibayar+'/'+kembalian+'/'+jb,
+				url: 'app/simpan_penjualan/<?php echo $total_disc ?>/<?php echo $this->cart->total()-$total_disc ?>/'+dibayar+'/'+kembalian+'/'+jb,
 				type: 'GET',
 				dataType: 'JSON',
 			})
