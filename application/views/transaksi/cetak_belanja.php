@@ -52,16 +52,16 @@
 			<td>
 				<table>
 					<tr>
-						<td>TOTAL DISC : <?php echo get_data('penjualan_header','no_penjualan',$no,'total_disc'); ?></td>
+						<td>TOTAL DISC : <?php echo number_format(get_data('penjualan_header','no_penjualan',$no,'total_disc')); ?></td>
 					</tr>
 					<tr>
-						<td>TOTAL BAYAR : <?php echo get_data('penjualan_header','no_penjualan',$no,'total_harga'); ?></td>
+						<td>TOTAL BAYAR : <?php echo number_format(get_data('penjualan_header','no_penjualan',$no,'total_harga')); ?></td>
 					</tr>
 					<tr>
-						<td>CASH : <?php echo get_data('penjualan_header','no_penjualan',$no,'total_bayar'); ?></td>
+						<td>CASH : <?php echo number_format(get_data('penjualan_header','no_penjualan',$no,'total_bayar')); ?></td>
 					</tr>
 					<tr>
-						<td>KEMBALI : <?php echo get_data('penjualan_header','no_penjualan',$no,'kembalian'); ?></td>
+						<td>KEMBALI : <?php echo number_format(get_data('penjualan_header','no_penjualan',$no,'kembalian')); ?></td>
 					</tr>
 				</table>
 			</td>
