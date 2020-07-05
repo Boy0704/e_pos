@@ -82,7 +82,6 @@
         <li><a href="app/transaksi"><i class="fa fa-cart-plus"></i> <span>Transaksi Penjualan</span></a></li>
         <li><a href="app/list_transaksi"><i class="fa fa-keyboard-o"></i> <span>List Transaksi</span></a></li>
         <li><a href="produk_display"><i class="fa fa-cube"></i> <span>Produk Display</span></a></li>
-        <li><a href="return_new"><i class="fa fa-external-link-square"></i> <span>Return List</span></a></li>
         <li><a href="kas_awal"><i class="fa fa-download"></i> <span>Kas Awal</span></a></li>
         
 

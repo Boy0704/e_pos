@@ -37,7 +37,7 @@
 					<td><?php echo stok_display($rw->id_subkategori) + stok_gudang($rw->id_subkategori) ?></td>
 					<td><?php echo $rw->stok_min ?></td>
 				</tr>
-				<?php } ?>
+				<?php $no++; } ?>
 			</tbody>
 		</table>
 	</div>

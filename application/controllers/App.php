@@ -646,6 +646,12 @@ class App extends CI_Controller {
     		// log_r($this->session->userdata('level'));
             redirect('login');
         }
+        if ($this->session->userdata('level') == 'kasir') {
+            if (cek_kas_kasir() == '0') {
+                $this->session->set_flashdata('message', alert_biasa('Kas awal belum di SET, hubungi administrator.','success'));
+                redirect('app','refresh');
+            }
+        }
 		$data = array(
 			'konten' => 'transaksi/view',
             'judul_page' => 'Transaksi Penjualan',

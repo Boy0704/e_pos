@@ -1,5 +1,19 @@
 <?php 
 
+function cek_kas_kasir()
+{
+	$CI =& get_instance();
+	$id_user = $CI->session->userdata('id_user');
+	$CI->db->where('kasir', $id_user);
+	$CI->db->like('created_at', date('Y-m-d'), 'after');
+	$cek = $CI->db->get('kas_awal');
+	if ($cek->num_rows() > 0) {
+		return '1';
+	} else {
+		return '0';
+	}
+}
+
 function total_modal_produk($no_penjualan)
 {
 	$CI =& get_instance();

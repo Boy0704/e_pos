@@ -1,7 +1,11 @@
 
         <div class="row" style="margin-bottom: 10px">
             <div class="col-md-4">
-                <?php echo anchor(site_url('kas_awal/create'),'Create', 'class="btn btn-primary"'); ?>
+                <?php 
+                if ($this->session->userdata('level') == 'admin') {
+                    echo anchor(site_url('kas_awal/create'),'Create', 'class="btn btn-primary"');
+                }
+                 ?>
             </div>
             <div class="col-md-4 text-center">
                 <div style="margin-top: 8px" id="message">
@@ -42,7 +46,10 @@
         <th>Selisih</th>
 		<th>Kas Akhir/Setoran</th>
 		<th>Status</th>
-		<th>Action</th>
+        <?php if ($this->session->userdata('level') == 'admin'): ?>
+            <th>Action</th>
+        <?php endif ?>
+		
             </tr><?php
             foreach ($kas_awal_data as $kas_awal)
             {
@@ -59,13 +66,21 @@
             <td><?php echo number_format(abs($selisih)) ?></td>
             <td><?php echo number_format($kas_awal->setoran) ?></td>
 			<td><?php echo $retVal = ($kas_awal->status == '0') ? '<span class="label label-info">On Progress</span>' : '<span class="label label-success">Finish</span>' ; ?></td>
-			<td style="text-align:center" width="200px">
+			
 				<?php 
-				echo anchor(site_url('kas_awal/update/'.$kas_awal->id),'<span class="label label-info">Ubah</span>'); 
-				echo ' | '; 
-				echo anchor(site_url('kas_awal/delete/'.$kas_awal->id),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+				if ($this->session->userdata('level') == 'admin') {
+                    ?>
+                    <td style="text-align:center" width="200px">
+                    <?php
+                    echo anchor(site_url('kas_awal/update/'.$kas_awal->id),'<span class="label label-info">Ubah</span>'); 
+                    echo ' | '; 
+                    echo anchor(site_url('kas_awal/delete/'.$kas_awal->id),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+                    ?>
+                    </td>
+                    <?php
+                }
 				?>
-			</td>
+			
 		</tr>
                 <?php
             }

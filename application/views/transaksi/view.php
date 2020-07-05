@@ -1,4 +1,4 @@
-<div style="margin-left: 10px;">
+<div style="margin-left: 10px;" id="trans">
 	<div class="row">
 		<div class="col-md-3">
 			<label>BARCODE SCANNER</label>
@@ -40,11 +40,11 @@
         		<th>Img</th>
         		<th>Barcode</th>
         		<th>Nama Barang</th>
-        		<th>Diskon</th>
-        		<th>Nilai Diskon</th>
-        		<th>Satuan</th>
-        		<th>Jumlah</th>
+        		<th>Qty</th>
+        		<th>Unit</th>
         		<th>Harga</th>
+        		<th>Disc</th>
+        		<th>Setelah Disc</th>
         		<th>Subtotal</th>
         	</tr>
         	<tr>
@@ -52,14 +52,6 @@
             <?php foreach($this->cart->contents() as $items):
             	$subtotal_diskon = 0;
             	$diskon = get_produk($items['id'],'diskon');
-          //   	$a = get_produk($items['id'],'diskon');
-        		// $b = explode("%", $a);
-        		// $diskon = $b[0];
-        		// if (isset($b[1])) {
-        		// 	$n_diskon = $items['price'] * ($diskon/100);
-        		// } else {
-        		// 	$n_diskon = $diskon;
-        		// }
         		
 
              ?>
@@ -67,8 +59,7 @@
                 <td><img src="image/produk/<?php echo get_produk($items['id'],'foto') ?>" style="width: 100px;"></td>
                 <td><?php echo $items['id']; ?></td>
                 <td><?php echo strtoupper($items['name']); ?></td>
-                <td><?php echo get_produk($items['id'],'diskon'); ?></td>
-                <td><?php echo number_format(get_diskon_beli($diskon,$items['price'])); $total_disc = $total_disc+($items['qty']*get_diskon_beli($diskon,$items['price'])); ?></td>
+                <td><?php echo $items['qty']; ?></td>
                 <td>
                 	<select name="satuan" id="satuan" row-id="<?php echo $items['rowid'] ?>" qty="<?php echo $items['qty'] ?>">
                 		<option value="<?php echo strtoupper(get_produk($items['id'],'satuan')) ?>"><?php echo strtoupper(get_produk($items['id'],'satuan')) ?></option>
@@ -79,9 +70,14 @@
                 		<?php } ?>
                 	</select>
                 </td>
+                <!-- <td>Rp. <?php echo $this->cart->format_number($items['price']); ?></td> -->
+                 <td><?php echo number_format(get_produk($items['id'],'harga')); ?></td>
+                <td><?php echo get_produk($items['id'],'diskon'); ?></td>
+                <td><?php echo number_format(get_diskon_beli($diskon,$items['price'])); $total_disc = $total_disc+($items['qty']*get_diskon_beli($diskon,$items['price'])); ?></td>
+                
                 <!-- <td><input type="text" name="qty" class="form-control" style="width: 70px;" value="<?php echo $items['qty']; ?>" id="qty<?php echo get_produk($items['id'],'id_produk') ?>"></td> -->
-                <td><?php echo $items['qty']; ?></td>
-                <td>Rp. <?php echo $this->cart->format_number($items['price']); ?></td>
+                
+                
                 <td>Rp. <?php echo $this->cart->format_number($items['subtotal']); ?></td>
                 <td>
                     <a href="app/hapus_cart/<?php echo $items['rowid'] ?>" class="btn btn-warning btn-sm">X</a>
@@ -90,17 +86,21 @@
         	<?php $i++; $no++; ?>
             <?php endforeach; ?>
             <tr>
-        		<th colspan="8" style="text-align: right;">Total Harga Sebelum Disc</th>
+        		<th colspan="9" style="text-align: right;">Total Harga Sebelum Disc</th>
         		<th colspan="2">Rp. <?php echo $this->cart->format_number($this->cart->total()); ?></th>
         	</tr>
         	<tr>
-        		<th colspan="8" style="text-align: right;">Total Setelah Disc</th>
+        		<th colspan="9" style="text-align: right;">Total Disc</th>
+        		<th colspan="2">Rp. <?php echo $this->cart->total()-$total_disc ?></th>
+        	</tr>
+        	<tr>
+        		<th colspan="9" style="text-align: right;">Total Setelah Disc</th>
         		<th colspan="2">Rp. <?php echo $this->cart->format_number($total_disc); ?></th>
         	</tr>
         </table>
 
 
-        <a href="#" id="bayar" data-toggle="modal" data-target="#myModal" class="btn btn-primary" style="text-align: right;">SIMPAN & CETAK</a>
+        <a href="#" id="bayar" data-toggle="modal" data-target="#myModal" class="btn btn-primary" style="text-align: right;"> F2 SIMPAN & CETAK</a>
     	</div>
 
 
@@ -128,7 +128,7 @@
 		          	</div>
 		          	<div class="form-group">
 		          		<label>Dibayar</label>
-		          		<input type="text" name="dibayar" v-model='dibayar' class="form-control" id="dibayar" value="" accesskey="b">
+		          		<input type="number" name="dibayar" v-model='dibayar' class="form-control" id="dibayar" value="" accesskey="b">
 		          	</div>
 		          	<div class="form-group">
 		          		<label>Kembalian</label>
@@ -139,7 +139,7 @@
 		        <div class="modal-footer">
 		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		          <!-- <a target="_blank" :href="link" class="btn btn-primary" accesskey="s">Simpan</a> -->
-		          <a class="btn btn-primary" id="simpan_penjualan" accesskey="s">Simpan</a>
+		          <a class="btn btn-primary" id="simpan_penjualan" accesskey="s">F2 Simpan</a>
 		        </div>
 		      </div>
 		    </div>
@@ -305,5 +305,40 @@
 		<?php endforeach; ?>
 
 
+	});
+
+	$("body").keydown(function() {
+		if(event.code == 'F2') {
+			$("#myModal").modal({show:true});
+			$('#myModal').on('shown.bs.modal', function () {
+			    $('#dibayar').val('');
+			    $('#dibayar').focus();
+
+			    $("#dibayar").keydown(function() {
+			    	if(event.code == 'F2') {
+			    		var jb = $('#jenis_pembayaran').val();
+						var total = $('#total_bayar').val();
+						var dibayar = $('#dibayar').val();
+						var kembalian = $('#kembalian').val();
+						$.ajax({
+							url: 'app/simpan_penjualan/<?php echo $total_disc ?>/<?php echo $this->cart->total()-$total_disc ?>/'+dibayar+'/'+kembalian+'/'+jb,
+							type: 'GET',
+							dataType: 'JSON',
+						})
+						.done(function(a) {
+							console.log("success");
+							window.open('app/cetak_belanja/'+a.no_penjualan, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+							window.location="<?php echo base_url() ?>app/transaksi";
+						})
+						.fail(function() {
+							console.log("error");
+						})
+						.always(function() {
+							console.log("complete");
+						});
+			    	}
+			    });
+			})
+		}
 	});
 </script>
