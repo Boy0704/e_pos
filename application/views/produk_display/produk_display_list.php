@@ -33,11 +33,17 @@
         <th>Display Max</th>
         
         <th>Orderan</th>
-        <th>Selisih Gudang</th>
-        <th>Selisih Display</th>
+        <?php if ($this->session->userdata('level') == 'admin'): ?>
+          <th>Selisih Gudang</th>
+          <th>Selisih Display</th>
+        <?php endif ?>
+        
 		<th>Date Create</th>
 		<th>User By</th>
-		<th>Action</th>
+    <?php if ($this->session->userdata('level') == 'admin'): ?>
+      <th>Action</th>
+    <?php endif ?>
+		
             </tr>
             </thead>
             <tbody><?php
@@ -76,7 +82,9 @@
             <td><?php echo $produk_display->display_max ?></td>
 
             <td><?php echo $produk_display->orderan ?></td>
-            <td>
+            <?php if ($this->session->userdata('level') == 'admin'): ?>
+              
+              <td>
                 <form action="app/edit_selisih/gudang/<?php echo $produk_display->id_produk ?>" method="POST">
                   <input type="hidden" name="ket" id="ket_selisih_gudang" value="">
                   <div class="input-group">
@@ -102,18 +110,26 @@
                   </div>
                 </form>
             </td>
+
+            <?php endif ?>
+            
             
 			<td><?php echo $produk_display->date_create ?></td>
 			<td><?php echo $produk_display->user_by ?></td>
-			<td style="text-align:center" width="100px">
-				<?php 
-				echo anchor(site_url('produk_display/update/'.$produk_display->id_display),'<span class="label label-info">Ubah</span>'); 
-				// echo ' | '; 
-				// echo anchor(site_url('produk_display/delete/'.$produk_display->id_display),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
-				?>
-                
+      <?php if ($this->session->userdata('level') == 'admin'): ?>
+        
+        <td style="text-align:center" width="100px">
+          <?php 
+          echo anchor(site_url('produk_display/update/'.$produk_display->id_display),'<span class="label label-info">Ubah</span>'); 
+          // echo ' | '; 
+          // echo anchor(site_url('produk_display/delete/'.$produk_display->id_display),'<span class="label label-danger">Hapus</span>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+          ?>
                   
-			</td>
+                    
+        </td>
+
+      <?php endif ?>
+			
 		</tr>
                 <?php
                 $start++;
@@ -143,13 +159,20 @@
         <th>Satuan</th>
         <th>Display Min</th>
         <th>Display Max</th>
-        
+        <?php if ($this->session->userdata('level') == 'admin'): ?>
         <th>Orderan</th>
-        <th>Selisih Gudang</th>
+        <?php endif ?>
+        
+          <th>Selisih Gudang</th>
         <th>Selisih Display</th>
+        
+        
         <th>Date Create</th>
         <th>User By</th>
-        <th>Action</th>
+        <?php if ($this->session->userdata('level') =='admin'): ?>
+          <th>Action</th>
+        <?php endif ?>
+        
             </tr>
             </thead>
             <tbody>
@@ -185,8 +208,8 @@
             <td><?php echo strtoupper(get_data('produk','id_produk',$produk_display->id_produk,'satuan')) ?></td>
             <td><?php echo $produk_display->display_min ?></td>
             <td><?php echo $produk_display->display_max ?></td>
-
-            <td>
+            <?php if ($this->session->userdata('level') == 'admin'): ?>
+              <td>
                 <form action="app/edit_orderan/<?php echo $produk_display->id_produk.'/'.$produk_display->id_subkategori.'/'.$produk_display->orderan ?>" method="POST">
                     
                   <div class="input-group">
@@ -199,11 +222,14 @@
                   </div>
                 </form>
             </td>
+          <?php endif; ?>
+            
             <td>0</td>
             <td>0</td>
             <td><?php echo $produk_display->date_create ?></td>
             <td><?php echo $produk_display->user_by ?></td>
-            <td style="text-align:center" width="100px">
+            <?php if ($this->session->userdata('level') == 'admin'): ?>
+              <td style="text-align:center" width="100px">
                 <?php 
                 echo anchor(site_url('app/konfirm_auto_display/'.$produk_display->id_produk.'/'.$produk_display->id_subkategori.'/'.$produk_display->orderan),'<span class="label label-info">Finish</span>','onclick="javasciprt: return confirm(\'Apakah kamu yakin finishkan auto display ini ?\')"'); 
                 // echo ' | '; 
@@ -213,6 +239,8 @@
 
 
             </td>
+            <?php endif ?>
+            
         </tr>
         
                 <?php
@@ -244,7 +272,10 @@
                   <th>Ket Selisih Display</th>
                   <th>Date</th>
                   <th>User By</th>
-                  <th>Option</th>
+                  <?php if ($this->session->userdata('level') == 'admin'): ?>
+                    <th>Option</th>
+                  <?php endif ?>
+                  
               </tr>
           </thead>
           <tbody>
@@ -272,9 +303,12 @@
                    <td><?php echo $rw->ket_selisih_display ?></td>
                    <td><?php echo $rw->date_create ?></td>
                    <td><?php echo $rw->user_by ?></td>
-                   <td>
-                     <a href="app/hapus_selisih/<?php echo $rw->id ?>" class="label label-danger" onclick="javasciprt: return confirm('Yakin Akan Hapus ?')">Hapus</a>
-                   </td>
+                   <?php if ($this->session->userdata('level') == 'admin'): ?>
+                     <td>
+                       <a href="app/hapus_selisih/<?php echo $rw->id ?>" class="label label-danger" onclick="javasciprt: return confirm('Yakin Akan Hapus ?')">Hapus</a>
+                     </td>
+                   <?php endif ?>
+                   
                </tr>
 
             <?php $no++;} ?>

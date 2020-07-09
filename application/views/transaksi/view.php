@@ -78,7 +78,7 @@
                 <!-- <td><input type="text" name="qty" class="form-control" style="width: 70px;" value="<?php echo $items['qty']; ?>" id="qty<?php echo get_produk($items['id'],'id_produk') ?>"></td> -->
                 
                 
-                <td>Rp. <?php echo $this->cart->format_number($items['subtotal']); ?></td>
+                <td>Rp. <?php echo number_format($total_disc); ?></td>
                 <td>
                     <a href="app/hapus_cart/<?php echo $items['rowid'] ?>" class="btn btn-warning btn-sm">X</a>
                 </td>
@@ -106,7 +106,7 @@
 
     	<!-- Modal -->
 		  <div class="modal fade" id="myModal" role="dialog">
-		    <div class="modal-dialog modal-sm">
+		    <div class="modal-dialog">
 		      <div class="modal-content">
 		        <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -341,4 +341,8 @@
 			})
 		}
 	});
+
+	//hide menu
+	$("body").addClass('sidebar-collapse');
+
 </script>
