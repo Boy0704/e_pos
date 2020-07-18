@@ -62,7 +62,12 @@
 			<td><?php echo $kas_awal->tgl2 ?></td>
 			<td><?php echo get_data('a_user','id_user',$kas_awal->kasir,'nama_lengkap') ?></td>
 			<td><?php echo number_format($kas_awal->kas_awal) ?></td>
-            <td><?php echo number_format($kas_awal->total_jual) ?></td>
+            <td><?php 
+            $total_jual = cek_total_jual($kas_awal->tgl1,$kas_awal->tgl2,$kas_awal->kasir);
+
+            $this->db->where('id', $kas_awal->id);
+            $this->db->update('kas_awal', array('total_jual'=>$total_jual));
+            echo number_format($kas_awal->total_jual) ?></td>
             <td><?php echo number_format(abs($selisih)) ?></td>
             <td><?php echo number_format($kas_awal->setoran) ?></td>
 			<td><?php echo $retVal = ($kas_awal->status == '0') ? '<span class="label label-info">On Progress</span>' : '<span class="label label-success">Finish</span>' ; ?></td>

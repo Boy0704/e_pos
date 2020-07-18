@@ -78,7 +78,7 @@
                 <!-- <td><input type="text" name="qty" class="form-control" style="width: 70px;" value="<?php echo $items['qty']; ?>" id="qty<?php echo get_produk($items['id'],'id_produk') ?>"></td> -->
                 
                 
-                <td>Rp. <?php echo number_format($total_disc); ?></td>
+                <td>Rp. <?php echo number_format($items['qty']*get_diskon_beli($diskon,$items['price'])); ?></td>
                 <td>
                     <a href="app/hapus_cart/<?php echo $items['rowid'] ?>" class="btn btn-warning btn-sm">X</a>
                 </td>

@@ -1,5 +1,14 @@
 <?php 
 
+function cek_total_jual($tgl1,$tgl2,$id_user)
+{
+	$CI =& get_instance();
+	$total = $CI->db->query("SELECT SUM(total_harga) AS tot FROM penjualan_header WHERE id_user='$id_user' AND date_create BETWEEN '$tgl1' AND '$tgl2' ")->row()->tot;
+	return $total;
+
+}
+
+
 function cek_kas_kasir()
 {
 	$CI =& get_instance();

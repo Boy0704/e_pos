@@ -23,11 +23,11 @@
         </div>
         <div class="form-group">
             <label for="int">Total Jual</label>
-            <input type="text" class="form-control" name="total_jual" id="total_jual" placeholder="Total Jual" value="<?php echo $total_jual; ?>" />
+            <input type="text" class="form-control" name="total_jual" id="total_jual" placeholder="Total Jual" value="<?php echo $total_jual; ?>" readonly/>
         </div>
         <div class="form-group">
             <label for="int">Selisih</label>
-            <input type="text" class="form-control" name="selisih" id="selisih" placeholder="Selisih" value="<?php echo $selisih; ?>" />
+            <input type="text" class="form-control" name="selisih" id="selisih" placeholder="Selisih" value="<?php echo $selisih; ?>" readonly/>
         </div>
         <div class="form-group">
             <label for="int">Setoran/Kas Akhir</label>
@@ -56,6 +56,10 @@
         });
         $("#tgl2").datetimepicker({
             dateFormat: 'yy-mm-dd'
+        });
+        $("#setoran").keyup(function() {
+            var selisih = parseInt($("#total_jual").val()) - parseInt($(this).val());
+            $("#selisih").val(selisih);
         });
     });
 </script>

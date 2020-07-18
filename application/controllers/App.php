@@ -1077,7 +1077,9 @@ class App extends CI_Controller {
     {
     	$no_penjualan = time();
 
-    	$this->db->insert('penjualan_header', array('no_penjualan'=>$no_penjualan,'date_create'=>get_waktu(),'total_harga'=>$total_harga,'total_disc'=>$total_disc,'total_bayar'=>$total_bayar,'kembalian'=>$kembalian,'jenis_pembayaran'=>$jenis_pembayaran));
+    	$this->db->insert('penjualan_header', array('no_penjualan'=>$no_penjualan,'date_create'=>get_waktu(),'total_harga'=>$total_harga,'total_disc'=>$total_disc,'total_bayar'=>$total_bayar,'kembalian'=>$kembalian,'jenis_pembayaran'=>$jenis_pembayaran,
+            'id_user'=>$this->session->userdata('id_user')
+    ));
 
     	foreach ($this->cart->contents() as $items) {
     		$data = array(
@@ -1087,7 +1089,7 @@ class App extends CI_Controller {
     			'nama_produk' => strtoupper(get_produk($items['id'],'nama_produk')),
     			'qty' => $items['qty'],
     			'harga' => $items['price'],
-    			'subtotal' => $items['subtotal']-floatval(get_produk($items['id'],'diskon')),
+    			'subtotal' => get_diskon_beli(get_produk($items['id'],'diskon'),$items['subtotal']),
     		);
             $this->db->insert('penjualan_detail', $data);
 
