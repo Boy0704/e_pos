@@ -37,7 +37,6 @@
 						<!-- <td><?php echo cek_return($rw->return,$rw->no_penjualan); ?></td> -->
 						<td><?php echo $rw->date_create; ?></td>
 						<td><?php echo number_format($rw->total_setelah_return); ?></td>
-						<td><?php echo strtoupper(get_data('a_user','id_user',$rw->id_user,'nama_lengkap')); ?></td>
 						<td>
 							<?php 
 							if ($rw->return == '1') {
@@ -94,8 +93,11 @@
 							</div>
 
 						</td>
+						<td><?php echo strtoupper(get_data('a_user','id_user',$rw->id_user,'nama_lengkap')); ?></td>
 						<td>
+							<?php if ($this->session->userdata('level') == 'admin'): ?>
 							<a href="return_list/create/<?php echo $rw->no_penjualan ?>" target="_blank" class="btn btn-primary btn-sm">Return</a>
+							<?php endif ?>
 							<a href="app/cetak_belanja/<?php echo $rw->no_penjualan ?>" target="_blank" class="btn btn-info btn-sm">Cetak Struk</a>
 						</td>
 					</tr>
