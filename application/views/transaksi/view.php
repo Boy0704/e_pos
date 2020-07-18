@@ -122,17 +122,22 @@
 		          			<option value="GOPAY">GOPAY</option> -->
 		          		</select>
 		          	</div>
-		          	<div class="form-group">
+		          	<div class="row">
+		          		<div class="col-md-6"></div>
+		          		<div class="col-md-6">
+		          			<div class="form-group form-group-lg">
 		          		<label>Total Bayar</label>
 		          		<input type="text" name="total_bayar" class="form-control" id="total_bayar" value="<?php echo $total_disc ?>" readonly>
 		          	</div>
-		          	<div class="form-group">
+		          	<div class="form-group form-group-lg">
 		          		<label>Dibayar</label>
-		          		<input type="number" name="dibayar" v-model='dibayar' class="form-control" id="dibayar" value="" accesskey="b">
+		          		<input type="text" name="dibayar" class="form-control" id="dibayar" value="" accesskey="b">
 		          	</div>
-		          	<div class="form-group">
+		          	<div class="form-group form-group-lg">
 		          		<label>Kembalian</label>
-		          		<input type="text" name="kembalian" v-model='kembalian' class="form-control" id="kembalian" value="" readonly="">
+		          		<input type="text" name="kembalian" class="form-control" id="kembalian" value="" readonly="">
+		          	</div>
+		          		</div>
 		          	</div>
 		          </form>
 		        </div>
@@ -171,7 +176,9 @@
 	})
 
 	$(document).ready(function() {
-
+		$('#dibayar').number( true, 0 );
+		$('#kembalian').number( true, 0 );
+		$('#total_bayar').number( true, 0 );
 		$('#barcode').keypress(function(e) {
 			if(e.which == 13) {
 				var barcode = $(this).val();

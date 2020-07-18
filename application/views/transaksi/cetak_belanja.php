@@ -17,11 +17,12 @@
 	<?php 
 		$x = 0;
 		$no = $this->uri->segment(3);
+		$id_user = $this->db->get_where('penjualan_header', array('no_penjualan'=>$no))->row()->id_user;
 		foreach ($this->db->get_where('penjualan_detail', array('no_penjualan'=>$no))->result() as $rw) {
 		 ?>
 		<table width="100%">
 			<tr>
-				<td><?php echo strtoupper($rw->nama_produk) ?> <br> <?php echo $rw->qty.' '.strtoupper(get_data('produk','id_produk',$rw->id_produk,'satuan')).' x '.$rw->harga ?> <br> DISC <?php echo get_data('produk','id_produk',$rw->id_produk,'diskon').' / %' ?></td>
+				<td><?php echo strtoupper($rw->nama_produk) ?> <br> <?php echo $rw->qty.' '.strtoupper(get_data('produk','id_produk',$rw->id_produk,'satuan')).' x '.$rw->harga ?> <br> DISC <?php echo get_data('produk','id_produk',$rw->id_produk,'diskon') ?></td>
 				<td><?php echo number_format(get_diskon_beli(get_data('produk','id_produk',$rw->id_produk,'diskon'),($rw->harga*$rw->qty))) ?></td>
 			</tr>
 		</table>
@@ -43,7 +44,7 @@
 						<td><?php echo get_waktu() ?></td>
 					</tr>
 					<tr>
-						<td>LOGIN BY : <?php echo $this->session->userdata('nama'); ?></td>
+						<td>LOGIN BY : <?php echo strtoupper($id_user != '' ? get_data('a_user','id_user',$id_user,'nama_lengkap') : $this->session->userdata('nama')); ?></td>
 					</tr>
 					<tr>
 						<td>KASIR/MOBILE : 1</td>

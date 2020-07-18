@@ -28,6 +28,18 @@ class Login extends CI_Controller {
 					$this->session->set_userdata($sess_data);
 				}
 
+				//simpan log
+				$this->db->insert('log_user', array(
+					'id_user' => $this->session->userdata('id_user'),
+					'nama' => $this->session->userdata('nama'),
+					'level' => $this->session->userdata('level'),
+					'date_at' => get_waktu(),
+					'status' => 'login',
+				));
+
+				$this->db->where('id_user', $this->session->userdata('id_user'));
+				$this->db->update('a_user', array('status_login'=>'1'));
+
 				// define('FOTO', $this->session->userdata('foto'), TRUE);
 				
 
@@ -54,6 +66,20 @@ class Login extends CI_Controller {
 
 	function logout()
 	{
+
+		//simpan log
+		$this->db->insert('log_user', array(
+			'id_user' => $this->session->userdata('id_user'),
+			'nama' => $this->session->userdata('nama'),
+			'level' => $this->session->userdata('level'),
+			'date_at' => get_waktu(),
+			'status' => 'logout',
+		));
+
+		$this->db->where('id_user', $this->session->userdata('id_user'));
+		$this->db->update('a_user', array('status_login'=>'0'));
+
+
 		$this->session->unset_userdata('id_user');
 		$this->session->unset_userdata('nama');
 		$this->session->unset_userdata('username');

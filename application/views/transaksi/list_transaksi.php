@@ -14,12 +14,16 @@
 						<th>Date Create</th>
 						<th>(TH - Return)</th>
 						<th>Return</th>
+						<th>Kasir</th>
 						<th>Option</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php 
 					$no = 1;
+					if ($this->session->userdata('level') != 'admin') {
+						$this->db->where('id_user', $this->session->userdata('id_user'));
+					}
 					$this->db->order_by('id_penjualan', 'desc');
 					$data = $this->db->get('penjualan_header');
 					foreach ($data->result() as $rw) {
@@ -33,6 +37,7 @@
 						<!-- <td><?php echo cek_return($rw->return,$rw->no_penjualan); ?></td> -->
 						<td><?php echo $rw->date_create; ?></td>
 						<td><?php echo number_format($rw->total_setelah_return); ?></td>
+						<td><?php echo strtoupper(get_data('a_user','id_user',$rw->id_user,'nama_lengkap')); ?></td>
 						<td>
 							<?php 
 							if ($rw->return == '1') {

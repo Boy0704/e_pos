@@ -14,6 +14,7 @@ function cek_kas_kasir()
 	$CI =& get_instance();
 	$id_user = $CI->session->userdata('id_user');
 	$CI->db->where('kasir', $id_user);
+	$CI->db->where('status', '0');
 	$CI->db->like('created_at', date('Y-m-d'), 'after');
 	$cek = $CI->db->get('kas_awal');
 	if ($cek->num_rows() > 0) {
