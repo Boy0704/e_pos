@@ -854,7 +854,11 @@ class App extends CI_Controller {
 
             //cek_po master
             $this->db->order_by('id_po', 'desc');
-            $cek_po_system = $this->db->get_where('po_master', array('id_user'=>0,'selesai'=>0,'nama_suplier'=>$suplier_from_produk));
+            $cek_po_system = $this->db->get_where('po_master', array(
+                'id_user'=>0,
+                'dikirim'=>'0',
+                'selesai'=>'0',
+                'nama_suplier'=>$suplier_from_produk));
             if ($cek_po_system->num_rows() > 0) {
                 $no_po = $cek_po_system->row()->no_po;
 
@@ -872,7 +876,7 @@ class App extends CI_Controller {
                     'ppn' => '0',
                     'date_create' => get_waktu(),
                     'id_user' => 0,
-                    'selesai' => 0,
+                    'selesai' => '0',
                 );
                 $this->db->insert('po_master', $po_master);
                 log_data($po_master);
@@ -936,7 +940,7 @@ class App extends CI_Controller {
                             'ppn' => '0',
                             'date_create' => get_waktu(),
                             'id_user' => 0,
-                            'selesai' => 0,
+                            'selesai' => '0',
                         );
                         $this->db->insert('po_master', $po_master);
                         log_data($po_master);
@@ -968,7 +972,11 @@ class App extends CI_Controller {
             } else {
 
                 $this->db->order_by('id_po', 'desc');
-                $cek_po_system = $this->db->get_where('po_master', array('id_user'=>0,'selesai'=>0,'nama_suplier'=>$suplier_from_produk))->row();
+                $cek_po_system = $this->db->get_where('po_master', array(
+                    'id_user'=>0,
+                    'dikirim'=>'0',
+                    'selesai'=>'0',
+                    'nama_suplier'=>$suplier_from_produk))->row();
                 // log_data($this->db->last_query());
                 $no_po = $cek_po_system->no_po;
 
@@ -1020,7 +1028,7 @@ class App extends CI_Controller {
                             'ppn' => '0',
                             'date_create' => get_waktu(),
                             'id_user' => 0,
-                            'selesai' => 0,
+                            'selesai' => '0',
                         );
                         $this->db->insert('po_master', $po_master);
                         log_data($po_master);
@@ -1053,7 +1061,7 @@ class App extends CI_Controller {
 
         //cek po kosong;
         $this->db->select('no_po');
-        $this->db->where('selesai', 0);
+        $this->db->where('selesai', '0');
         foreach ($this->db->get('po_master')->result() as $rw) {
             $po_beli = $this->db->get_where('pembelian', array('no_po'=>$rw->no_po));
             if ($po_beli->num_rows() == 0) {
