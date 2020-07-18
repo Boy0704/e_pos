@@ -37,6 +37,7 @@
         <th>Username</th>
         <th>Level</th>
         <th>Foto</th>
+        <th>Status Login</th>
         <th>Action</th>
             </tr><?php
             foreach ($a_user_data as $a_user)
@@ -48,6 +49,9 @@
             <td><?php echo $a_user->username ?></td>
             <td><?php echo $a_user->level ?></td>
             <td><img src="image/user/<?php echo $a_user->foto ?>" style="width: 100px;"></td>
+            <td>
+                <?php echo $retVal = ($a_user->status_login == '1') ? '<i class="fa fa-circle text-success"></i> Online</a>' : '<i class="fa fa-circle text-danger"></i> Offline</a>' ; ?>
+            </td>
             <td style="text-align:center" width="200px">
                 <?php 
                 echo anchor(site_url('a_user/update/'.$a_user->id_user),'<span class="label label-info">Ubah</span>'); 

@@ -73,6 +73,7 @@
         </li>
         <li><a href="owner"><i class="fa fa-share-square"></i> <span>Setting</span></a></li>
         <li><a href="pengaturan_aplikasi"><i class="fa fa-share-square"></i> <span>Setting Aplikasi</span></a></li>
+        <li><a href="app/log_user"><i class="fa fa-history"></i> <span>Log User</span></a></li>
         <li><a href="a_user"><i class="fa fa-users"></i> <span>Master User</span></a></li>
 
         <?php } elseif ($this->session->userdata('level') == 'kasir') {?>

@@ -16,6 +16,18 @@ class App extends CI_Controller {
             echo "0";
         }
     }
+
+    public function log_user()
+    {
+        if ($this->session->userdata('level') == '') {
+            redirect('login');
+        }
+        $data = array(
+            'konten' => 'a_user/log_user',
+            'judul_page' => 'Log User',
+        );
+        $this->load->view('v_index', $data);
+    }
 	
 	public function index()
 	{
