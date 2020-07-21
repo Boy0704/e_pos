@@ -131,7 +131,7 @@
 		          	</div>
 		          	<div class="form-group form-group-lg">
 		          		<label>Dibayar</label>
-		          		<input type="text" name="dibayar" class="form-control" id="dibayar" value="" accesskey="b">
+		          		<input type="text" name="dibayar" class="form-control" id="dibayar" value="" accesskey="b" required="">
 		          	</div>
 		          	<div class="form-group form-group-lg">
 		          		<label>Kembalian</label>
@@ -204,27 +204,34 @@
 		});
 
 		$("#simpan_penjualan").click(function(event) {
-			$(this).attr('disabled', 'disabled');
 			var jb = $('#jenis_pembayaran').val();
 			var total = $('#total_bayar').val();
 			var dibayar = $('#dibayar').val();
 			var kembalian = $('#kembalian').val();
-			$.ajax({
-				url: 'app/simpan_penjualan/<?php echo $total_disc ?>/<?php echo $this->cart->total()-$total_disc ?>/'+dibayar+'/'+kembalian+'/'+jb,
-				type: 'GET',
-				dataType: 'JSON',
-			})
-			.done(function(a) {
-				console.log("success");
-				window.open('app/cetak_belanja/'+a.no_penjualan, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
-				window.location="<?php echo base_url() ?>app/transaksi";
-			})
-			.fail(function() {
-				console.log("error");
-			})
-			.always(function() {
-				console.log("complete");
-			});
+
+			if (dibayar == 0 || dibayar == '') {
+				alert('Kolom DI BAYAR tidak boleh kosong');
+			} else {
+				$(this).attr('disabled', 'disabled');
+			
+				$.ajax({
+					url: 'app/simpan_penjualan/<?php echo $total_disc ?>/<?php echo $this->cart->total()-$total_disc ?>/'+dibayar+'/'+kembalian+'/'+jb,
+					type: 'GET',
+					dataType: 'JSON',
+				})
+				.done(function(a) {
+					console.log("success");
+					window.open('app/cetak_belanja/'+a.no_penjualan, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+					window.location="<?php echo base_url() ?>app/transaksi";
+				})
+				.fail(function() {
+					console.log("error");
+				})
+				.always(function() {
+					console.log("complete");
+				});
+			}
+			
 			
 		});
 
@@ -314,6 +321,8 @@
 
 	});
 
+	<?php if (!empty($this->cart->contents())): ?>
+
 	$("body").keydown(function() {
 		if(event.code == 'F2') {
 			$("#myModal").modal({show:true});
@@ -327,6 +336,10 @@
 						var total = $('#total_bayar').val();
 						var dibayar = $('#dibayar').val();
 						var kembalian = $('#kembalian').val();
+						if (dibayar == 0 || dibayar == '') {
+							alert('Kolom DI BAYAR tidak boleh kosong');
+							location.reload();
+						}
 						$.ajax({
 							url: 'app/simpan_penjualan/<?php echo $total_disc ?>/<?php echo $this->cart->total()-$total_disc ?>/'+dibayar+'/'+kembalian+'/'+jb,
 							type: 'GET',
@@ -348,6 +361,8 @@
 			})
 		}
 	});
+		
+	<?php endif ?>
 
 	//hide menu
 	$("body").addClass('sidebar-collapse');

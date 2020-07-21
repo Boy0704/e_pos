@@ -58,7 +58,7 @@
             dateFormat: 'yy-mm-dd'
         });
         $("#setoran").keyup(function() {
-            var selisih = parseInt($("#total_jual").val()) - parseInt($(this).val());
+            var selisih = ( parseInt($("#total_jual").val()) + parseInt($("#kas_awal").val()) ) - parseInt($(this).val());
             $("#selisih").val(selisih);
         });
     });
