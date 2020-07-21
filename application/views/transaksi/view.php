@@ -339,23 +339,27 @@
 						if (dibayar == 0 || dibayar == '') {
 							alert('Kolom DI BAYAR tidak boleh kosong');
 							location.reload();
+						} else {
+
+							$.ajax({
+								url: 'app/simpan_penjualan/<?php echo $total_disc ?>/<?php echo $this->cart->total()-$total_disc ?>/'+dibayar+'/'+kembalian+'/'+jb,
+								type: 'GET',
+								dataType: 'JSON',
+							})
+							.done(function(a) {
+								console.log("success");
+								window.open('app/cetak_belanja/'+a.no_penjualan, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+								window.location="<?php echo base_url() ?>app/transaksi";
+							})
+							.fail(function() {
+								console.log("error");
+							})
+							.always(function() {
+								console.log("complete");
+							});
+
 						}
-						$.ajax({
-							url: 'app/simpan_penjualan/<?php echo $total_disc ?>/<?php echo $this->cart->total()-$total_disc ?>/'+dibayar+'/'+kembalian+'/'+jb,
-							type: 'GET',
-							dataType: 'JSON',
-						})
-						.done(function(a) {
-							console.log("success");
-							window.open('app/cetak_belanja/'+a.no_penjualan, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
-							window.location="<?php echo base_url() ?>app/transaksi";
-						})
-						.fail(function() {
-							console.log("error");
-						})
-						.always(function() {
-							console.log("complete");
-						});
+						
 			    	}
 			    });
 			})
