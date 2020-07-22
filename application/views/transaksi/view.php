@@ -176,7 +176,7 @@
 	})
 
 	$(document).ready(function() {
-		$('#dibayar').number( true, 0 );
+		$('#dibayar').number( true);
 		$('#kembalian').number( true, 0 );
 		$('#total_bayar').number( true, 0 );
 		$('#barcode').keypress(function(e) {
@@ -327,9 +327,10 @@
 		if(event.code == 'F2') {
 			$("#myModal").modal({show:true});
 			$('#myModal').on('shown.bs.modal', function () {
-			    $('#dibayar').val('');
+			    $('#dibayar').val('<?php echo $total_disc ?>');
 			    $('#dibayar').focus();
-
+			    $('#dibayar').select();
+			    $('#kembalian').val('0');
 			    $("#dibayar").keydown(function() {
 			    	if(event.code == 'F2') {
 			    		var jb = $('#jenis_pembayaran').val();
