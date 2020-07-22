@@ -58,7 +58,7 @@
 							
 							<a href="produk/update/<?php echo $rw->id_produk ?>" class="label label-info">Edit</a>
 							<a onclick="javasciprt: return confirm('Yakin hapus produk ini ?')" href="produk/delete/<?php echo $rw->id_produk.'/'.$rw->id_subkategori ?>" class="label label-danger">Hapus</a>
-							<a href="#" class="label label-success" data-toggle="modal" data-target="#editStok<?php echo $rw->id_produk; ?>">Edit Stok Khusus</a>
+							<a href="#" class="label label-success" data-toggle="modal" data-target="#editStok<?php echo $rw->id_produk; ?>">Edit Stok Gudang</a>
 
 							<!-- Modal Edit Stok Khusus-->
 							  <div class="modal fade" id="editStok<?php echo $rw->id_produk; ?>" role="dialog">
