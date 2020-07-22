@@ -853,12 +853,16 @@ class App extends CI_Controller {
             $sales_from_produk = get_data('suplier','id_suplier',$id_suplier_pro,'sales');
 
             //cek_po master
-            $this->db->order_by('id_po', 'desc');
-            $cek_po_system = $this->db->get_where('po_master', array(
-                'id_user'=>0,
-                'dikirim'=>'0',
-                'selesai'=>'0',
-                'nama_suplier'=>$suplier_from_produk));
+
+            // $this->db->order_by('id_po', 'desc');
+            // $cek_po_system = $this->db->get_where('po_master', array(
+            //     'id_user'=>0,
+            //     'dikirim'=>'0',
+            //     'selesai'=>'0',
+            //     'nama_suplier'=>$suplier_from_produk));
+
+            $cek_po_system = $this->db->query("SELECT * FROM po_master as a, pembelian as b where a.no_po=b.no_po and b.id_produk='$rw->id_produk' and a.id_user='0' and a.dikirim='0' and a.selesai='0' and a.nama_suplier='$suplier_from_produk' ORDER BY a.id_po DESC ");
+
             if ($cek_po_system->num_rows() > 0) {
                 $no_po = $cek_po_system->row()->no_po;
 
@@ -971,12 +975,14 @@ class App extends CI_Controller {
 
             } else {
 
-                $this->db->order_by('id_po', 'desc');
-                $cek_po_system = $this->db->get_where('po_master', array(
-                    'id_user'=>0,
-                    'dikirim'=>'0',
-                    'selesai'=>'0',
-                    'nama_suplier'=>$suplier_from_produk))->row();
+                // $this->db->order_by('id_po', 'desc');
+                // $cek_po_system = $this->db->get_where('po_master', array(
+                //     'id_user'=>0,
+                //     'dikirim'=>'0',
+                //     'selesai'=>'0',
+                //     'nama_suplier'=>$suplier_from_produk))->row();
+
+                $cek_po_system = $this->db->query("SELECT * FROM po_master as a, pembelian as b where a.no_po=b.no_po and b.id_produk='$rw->id_produk' and a.id_user='0' and a.dikirim='0' and a.selesai='0' and a.nama_suplier='$suplier_from_produk' ORDER BY a.id_po DESC ")->row();
                 // log_data($this->db->last_query());
                 $no_po = $cek_po_system->no_po;
 
