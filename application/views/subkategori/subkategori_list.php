@@ -34,7 +34,8 @@
             <thead>
             <tr>
                 <th>No</th>
-		<th>Subkategori</th>
+        <th>Subkategori</th>
+		<th>Produk</th>
         <th>Kategori</th>
         <th>Barcode</th>
         <th style="display: none;">Barcode 2</th>
@@ -49,7 +50,12 @@
                 ?>
                 <tr>
 			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $subkategori->subkategori ?></td>
+            <td><?php echo $subkategori->subkategori ?></td>
+			<td>
+                <?php 
+                echo $this->db->get_where('produk', array('id_subkategori'=>$subkategori->id_subkategori,'in_unit'=>1))->row()->nama_produk;
+                 ?>
+            </td>
 			<td><?php echo get_data('kategori','id_kategori',$subkategori->id_kategori,'kategori') ?></td>
             <td>
                 <?php 
